@@ -9,6 +9,8 @@ import { PageContainer } from '/imports/ui/components/PageContainer';
 
 import { Topics } from '/imports/api/topics/topics';
 import { Posts } from '/imports/api/posts/posts';
+import { Devices } from '/imports/api/devices/devices';
+import { Observations } from '/imports/api/observations/observations';
 
 import { Meteor } from 'meteor/meteor';
 
@@ -48,6 +50,8 @@ export class DashboardPage extends React.Component {
       state: {
         usersCount: 0,
         postsCount: 0,
+        devicesCount: 0,
+        observationsCount: 0,
         topicsCount: 0,
         patientsCount: 0,
         practitionersCount: 0
@@ -83,6 +87,16 @@ export class DashboardPage extends React.Component {
             return datum.postsCount;
           })
         }, {
+          name: "Devices",
+          data: Statistics.find().map(function(datum){
+            return datum.devicesCount;
+          })
+	}, {
+          name: "Observations",
+          data: Statistics.find().map(function(datum){
+            return datum.observationsCount;
+          })
+        }, {
           name: "Topics",
           data: Statistics.find().map(function(datum){
             return datum.topicsCount;
@@ -105,6 +119,8 @@ export class DashboardPage extends React.Component {
     data.state.patientsCount = Patients.find().count();
     data.state.practitionersCount = Practitioners.find().count();
     data.state.postsCount = Posts.find().count();
+    data.state.devicesCount = Devices.find().count();
+    data.state.observationsCount = Observations.find().count();
     data.state.topicsCount = Topics.find().count();
 
     return data;
@@ -122,6 +138,14 @@ export class DashboardPage extends React.Component {
             <GlassCard style={{width: '164px', marginRight: '40px', display: 'inline-block'}}>
               <h2 style={{marginLeft: '10px'}}>{this.data.state.postsCount}</h2>
               <h4 style={{marginLeft: '10px', color: 'gray'}}>Posts</h4>
+            </GlassCard>
+            <GlassCard style={{width: '164px', marginRight: '40px', display: 'inline-block'}}>
+              <h2 style={{marginLeft: '10px'}}>{this.data.state.devicesCount}</h2>
+              <h4 style={{marginLeft: '10px', color: 'gray'}}>Devices</h4>
+            </GlassCard>
+            <GlassCard style={{width: '164px', marginRight: '40px', display: 'inline-block'}}>
+              <h2 style={{marginLeft: '10px'}}>{this.data.state.observationsCount}</h2>
+              <h4 style={{marginLeft: '10px', color: 'gray'}}>Observations</h4>
             </GlassCard>
             <GlassCard style={{width: '164px', marginRight: '40px', display: 'inline-block'}}>
               <h2 style={{marginLeft: '10px'}}>{this.data.state.topicsCount}</h2>

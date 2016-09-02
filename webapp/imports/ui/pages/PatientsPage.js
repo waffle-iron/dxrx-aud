@@ -112,9 +112,6 @@ export class PatientsPage extends React.Component {
                <PatientDetail />
              </Tab>
            </Tabs>
-
-
-
             </CardText>
           </GlassCard>
         </PageContainer>

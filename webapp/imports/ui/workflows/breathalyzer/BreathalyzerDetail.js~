@@ -1,0 +1,136 @@
+import BacTrack from '../../../plugin/cordova-plugin-bactrack/plugin';
+import BacTrackDevice from '../../../plugin/cordova-plugin-bactrack/www/bactrackloopback.js';
+
+import React from 'react';
+import ReactMixin from 'react-mixin';
+import { ReactMeteorData } from 'meteor/react-meteor-data';
+
+import Input from 'react-toolbox/lib/input';
+import Button from 'react-toolbox/lib/button';
+import { Row, Col } from 'react-bootstrap';
+import { PageContainer } from '../../components/PageContainer';
+import { GlassCard } from '/imports/ui/components/GlassCard';
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import {Tab, Tabs} from 'react-toolbox/lib/tabs';
+import { Bert } from 'meteor/themeteorchef:bert';
+
+let defaultState = false;
+
+Session.setDefault('breathalyzerDetailState', defaultState);
+
+export default class BreathalyzerDetail extends React.Component {
+  getMeteorData() {
+  let data = Session.get('bacTrackSt');
+  var preferredUuid = Session.get('preferredBreathalyzerUuid');
+  if (!data.isConnected && preferredUuid) {
+      BacTrack.scanAndConnect(preferredUuid,function() {updateNow()});
+  }
+  return data;
+  };
+
+  render() {
+      var b = Session.get('bacTrackSt');
+      var bac = b.bac;
+      if (bac) {
+	  return (
+		  <div className="breathalyzerDetail">
+		  <CardTitle>Breathalyzer Result: {bac}</CardTitle>
+		  <CardActions>
+		  <Button label="Done" onClick={this.handleDoneButton.bind(this)} />
+		  <Button label="Cancel" onClick={this.handleCancelButton.bind(this)} />
+		  </CardActions>
+		  </div>
+	    );
+      } else if (b.isConnected && b.lastMajorBacTrackState.equals("BacTrackConnected")) {
+	  return (
+		  <div className="breathalyzerDetail">
+		  <CardTitle>Start Blow</CardTitle>
+		  <CardActions>
+		  <Button label="Blow" onClick={this.handleStartBlow.bind(this)} />
+		  <Button label="Cancel" onClick={this.handleCancelButton.bind(this)} />
+		  </CardActions>
+		  </div>
+	    );
+      } else if (BacTrack.isConnected()) {
+	  return (
+		  <div className="breathalyzerDetail">
+		  <CardTitle>Breathalyzer Step: {b.lastMajorBacTrackState}</CardTitle>
+		  <CardText>Countdown: {b.countdown}
+	            Error: {b.errorMessage}
+		  </CardText>
+		  <CardActions>
+		  <Button label="Cancel" onClick={this.handleCancelButton.bind(this)} />
+		  </CardActions>
+		  </div>
+	    );
+      } else {
+	  var devices = b.devicesFound;
+	  let devListItems = [];
+	  for (var i=0; i < this.data.users.length; i++) {
+	      var caption = devices.name + " - " + devices.uuid;
+	      devListItems.push(
+	        <ListItem
+		uuid={devices.uuid}
+		caption={caption}
+		legend='Breathalyzer'
+		key={i}
+		/>);
+	  }
+	  return(
+		 <Card style={this.data.style}>
+		 <CardTitle>Scanning for Breathalyzers</CardTitle>
+		 <List selectable ripple onChange={function (selected) {handleSelection(selected)}}>
+		     {devListItems}
+		 </List>
+		 <DynamicSpacer />
+		 <Button label="Scan" onClick={this.handleScanButton.bind(this)} />
+		 </Card>
+	  );
+      }
+  }
+
+  openTab(index){
+    // set which tab is selected
+    let state = Session.get('breathalyzerCardState');
+    state["index"] = index;
+    Session.set('breathalyzerCardState', state);
+  };
+
+  // this could be a mixin
+  handleStartBlow(){
+    console.log("handleStartBlow");
+    BacTrack.startCountDown();
+  };
+
+  // this could be a mixin
+  handleCancelButton(){
+    console.log("handleCancelButton");
+  };
+
+  // this could be a mixin
+  handleScanButton(){
+      console.log("handleScanButton");
+      BacTrack.scanAndConnect(preferredUuid,function () {updateNow()});
+  };
+
+  updateNow() {
+	this.forceUpdate();
+  };
+
+  // this could be a mixin
+  handleSelection(selected){
+      console.log("handleSelection" + selected);
+      preferredUuid = Session.set('preferredBreathalyzerUuid',selected.uuid);
+      BacTrack.scanAndConnect(preferredUuid,function () {updateNow()});
+  };
+
+  // this could be a mixin
+  handleDoneButton(){
+    console.log("handleDoneButton");
+  };
+}
+
+BreathalyzerDetail.propTypes = {
+  hasUser: React.PropTypes.object,
+};
+ReactMixin(BreathalyzerDetail.prototype, ReactMeteorData);
