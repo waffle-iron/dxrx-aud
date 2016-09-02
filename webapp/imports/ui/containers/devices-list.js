@@ -4,8 +4,6 @@ import DevicesList from '../workflows/devices/DevicesList.js';
 import { Loading } from '../components/loading.js';
 import { Meteor } from 'meteor/meteor';
 
-import DevicesDeck from '../workflows/devices/DevicesDeck.js';
-
 const composer = (params, onData) => {
   const subscription = Meteor.subscribe('devices');
   if (subscription.ready()) {

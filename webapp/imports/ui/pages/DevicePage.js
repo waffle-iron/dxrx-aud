@@ -4,17 +4,11 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { PageContainer } from '/imports/ui/components/PageContainer';
 import { GlassCard } from '../components/GlassCard';
-import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
-import {Tab, Tabs} from 'react-toolbox/lib/tabs';
-import { Row, Col } from 'react-bootstrap';
-import Input from 'react-toolbox/lib/input';
-import Button from 'react-toolbox/lib/button';
-import { DynamicSpacer }  from '/imports/ui/components/DynamicSpacer';
-import DocumentsList  from '/imports/ui/containers/documents-list';
+import { CardTitle, CardText } from 'react-toolbox/lib/card';
 
-import DevicesList from '../containers/devices-list';
+// import DevicesList from '../containers/devices-list';
 import DeviceDetail from '../workflows/devices/DeviceDetail';
-import DevicesDeck from '../workflows/devices/DevicesDeck';
+import { DevicesDeck } from '../workflows/devices/DevicesDeck';
 
 import { Meteor } from 'meteor/meteor';
 
@@ -58,48 +52,26 @@ export class DevicePage extends React.Component {
     return data;
   }
 
-  renderAuthenticatedUserControls(isLoggedIn) {
-
-    // user should be able to see the addDevice component if they're logged in and looking at their
-    // own profile; otherwise,
-    if (isLoggedIn) {
-      if (!this.props.routeParams.userId) {
-        return (
-          <div>
-            <DeviceDetail />
-            <DynamicSpacer />
-          </div>
-        );
-      }
-    }
-    return (
-	    <div>
-	    </div>
-	    );
-  }
-
-    //           <DevicesDeck userId={this.props.routeParams.userId} />
-    //          { this.renderAuthenticatedUserControls(this.data.state.isLoggedIn) }
 
   render() {
-    console.log("In DevicePage render");
+    console.log('In DevicePage render');
     return (
-      <div id="documentsPage">
+      <div id='devicesPage'>
         <PageContainer>
           <GlassCard>
-            <CardTitle title="Devices" />
+            <CardTitle title='Devices' />
             <CardText>
-            <Tabs default index={this.data.state.index} onChange={this.handleTabChange}>
-             <Tab className="newDeviceTab" label='New' style={{padded: "20px"}} onActive={ this.onNewTab } >
-               <DeviceDetail />
-             </Tab>
-             <Tab label='Devices' onActive={this.handleActive}>
-               <DevicesList />
-             </Tab>
-             <Tab label='Detail' onActive={this.handleActive} style={{padded: "20px"}} >
-               <DeviceDetail />
-             </Tab>
-           </Tabs>
+              <Tabs default index={this.data.state.index} onChange={this.handleTabChange}>
+               <Tab className='newDeviceTab' label='New' style={{padded: '20px'}} onActive={ this.onNewTab } >
+                 <DeviceDetail />
+               </Tab>
+               <Tab label='Devices' onActive={this.handleActive}>
+
+               </Tab>
+               <Tab label='Detail' onActive={this.handleActive} style={{padded: '20px'}} >
+                 <DeviceDetail />
+               </Tab>
+             </Tabs>
             </CardText>
           </GlassCard>
         </PageContainer>
@@ -108,7 +80,4 @@ export class DevicePage extends React.Component {
   }
 }
 
-DevicePage.propTypes = {
-  hasUser: React.PropTypes.object,
-};
 ReactMixin(DevicePage.prototype, ReactMeteorData);

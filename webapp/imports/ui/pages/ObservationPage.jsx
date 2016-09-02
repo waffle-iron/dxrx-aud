@@ -4,8 +4,8 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { PageContainer } from '/imports/ui/components/PageContainer';
 import { DynamicSpacer }  from '/imports/ui/components/DynamicSpacer';
-import DocumentsList  from '/imports/ui/containers/documents-list';
-import ObservationsList  from '/imports/ui/containers/observations-list';
+
+//import ObservationsList  from '/imports/ui/containers/observations-list';
 
 import ObservationDetail from '/imports/ui/workflows/observations/ObservationDetail';
 import ObservationsDeck  from '/imports/ui/workflows/observations/ObservationsDeck';
@@ -82,7 +82,7 @@ export class ObservationPage extends React.Component {
 }
 
 
-ObservationPage.propTypes = {
-  children: React.PropTypes.any
-};
+// ObservationPage.propTypes = {
+//   children: React.PropTypes.any
+// };
 ReactMixin(ObservationPage.prototype, ReactMeteorData);

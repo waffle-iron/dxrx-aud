@@ -25,7 +25,7 @@ Devices.schema = new SimpleSchema({
   createdBy: {
     type: String,
     label: 'Creator of this record.'
-  },
+  }
 });
 
 Devices.attachSchema(Devices.schema);
