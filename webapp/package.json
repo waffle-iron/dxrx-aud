@@ -4,21 +4,22 @@
   "repository": "http://github.com/awatson1978/fire-demo",
   "description": "Application description.",
   "scripts": {
-    "start": "meteor --settings settings-development.json",
-    "test": "meteor test --driver-package dispatch:mocha-phantomjs --port 5000",
-    "test-app": "meteor test --full-app --driver-package dispatch:mocha-phantomjs --port 5000 --once",
+    "test": "meteor test --driver-package practicalmeteor:mocha --port 3030",
+    "test-app": "meteor test --full-app --driver-package practicalmeteor:mocha --port 3030 --once",
+    "test-packages": "meteor test-packages",
+    "circle": "NODE_ENV=circle meteor --settings settings.cirlce.json",
     "package-verification": "starrynight run-tests --type package-verification",
     "verification": "starrynight run-tests --type verification",
     "validation": "starrynight run-tests --type validation",
     "spacejam": "starrynight run-tests --framework spacejam",
-    "chimp-test": "chimp --ddp=http://localhost:3000 --mocha --path=tests/chimp",
-    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests/chimp",
-    "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
-    "production": "meteor deploy production.meteor.com --settings settings-production.json",
+    "deploy-galaxy": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy meteor-on-fhir.meteorapp.com --settings settings.galaxy.json",
     "coverage": "COVERAGE=1 meteor",
     "monitor": "COVERAGE=1 meteor test --driver-package dispatch:mocha --port 5000",
     "nightwatch": "nightwatch -c .meteor/nightwatch.json",
-    "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom"
+    "gagarin": "starrynight run-tests --type verification",
+    "phantom-nightwatch": "nightwatch -c .meteor/nightwatch.json --env phantom",
+    "phantom-mocha": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3030",
+    "phantom-mocha-app": "meteor test --full-app --driver-package dispatch:mocha-phantomjs --port 3030 --once"
   },
   "devDependencies": {
     "eslint": "^2.13.0",
@@ -67,7 +68,7 @@
     "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.1",
     "react-addons-pure-render-mixin": "^15.3.1",
-    "react-bootstrap": "^0.29.5",
+    "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
     "react-highcharts": "^8.4.2",
     "react-komposer": "^1.13.1",
@@ -76,7 +77,7 @@
     "react-router-bootstrap": "^0.20.1",
     "react-scroll-box": "^0.3.3-beta",
     "react-tappable": "^0.8.1",
-    "react-toolbox": "^0.16.2"
+    "react-toolbox": "^1.1.2"
   },
   "cssModules": {
     "extensions": [
