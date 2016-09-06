@@ -8,7 +8,6 @@ import { DynamicSpacer }  from '/imports/ui/components/DynamicSpacer';
 import DocumentsList  from '/imports/ui/containers/documents-list';
 
 import BreathalyzerDetail from '/imports/ui/workflows/breathalyzer/BreathalyzerDetail';
-
 import { Meteor } from 'meteor/meteor';
 
 export class BreathalyzerPage extends React.Component {
@@ -77,7 +76,7 @@ export class BreathalyzerPage extends React.Component {
   }
 
   render() {
-console.log("In BreathalyzerPage render");
+  console.log("In BreathalyzerPage render");
     return (
       <div id="BreathalyzerPage">
         <PageContainer>

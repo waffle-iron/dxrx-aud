@@ -13,7 +13,7 @@ meteor npm install
 
 
 # add the cordova plugin
-meteor add cordova:cordova-plugin-bactrack@file:///Users/robertnix/tests/dxrxaud/webapp/imports/plugin/cordova-plugin-bactrack
+meteor add cordova:cordova-plugin-bactrack@file:///Users/robertnix/tests/dxrx-aud/webapp/lib/plugin/cordova-plugin-bactrack
 
 # launch the app
 meteor run
