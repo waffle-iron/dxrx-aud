@@ -8,6 +8,7 @@ node_modules
 screenshots
 screenshots/*
 nightwatch/logs/*.log
+selenium-debug.log
 reports
 reports/*
 
