@@ -5,14 +5,17 @@
 module.exports = {
   tags: ['accounts', 'passwords', 'users', 'entry'],
   before: function(client){
-    client
-      .url("http://localhost:3000").pause(3000)
-      .executeAsync(function(data){
-        Meteor.call('dropTestUsers');
-      });
+    // client
+    //   .url("http://localhost:3000").pause(3000)
+    //   .executeAsync(function(data){
+    //     Meteor.call('dropTestUsers');
+    //   });
   },
   'User can sign up.': function (client) {
-    client.resizeWindow(1200, 1024);
+    client
+      .url("http://localhost:3000").pause(3000)
+      .resizeWindow(1200, 1024)
+      .saveScreenshot("tests/nightwatch/screenshots/accounts/A-signup.png");
 
     const signupPage = client.page.signupPage();
     const indexPage = client.page.indexPage();
