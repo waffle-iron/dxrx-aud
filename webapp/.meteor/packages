@@ -52,10 +52,10 @@ react-meteor-data
 simple:dev-error-overlay
 
 #clinical:fonts
+#clinical:keybindings
 clinical:extended-api
 clinical:auto-resizing
 clinical:theming
-#clinical:keybindings
 clinical:user-model
 clinical:accounts-housemd
 clinical:keybindings
