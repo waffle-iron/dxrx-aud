@@ -42,7 +42,6 @@
     },
     "plugins": [
       "react",
-      "es2016",
       "meteor"
     ],
     "extends": [],
