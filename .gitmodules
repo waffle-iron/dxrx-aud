@@ -1,0 +1,3 @@
+[submodule "utilities/hipaa-utility"]
+	path = utilities/hipaa-utility
+	url = https://github.com/clinical-meteor/hipaa-utility
