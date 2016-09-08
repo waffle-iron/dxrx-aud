@@ -13,7 +13,7 @@ Meteor.startup(function (){
     console.log('Welcome to ' + Meteor.settings.title);
   }
   if (process.env.NODE_ENV) {
-    console.log('Launching environment: ' + process.env.NODE_ENV);    
+    console.log('Launching environment: ' + process.env.NODE_ENV);
   }
 
   if (Meteor.users.find({username: 'janedoe'}).count() === 0) {

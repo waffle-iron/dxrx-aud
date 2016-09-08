@@ -22,11 +22,6 @@
     "phantom-mocha-app": "meteor test --full-app --driver-package dispatch:mocha-phantomjs --port 3030 --once"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-meteor": "^6.12.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-runtime": "^6.11.6",
     "chromedriver": "2.19.0",
     "eslint": "^2.13.0",
     "eslint-config-airbnb": "^7.0.0",
