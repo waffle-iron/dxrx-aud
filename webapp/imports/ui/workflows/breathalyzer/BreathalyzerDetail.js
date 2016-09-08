@@ -1,4 +1,3 @@
-console.log("In BreathalyzerDetail");
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
@@ -22,10 +21,10 @@ Session.setDefault('breathalyzerCardState', false);
 export default class BreathalyzerDetail extends React.Component {
     
     getMeteorData() {
-	let data = Session.get('bacTrackSt');
+	let data = Session.get('BacTrackState');
 	if (typeof data === 'undefined' || typeof data.initialized === 'undefined' || !data.initialized) {
 	    Initialize();
-	    data = Session.get('bacTrackSt');
+	    data = Session.get('BacTrackState');
 	}
 	if (typeof data  === 'undefined') return {};
 	return data;
@@ -35,7 +34,7 @@ export default class BreathalyzerDetail extends React.Component {
 	console.log("In breathalyzerdetail render");
 	var bac = -1;
 	var haveState = true;
-	var b = Session.get('bacTrackSt');
+	var b = Session.get('BacTrackState');
 	if (typeof b === 'undefined') {
 	    haveState = false;
 	}
@@ -172,7 +171,7 @@ export default class BreathalyzerDetail extends React.Component {
 		    <DynamicSpacer />
 		    <GlassCard style={{width: '250px', marginRight: '40px', display: 'inline-block'}}>
 		    <h2 style={{marginLeft: '10px'}}>Error</h2>
-		    <h4 style={{marginLeft: '10px', color: 'gray'}}>{bacTrackSt.errorMessage}</h4>
+		    <h4 style={{marginLeft: '10px', color: 'gray'}}>{b.errorMessage}</h4>
 		    </GlassCard>
 		    <DynamicSpacer />
 		    <CardActions>
