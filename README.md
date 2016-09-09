@@ -20,7 +20,7 @@ cd meteor-on-fhir/webapp
 meteor npm install
 
 # launch the app
-meteor run
+meteor run --settings settings.json
 
 ## Initialize with FHIR test data
 INITIALIZE=true Patients=true Practitioners=true meteor
