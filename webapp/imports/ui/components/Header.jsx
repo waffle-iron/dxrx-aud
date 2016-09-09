@@ -42,8 +42,15 @@ export class Header extends React.Component {
         paddingLeft: '1.2rem',
         paddingRight: '1.2rem',
         paddingTop: '0.6rem'
+      },
+      app: {
+        title: 'Meteor on FHIR Forum'
       }
     };
+
+    if (Meteor.settings && Meteor.settings.public && Meteor.settings.public.title) {
+      data.app.title = Meteor.settings.public.title;
+    }
 
     if (!Session.get('showNavbars')) {
       data.style.top = '-60px';
@@ -98,7 +105,7 @@ export class Header extends React.Component {
     return(
       <header className={style.appbar} flat style={this.data.style}>
         <IconButton icon='menu' floating accent onClick={ this.toggleDrawerActive } style={{zIndex:10000}}/>
-        <h1 className={style.title} style={{paddingLeft: '20px'}}>Meteor on FHIR Forum</h1>
+        <h1 className={style.title} style={{paddingLeft: '20px'}}>{this.data.app.title}</h1>
         <div className="eastHeaderElements" style={this.data.eastStyle} >
           { this.renderNavigation(this.data.hasUser) }
         </div>
@@ -107,10 +114,7 @@ export class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
 
-};
-Header.defaultProps = {
 
-};
+Header.defaultProps = {};
 ReactMixin(Header.prototype, ReactMeteorData);
