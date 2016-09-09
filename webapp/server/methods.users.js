@@ -13,6 +13,10 @@ Meteor.startup(function (){
 
 
 Meteor.methods({
+  verifyPractitioner: function(userId){
+    let currentUser = Meteor.users.findOne(userId);
+    return Roles.userIsInRole(userId, 'practitioner');
+  },
   dropTestUsers: function(){
     console.log('Dropping test users...');
 
