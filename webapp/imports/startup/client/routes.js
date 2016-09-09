@@ -40,30 +40,12 @@ const requireAuth = (nextState, replace) => {
 };
 
 const requirePractitioner = (nextState, replace) => {
-
-  if (!Meteor.loggingIn() && !Meteor.userId()) {
+  if (!Roles.userIsInRole(Meteor.userId(), 'practitioner')) {
     replace({
-      pathname: '/login',
+      pathname: '/need-to-be-practitioner',
       state: { nextPathname: nextState.location.pathname }
     });
-  } else {
-    Meteor.call('verifyPractitioner', Meteor.userId(), function(error, verified){
-      if (error) {
-        Meteor.Error('001', "This doesn't appear to be the userId of an active practitioner.");
-      }
-      if (!verified) {
-        console.log('result: ' + result);
-
-        replace({
-          pathname: '/need-to-be-practitioner',
-          state: { nextPathname: nextState.location.pathname }
-        });
-      }
-    });
   }
-
-
-
 };
 
 Meteor.startup(() => {
@@ -89,8 +71,8 @@ Meteor.startup(() => {
         <Route name="theming" path="/theming" component={ ThemePage } onEnter={ requireAuth } />
         <Route name="myprofile" path="/myprofile" component={ MyProfilePage } onEnter={ requireAuth } />
 
-        <Route name="practitioners" path="/practitioners" component={ requirePractitioner } />
-        <Route name="patients" path="/patients" component={ PatientsPage } onEnter={ requireAuth } />
+        <Route name="practitioners" path="/practitioners" component={ PractitionersPage } onEnter={ requirePractitioner } />
+        <Route name="patients" path="/patients" component={ PatientsPage } onEnter={ requirePractitioner } />
         <Route name="users" path="/users" component={ UsersPage } onEnter={ requirePractitioner } />
 
         <Route name="support" path="/support" component={ ForumPage } />

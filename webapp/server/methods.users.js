@@ -6,16 +6,52 @@ Meteor.startup(function (){
   if (process.env.INITIALIZE && (Meteor.users.find().count() === 0)) {
     console.log('No users found.');
 
-    Meteor.call("initializeTestUsers");
+    Meteor.call('initializeTestUsers');
   }
+});
+
+// Support for playing D&D: Roll 3d6 for dexterity
+Accounts.onCreateUser(function(options, user) {
+  console.log('Accounts.onCreateUser');
+
+  // We'll set the role manually
+  if (options.profile.accessCode === Meteor.settings.private.practitionerAccessCode) {
+    user.roles = ["practitioner"];
+  }
+
+  // We still want the default hook's 'profile' behavior.
+  if (options.profile)
+    user.profile = options.profile;
+  return user;
 });
 
 
 
 Meteor.methods({
   verifyPractitioner: function(userId){
-    let currentUser = Meteor.users.findOne(userId);
+    check(userId, String);
+
     return Roles.userIsInRole(userId, 'practitioner');
+  },
+  grantPractitionerAccess: function(userId, accessCode){
+    check(userId, String);
+    check(accessCode, String);
+    console.log('User ' + userId + ' submitted access code "' + accessCode + '".  Verifying access code...');
+
+    //console.log('Meteor.settings.private.practitionerAccessCode', Meteor.settings.private.practitionerAccessCode);
+
+    if (Meteor.settings.private.practitionerAccessCode) {
+      if (accessCode === Meteor.settings.private.practitionerAccessCode) {
+        console.log('Access code verified.  Granting practitioner access...');
+        Roles.setUserRoles(userId, 'practitioner');
+        Roles.addUsersToRoles(userId, 'practitioner');
+      }
+
+    } else {
+      console.log('No access code set.  Skipping access grant.');
+      console.log('Set Meteor.settings.private.practitionerAccessCode to enable this feature.');
+    }
+
   },
   dropTestUsers: function(){
     console.log('Dropping test users...');
@@ -30,13 +66,16 @@ Meteor.methods({
           }
         }
       });
-      console.log(count + " users removed.");
+      console.log(count + ' users removed.');
 
     } else {
       console.log('Not in test mode.  Try using NODE_ENV=test');
     }
   },
   updateUserProfile: function(userId, profileData){
+    check(userId, String);
+    check(profileData, Object);
+
     console.log('Updating user profile...', profileData);
 
     Meteor.users.update({_id: userId}, {$set: { profile: profileData }}, function(error, result){
@@ -49,7 +88,7 @@ Meteor.methods({
     });
   },
   initializeTestUsers: function(){
-    console.log("Initializing users...");
+    console.log('Initializing users...');
 
     //==============================================================================
     // JANEDOE
