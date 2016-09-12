@@ -16,6 +16,9 @@ git clone --recursive http://github.com/clinical-meteor/meteor-on-fhir
 # make sure you're in the right directory
 cd meteor-on-fhir/webapp
 
+# install dependencies
+meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box
+
 # install the app
 meteor npm install
 
