@@ -1,7 +1,7 @@
 # Meteor on FHIR Forum
 We decided to write a Wordpress/Discourse clone using Meteor and FHIR resources.  
 
-[![CircleCI](https://circleci.com/gh/clinical-meteor/meteor-on-fhir/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/meteor-on-fhir/tree/master)  
+[![CircleCI](https://circleci.com/gh/DxRx/dxrx-aud.svg?style=svg)](https://circleci.com/gh/DxRx/dxrx-aud)  
 
 
 #### Installation
@@ -35,7 +35,7 @@ You may need to install [Java SDK 8](http://www.oracle.com/technetwork/java/java
 
 ```sh
 ## install test tools
-meteor npm install nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
+meteor npm install -g nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
 
 ## run validation tests (using nightwatch)
 meteor npm run-script nightwatch
