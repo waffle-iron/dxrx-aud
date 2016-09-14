@@ -53,7 +53,8 @@ export class GlassLayout extends React.Component {
       },
       card: {
         title: 'Please log in',
-        subtitle: 'Basic User'
+        subtitle: 'Basic User',
+        avatar: '/noAvatar.png'
       }
     };
 

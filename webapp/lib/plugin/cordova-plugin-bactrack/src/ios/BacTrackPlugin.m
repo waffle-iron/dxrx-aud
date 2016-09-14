@@ -1,3 +1,4 @@
+
 #import <Cordova/CDVPlugin.h>
 #import "BACtrack.h"
 #import "BACTrackPlugin.h"
@@ -50,6 +51,28 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     return;
     
+}
+
+-(void)connectBreathalyzerAsync:(CDVInvokedUrlCommand*) command; {
+  //uuid and timeout.
+  NSString* uuid= [command argumentAtIndex:0];
+  if (uuid == nil) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+      return;
+  }
+  NSTimeInterval timeout=  [[command argumentAtIndex:1] doubleValue];
+  Breathalyzer *breathalyzer = [_delegate.breathalyzers objectForKey:uuid];
+  if (breathalyzer == nil) {
+      CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+      return;
+  }
+  [self.commandDelegate runInBackground:^{
+        [_bacTrack connectBreathalyzer: breathalyzer withTimeout:timeout];
+        CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }];
 }
 
 -(void)startScan:(CDVInvokedUrlCommand*) command {
