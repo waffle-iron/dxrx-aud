@@ -12,6 +12,10 @@ bactrack = {
 	    cordova.exec(successCallback, errorCallback, window.bactrackName, "connectBreathalyzer", [preferredUuid,timeoutSeconds]);
 	},
 
+	connectBreathalyzerAsync: function  (preferredUuid,timeoutSeconds,successCallback, errorCallback) {
+	    cordova.exec(successCallback, errorCallback, window.bactrackName, "connectBreathalyzerAsync", [preferredUuid,timeoutSeconds]);
+	},
+
 	startScan: function  (successCallback, errorCallback) {
 	    cordova.exec(successCallback, errorCallback, window.bactrackName, "startScan", []);
 	},
