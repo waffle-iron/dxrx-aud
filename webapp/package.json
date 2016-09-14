@@ -77,7 +77,7 @@
     "react-scroll-box": "^0.3.3-beta",
     "react-tap-event-plugin": "^1.0.0",
     "react-tappable": "^0.8.1",
-    "react-toolbox": "^1.2.1",
+    "react-toolbox": "^0.16.2",
     "sprintf": "^0.1.5",
     "sprintf-js": "^1.0.3",
     "sprintfjs": "^1.2.3"
@@ -87,7 +87,8 @@
       "scss"
     ],
     "globalVariables": [
-      "node_modules/react-toolbox/lib/_colors.scss", {
+      "node_modules/react-toolbox/lib/_colors.scss",
+      {
         "theme-building": true
       },
       "client/main.scss"
