@@ -6,16 +6,16 @@
     "linebreak-style": [2, "unix"],
     "semi": [2, "always"],
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
-    "react/jsx-uses-vars": 1
+    "react/jsx-uses-vars": 1,
+    "no-console": 0
   },
   "env": {
     "es6": true,
     "browser": true
   },
   "extends": [
-  	     "eslint:recommended",
-	     "eslint-config-airbnb"
-	     ],
+    "eslint:recommended"
+  ],
   parserOptions: {
     "sourceType": "module",
     "ecmaFeatures": {
@@ -29,10 +29,15 @@
     "meteor"
   ],
   "globals": {
+    "Meteor": true,
     "React": true,
     "Session": true,
     "Patients": true,
     "Practitioners": true,
-    "moment": true
+    "HipaaLogger": true,
+    "check": true,
+    "moment": true,
+    "process": true,
+    "module": true
   }
 }
