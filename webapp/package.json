@@ -1,5 +1,5 @@
 {
-  "name": "fhir-demo",
+  "name": "dxdr-aud",
   "version": "1.0.0",
   "repository": "http://github.com/awatson1978/fire-demo",
   "description": "Application description.",
@@ -21,24 +21,10 @@
     "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom"
   },
   "devDependencies": {
-<<<<<<< HEAD
-=======
-    "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-meteor": "^6.12.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-runtime": "^6.11.6",
->>>>>>> d448015ef0880b40a1e5144e234e5c4a3e8ec1da
-    "chromedriver": "2.19.0",
     "eslint": "^2.13.0",
-    "eslint-config-airbnb": "^7.0.0",
     "eslint-plugin-meteor": "^3.5.2",
     "eslint-plugin-react": "^4.3.0",
-    "faker": "^3.1.0",
-    "nightwatch": "0.9.8",
-    "phantomjs-prebuilt": "2.1.12",
-    "selenium-server-standalone-jar": "2.45.0"
+    "faker": "^3.1.0"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -71,10 +57,12 @@
     "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^4.3.0",
     "faker": "^3.1.0",
+    "immutability-helper": "^2.0.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
     "material-ui": "^0.15.4",
     "moment": "github:moment/moment",
+    "node-sass": "^3.10.0",
     "normalize.css": "^4.2.0",
     "react": "^15.3.1",
     "react-addons-css-transition-group": "^15.3.1",
@@ -84,27 +72,22 @@
     "react-highcharts": "^8.4.2",
     "react-komposer": "^1.13.1",
     "react-mixin": "^3.0.5",
-    "react-router": "^2.8.0",
+    "react-router": "^2.8.1",
     "react-router-bootstrap": "^0.20.1",
     "react-scroll-box": "^0.3.3-beta",
     "react-tap-event-plugin": "^1.0.0",
     "react-tappable": "^0.8.1",
-<<<<<<< HEAD
-    "react-toolbox": "^0.16.2"
-=======
-    "react-toolbox": "^1.1.2",
+    "react-toolbox": "^1.2.1",
     "sprintf": "^0.1.5",
     "sprintf-js": "^1.0.3",
     "sprintfjs": "^1.2.3"
->>>>>>> d448015ef0880b40a1e5144e234e5c4a3e8ec1da
   },
   "cssModules": {
     "extensions": [
       "scss"
     ],
     "globalVariables": [
-      "node_modules/react-toolbox/lib/_colors.scss",
-      {
+      "node_modules/react-toolbox/lib/_colors.scss", {
         "theme-building": true
       },
       "client/main.scss"
