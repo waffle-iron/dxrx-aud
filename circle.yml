@@ -12,7 +12,6 @@ machine:
     DISPLAY: :99.0
     NPM_PREFIX: /home/ubuntu/nvm/v0.10.33
     INITIALIZE: true
-    METEOR_OFFLINE_CATALOG: true
     NODE_ENV: circle
     Patients: true
     Practitioners: true
@@ -65,8 +64,7 @@ test:
     - meteor --version
 
     # don't know why, but we need this!  seriously!
-    - meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint
-
+    - meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js
     # install app
     - meteor npm install
 
