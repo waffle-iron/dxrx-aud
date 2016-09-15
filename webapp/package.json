@@ -25,8 +25,7 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-config-eslint": "^3.0.0",
     "eslint-plugin-meteor": "^3.6.0",
-    "eslint-plugin-react": "^4.3.0",
-    "faker": "^3.1.0"
+    "eslint-plugin-react": "^4.3.0"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -59,7 +58,6 @@
     "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^4.3.0",
-    "faker": "^3.1.0",
     "immutability-helper": "^2.0.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",

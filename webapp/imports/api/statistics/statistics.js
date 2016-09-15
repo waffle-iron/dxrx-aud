@@ -37,5 +37,5 @@ Statistics.attachSchema(Statistics.schema);
 // import faker from 'faker';
 // import { Factory } from 'meteor/dburles:factory';
 // Factory.define('statistics', Statistics, {
-//   title: () => faker.hacker.phrase(),
+//   title: () => "lorem ipsum...",
 // });
