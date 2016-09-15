@@ -59,8 +59,8 @@ dependencies:
 ## Customize test commands
 test:
   pre:
-    - meteor update --release METEOR@1.3.4.1
-    - sleep 60
+    #- meteor update --release METEOR@1.3.4.1
+    #- sleep 60
     - meteor --version
 
     # don't know why `meteor npm install` doesn't take care of this
