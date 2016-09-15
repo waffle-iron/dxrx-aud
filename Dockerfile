@@ -8,8 +8,9 @@ RUN curl https://install.meteor.com/ | sh
 # Install `meteor build` dependencies
 RUN apt-install python build-essential
 
-ADD . /app 
-WORKDIR /app
+ADD . /app
+WORKDIR /app/webapp
+
 
 RUN meteor --version
 RUN npm --version
@@ -21,9 +22,9 @@ RUN meteor npm install --save jquery bootstrap react react-dom react-router reac
 RUN meteor npm install
 
 # we build the Node app
-RUN meteor build --release METEOR@1.3.4.1 --directory ./webapp
+RUN meteor build --release METEOR@1.3.4.1 --directory .
 
-WORKDIR /app/bundle/programs/server
+WORKDIR /app/webapp/bundle/programs/server
 
 # we install the Node app
 RUN npm install
