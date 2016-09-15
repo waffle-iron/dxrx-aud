@@ -40,6 +40,6 @@ Posts.schema = new SimpleSchema({
 Posts.attachSchema(Posts.schema);
 
 Factory.define('post', Posts, {
-  title: () => faker.hacker.phrase(),
+  title: () => "lorem ipsum...",
   createdAt: () => new Date()
 });

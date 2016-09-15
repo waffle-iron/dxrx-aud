@@ -17,7 +17,7 @@ git clone --recursive http://github.com/clinical-meteor/meteor-on-fhir
 cd meteor-on-fhir/webapp
 
 # install dependencies
-meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box
+meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js
 
 # install the app
 meteor npm install
@@ -35,10 +35,17 @@ You may need to install [Java SDK 8](http://www.oracle.com/technetwork/java/java
 
 ```sh
 ## install test tools
-meteor npm install -g nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
+# note:  we don't want to use the --save option here.  
+# nightwatch, starrynight, etc are VERY large (as in ~1GB and 50k files large)
+# install these pkgs independently in the environments where it's needed
+meteor npm install nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
 
 ## run validation tests (using nightwatch)
 meteor npm run-script nightwatch
+
+## for greater control, you can also run nightwatch manually, like so:
+nightwatch -c .meteor/nightwatch.json --tag accounts
+
 
 ## running verfication test coverage (using mocha)
 COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-script coverage
@@ -50,6 +57,10 @@ COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-
 ```sh
 meteor run ios --mobile-server meteor-on-fhir.meteorapp.com
 ```    
+
+
+
+
 
 
 

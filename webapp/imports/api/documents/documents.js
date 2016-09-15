@@ -15,5 +15,5 @@ Documents.schema = new SimpleSchema({
 Documents.attachSchema(Documents.schema);
 
 Factory.define('document', Documents, {
-  title: () => faker.hacker.phrase()
+  title: () => "lorem ipsum..."
 });

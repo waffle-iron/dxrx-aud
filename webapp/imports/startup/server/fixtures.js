@@ -17,6 +17,16 @@ const users = [{
   roles: ['admin'],
     },
 {
+  email: 'bobnix@gmail.com',
+  password: 'test1234',
+  profile: {
+    name: [{ given: 'Bob', family: 'NixPatient' , text: 'Bob NixPatient'}],
+    avatar: "https://media.licdn.com/mpr/mpr/shrink_100_100/AAEAAQAAAAAAAAKeAAAAJDJkM2RmNTMzLWI4OGUtNDZmOC1iNTliLWYwOTc1ZWM0YmIyZg.jpg",
+    birthdate: "1958/05/02"
+  },
+  roles: ['patient'],
+    },
+{
   email: 'admin2@admin.com',
   password: 'password',
   profile: {

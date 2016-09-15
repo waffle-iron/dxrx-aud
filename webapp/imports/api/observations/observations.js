@@ -43,6 +43,6 @@ Observations.schema = new SimpleSchema({
 Observations.attachSchema(Observations.schema);
 
 Factory.define('observation', Observations, {
-  title: () => faker.hacker.phrase(),
+  title: () => "lorem ipsum...",
   createdAt: () => new Date()
 });

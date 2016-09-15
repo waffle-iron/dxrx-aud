@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
-//import { BacTrackDevice } from './www/bactrackloopback';
+require './www/bactrack.js';
 
 import DatePicker from 'react-toolbox/lib/date_picker';
 
@@ -38,7 +38,11 @@ export class BacTrack extends React.Component {
 		    lastnull: undefined
 		    });
 
-	window.bactrack.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 8);;
+	if (Meteor.isClient) {
+	    window.bactrack.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 8);;
+	} else {
+	    BacTrackDevice.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 8);;
+	}
     }
     handler (results) {
 	var bacTrackSt = Session.get('bacTrackSt');
@@ -63,13 +67,21 @@ export class BacTrack extends React.Component {
 		// Deprecated, should not be called (but it is!)
 		bacTrackSt.isConnected = true;
 		bacTrackSt.lastMajorBacTrackState = 'BacTrackConnected';
-		window.bactrack.startCountdown(handler,errHandler);
+		if (Meteor.isClient) {
+		    window.bactrack.startCountdown(handler,errHandler);
+		} else {
+		    BacTrackDevice.startCountdown(handler,errHandler);
+		}
 		break;
 	    case 'BacTrackConnected':
 		bacTrackSt.isConnected = true;
 		bacTrackSt.deviceType = arg1;
 		bacTrackSt.lastMajorBacTrackState = call;
-		window.bactrack.startCountdown(handler,errHandler);
+		if (Meteor.isClient) {
+		    window.bactrack.startCountdown(handler,errHandler);
+		} else {
+		    BacTrackDevice.startCountdown(handler,errHandler);
+		}
 		break;
 	    case 'BacTrackDisconnected':
 		bacTrackSt.isConnected = false;
@@ -113,9 +125,15 @@ export class BacTrack extends React.Component {
 		bacTrackSt.isConnected = false;
 		bacTrackSt.devicesFound.push({arg1,arg2});
 		if (arg1.equals(bacTrackSt.preferreduuid)) {
-		    window.bactrack.stopScan(handler,errHandler);
-		    window.bactrack.connectBreathalyzer(arg1,bacTrackTimeoutSeconds,handler,errHandler);
-		    window.bactrack.startCountdown(handler,errHandler);
+		    if (Meteor.isClient) {
+			window.bactrack.stopScan(handler,errHandler);
+			window.bactrack.connectBreathalyzer(arg1,bacTrackTimeoutSeconds,handler,errHandler);
+			window.bactrack.startCountdown(handler,errHandler);
+		    } else {
+			BacTrackDevice.stopScan(handler,errHandler);
+			BacTrackDevice.connectBreathalyzer(arg1,bacTrackTimeoutSeconds,handler,errHandler);
+			BacTrackDevice.startCountdown(handler,errHandler);
+		    }
 		}
 		break;
 	    case 'BacTrackSerial':
@@ -145,33 +163,43 @@ export class BacTrack extends React.Component {
     }
 
     StartCountdown () {
-	window.bactrack.startCountdown(handler,errHandler);
+	if (Meteor.isClient) {
+	    window.bactrack.startCountdown(handler,errHandler);
+	} else {
+	    BacTrackDevice.startCountdown(handler,errHandler);
+	}
     }
 
     Connect (preferredUuid) {
 	var bacTrackSt = Session.get('bacTrackSt');
 	bacTrackSt.preferredUuid = preferredUuid;
-	window.bactrack.connectBreathalyzer(bacTrackSt.preferredUuid,bacTrackTimeoutSeconds,handler,errHandler);
+	if (Meteor.isClient) {
+	    window.bactrack.connectBreathalyzer(bacTrackSt.preferredUuid,bacTrackTimeoutSeconds,handler,errHandler)
+		} else {
+	    BacTrackDevice.connectBreathalyzer(bacTrackSt.preferredUuid,bacTrackTimeoutSeconds,handler,errHandler)
+		}
 	Session.set('bacTrackSt',shallowCopy(bacTrackSt));
     }
 
     StopScan () {
-	window.bactrack.stopScan();
+	if (Meteor.isClient) {
+	    window.bactrack.stopScan();
+	} else {
+	    BacTrackDevice.stopScan();
+	}
     }
 
     shallowCopy( original ) {
-	var clone = {} ;
-	var key ;
+	var clone = {};
+	var key;
 	for ( key in original ) {
 	    clone[ key ] = original[ key ] ;
 	}
 	clone.devicesFound = clone.devicesFound.slice();
-	return clone ;
+	return clone;
     }
 }
 BacTrack.propTypes = {
     hasUser: React.PropTypes.object,
 };
 ReactMixin(BacTrack.prototype, ReactMeteorData);
-
-    

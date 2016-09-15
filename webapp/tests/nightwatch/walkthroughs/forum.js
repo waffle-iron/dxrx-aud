@@ -3,9 +3,10 @@ module.exports = {
   tags: ['forum', 'topics'],
   before: function(client){
     client
-      .url("http://localhost:3000").pause(3000)
-      .executeAsync(function(data){
-        Meteor.call('initializeTestUsers');
+      .url('http://localhost:3000').pause(3000)
+      .executeAsync(function(){
+        Meteor.call('dropTestUsers');
+        Meteor.call('initializeUser', 'janedoe@test.org', 'janedoe123', 'Jane', 'Doe');
       });
   },
   'user can log in/out' : function (client) {

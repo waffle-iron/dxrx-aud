@@ -3,12 +3,11 @@
 #import "BACtrack.h"
 #import "BACTrackPluginDelegate.h"
 
-@interface BACTrackPlugin : CDVPlugin {
-
-}
+@interface BACTrackPlugin : CDVPlugin
 
 -(void)connectToNearestBreathalyzer: (CDVInvokedUrlCommand*)command;
 -(void)connectBreathalyzer:(CDVInvokedUrlCommand*) command;
+-(void)connectBreathalyzerAsync:(CDVInvokedUrlCommand*) command;
 -(void)startScan:(CDVInvokedUrlCommand*) command;
 -(void)stopScan:(CDVInvokedUrlCommand*) command;
 -(void)disconnect:(CDVInvokedUrlCommand*) command;

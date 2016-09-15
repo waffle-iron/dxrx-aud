@@ -60,5 +60,5 @@ Topics.schema = new SimpleSchema({
 Topics.attachSchema(Topics.schema);
 
 Factory.define('topic', Topics, {
-  title: () => faker.hacker.phrase()
+  title: () => "lorem ipsum..."
 });

@@ -31,6 +31,6 @@ Devices.schema = new SimpleSchema({
 Devices.attachSchema(Devices.schema);
 
 Factory.define('device', Devices, {
-  title: () => faker.hacker.phrase(),
+  title: () => "lorem ipsum...",
   createdAt: () => new Date()
 });
