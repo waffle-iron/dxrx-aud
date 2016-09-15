@@ -1,14 +1,15 @@
 
 module.exports = {
-  tags: ["healthlog", "weblog"],
+  tags: ['healthlog', 'weblog'],
   before: function(client){
     client
-      .url("http://localhost:3000").pause(3000)
-      .executeAsync(function(data){
-        Meteor.call('initializeTestUsers');
+      .url('http://localhost:3000').pause(3000)
+      .executeAsync(function(){
+        Meteor.call('dropTestUsers');
+        Meteor.call('initializeUser', 'janedoe@test.org', 'janedoe123', 'Jane', 'Doe');
       });
   },
-  "user can log in/out" : function (client) {
+  'user can log in/out' : function (client) {
     client.resizeWindow(1200, 1024);
 
     const loginPage = client.page.loginPage();
@@ -16,43 +17,43 @@ module.exports = {
 
     client.page.loginPage()
       .navigate()
-      .login("janedoe@test.org", "janedoe123")
+      .login('janedoe@test.org', 'janedoe123')
       .pause(1000, client);
 
     indexPage.expect.element('#indexPage').to.be.present;
     indexPage.expect.element('#authenticatedUsername').text.to.contain('Jane Doe');
   },
 
-  "user can navigate to weblog page" : function (client) {
+  'user can navigate to weblog page' : function (client) {
     const weblogPage = client.page.weblogPage();
 
     weblogPage
       .navigate()
       .pause(1000, client)
-      .verifyElements()
+      .verifyElements();
   },
 
-  "user should be able to post status" : function (client) {
+  'user should be able to post status' : function (client) {
     const weblogPage = client.page.weblogPage();
 
     weblogPage
-      .post("Lorem ipsum...")
+      .post('Lorem ipsum...');
   },
 
-  "status should have title, text, image, and labels" : function (client) {
+  'status should have title, text, image, and labels' : function (client) {
     const weblogPage = client.page.weblogPage();
 
     weblogPage
-      .confirmPostCreated("Lorem ipsum...", 1)
+      .confirmPostCreated('Lorem ipsum...', 1);
   },
 
 
-  // "tapping on status should highlight it" : function (client) {
+  // 'tapping on status should highlight it' : function (client) {
   //   client
-  //     .verify.elementPresent("#statusList .status:nth-child(1)")
-  //     .verify.elementNotPresent("#statusList .status:nth-child(1) .selected")
-  //     .click("#statusList .status:nth-child(1)").pause(500)
-  //     .verify.elementPresent("#statusList .status:nth-child(1) .selected")
+  //     .verify.elementPresent('#statusList .status:nth-child(1)')
+  //     .verify.elementNotPresent('#statusList .status:nth-child(1) .selected')
+  //     .click('#statusList .status:nth-child(1)').pause(500)
+  //     .verify.elementPresent('#statusList .status:nth-child(1) .selected')
   // },
   //
   //   "guest can view statuses" : function (client) {
@@ -182,8 +183,8 @@ module.exports = {
   //  client
   //},
 
-  "end" : function (client) {
+  'end' : function (client) {
     client
       .end();
   }
-}
+};

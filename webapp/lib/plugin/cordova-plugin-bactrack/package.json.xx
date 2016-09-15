@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-bactrack",
+  "version": "1.0.0",
+  "description": "Use the Bactrack breathalyzer via Cordova",
+  "cordova": {
+    "id": "cordova-plugin-bactrack",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "bactrack",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-ios",
+  ],
+  "engines": [
+    {
+      "name": "cordova-plugman",
+      "version": ">=5.0.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=5.0.0"
+    }
+  ],
+  "author": "Bob Nix",
+  "license": "MIT",
+}

@@ -6,7 +6,6 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 
-Session.setDefault('backgroundImagePath', 'Flames.mp4');
 Session.setDefault('backgroundColor', '#eeeeee');
 Session.setDefault('darkroomEnabled', true);
 Session.setDefault('glassBlurEnabled', false);
@@ -18,7 +17,6 @@ export class GlassApp extends React.Component {
     super(props);
   }
   componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.BackgroundVideo).play();
   }
 
   getMeteorData() {
@@ -31,32 +29,13 @@ export class GlassApp extends React.Component {
           background: 'inherit'
         }
       },
-      video: {
-        style: {
-          position: 'fixed',
-          top: '50%',
-          left: '50%',
-          minWidth: '100%',
-          minHeight: '100%',
-          width: 'auto',
-          height: 'auto',
-          zIndex: '0',
-          WebkitTransform: 'translateX(-50%) translateY(-50%)',
-          transform: 'translateX(-50%) translateY(-50%)'
-        }
-      }
     };
-
-    if (Session.get('lastVideoRun')) {
-      ReactDOM.findDOMNode(this.refs.BackgroundVideo).play();
-    }
 
     data.app.style = {
       zIndex: 1,
       cursor: 'pointer'
     };
 
-    // play a video if no background image or color has been set
     // and we're on a tablet or larger device (no phone)
     if (Meteor.user() && Meteor.user().profile && Meteor.user().profile.theme) {
 
@@ -78,9 +57,6 @@ export class GlassApp extends React.Component {
         backgroundImage: 'none';
       }
 
-      if (!Meteor.user().profile.theme.backgroundColor && !Meteor.user().profile.theme.backgroundImagePath && (Session.get('appWidth') > 768)) {
-        data.video.source = Meteor.absoluteUrl() + 'Flames.mp4';
-      }
     }
 
     data.app.style.width = '100%';
@@ -91,20 +67,8 @@ export class GlassApp extends React.Component {
   }
 
   render(){
-    // let videoSrc = '/VideoBackgrounds/11763620.mp4';
-    let videoSrc = '/VideoBackgrounds/Flames.mp4';
     return (
       <div>
-        <video
-          ref='BackgroundVideo'
-          style={this.data.video.style}
-          poster=''
-          autoplay
-          loop
-        >
-        <source src={videoSrc} type='video/mp4'></source>
-        </video>
-
         <div data-react-toolbox='app' style={this.data.app.style}>
           {this.props.children}
         </div>

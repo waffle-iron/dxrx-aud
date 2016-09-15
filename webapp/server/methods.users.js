@@ -6,7 +6,7 @@ Meteor.startup(function (){
   if (process.env.INITIALIZE && (Meteor.users.find().count() === 0)) {
     console.log('No users found.');
 
-    Meteor.call("initializeTestUsers");
+    Meteor.call('initializeTestUsers');
   }
 });
 
@@ -26,13 +26,16 @@ Meteor.methods({
           }
         }
       });
-      console.log(count + " users removed.");
+      console.log(count + ' users removed.');
 
     } else {
       console.log('Not in test mode.  Try using NODE_ENV=test');
     }
   },
   updateUserProfile: function(userId, profileData){
+    check(userId, String);
+    check(profileData, Object);    
+
     console.log('Updating user profile...', profileData);
 
     Meteor.users.update({_id: userId}, {$set: { profile: profileData }}, function(error, result){
@@ -44,48 +47,70 @@ Meteor.methods({
       }
     });
   },
+  initializeUser: function(email, password, firstName, lastName){
+    check(email, String);
+    check(password, String);
+    check(firstName, String);
+    check(lastName, String);
+
+    console.log('Initializing user ' + email);
+
+    if (Meteor.users.find({'emails.0.address': email}).count() === 0) {
+      let newUserId = Accounts.createUser({
+        email: email,
+        password: password,
+        profile: {
+          name: {
+            text: firstName + ' ' + lastName,
+            given: firstName,
+            family: lastName
+          }
+        }
+      });
+
+      if (newUserId) {
+        console.log('User created with ID ' + newUserId);
+      }
+    } else {
+      console.log("User with email already exists; skipping.");
+    }
+  },
   initializeTestUsers: function(){
-    console.log("Initializing users...");
+    console.log('Initializing users...');
 
     //==============================================================================
     // JANEDOE
 
-    var user = {
-      username: 'janedoe',
-      password: 'janedoe123',
-      email: 'janedoe@test.org'
-    };
-    let existingUser = Meteor.users.findOne({username: 'janedoe'});
-    if (!existingUser) {
-      let janedoeId = Accounts.createUser(user);
-      Meteor.users.update({_id: janedoeId}, {$set: {
-        'profile.name': {
-          text: 'Jane Doe',
-          given: 'Jane',
-          family: 'Doe'
+    if (Meteor.users.find({'emails.0.address': 'janedoe@test.org'}).count() === 0) {
+      Accounts.createUser({
+        email: 'janedoe@test.org',
+        password: 'janedoe123',
+        profile: {
+          name: {
+            text: 'Jane Doe',
+            given: 'Jane',
+            family: 'Doe'
+          }
         }
-      }});
+      });
     }
 
 
     //==============================================================================
     // ADMIN
 
-    var admin = {
-      username: 'admin',
-      password: 'admin123',
-      email: 'admin@admin.com'
-    };
-    let existingAdmin = Meteor.users.findOne({username: 'admin'});
-    if (!existingAdmin) {
-      let adminId = Accounts.createUser(admin);
-      Meteor.users.update({_id: adminId}, {$set: {
-        'profile.name': {
-          text: 'System Admin',
-          given: 'System',
-          family: 'Admin'
+    if (Meteor.users.find({'emails.0.address': 'admin'}).count() === 0) {
+      Accounts.createUser({
+        password: 'admin123',
+        email: 'admin@admin.com',
+        profile: {
+          name: {
+            text: 'System Admin',
+            given: 'System',
+            family: 'Admin'
+          }
         }
-      }});
+      });
     }
   }
 });

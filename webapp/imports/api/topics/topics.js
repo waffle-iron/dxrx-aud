@@ -60,6 +60,6 @@ Topics.schema = new SimpleSchema({
 Topics.attachSchema(Topics.schema);
 
 Factory.define('topic', Topics, {
-  name: () => faker.hacker.phrase(),
+  name: () => "lorem ipsum...",
   createdAt: () => new Date()
 });

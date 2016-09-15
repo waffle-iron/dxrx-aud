@@ -8,10 +8,11 @@ node_modules
 screenshots
 screenshots/*
 nightwatch/logs/*.log
+selenium-debug.log
 reports
 reports/*
 
 settings.*.json
-settings.json
+#settings.json
 
 packages/*

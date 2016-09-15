@@ -34,8 +34,6 @@ export class GlassLayout extends React.Component {
   getMeteorData() {
 
     var currentUser = new User(Meteor.user());
-    //console.log('currentUser', currentUser);
-    //console.log('currentUser.fullName()', currentUser.fullName());
 
     let data = {
       state: {

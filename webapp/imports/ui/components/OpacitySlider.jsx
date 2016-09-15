@@ -7,7 +7,7 @@ import Slider  from 'react-toolbox/lib/slider'
 
 Session.setDefault('globalOpacity', 0.95);
 
-OpacitySlider = React.createClass({
+let OpacitySlider = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
     return {

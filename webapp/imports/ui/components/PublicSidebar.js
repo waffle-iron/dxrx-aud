@@ -42,6 +42,18 @@ export class PublicSidebar extends React.Component {
            <ListItem eventKey={ 2 } caption='Weblog' href='/weblog' />
         </IndexLinkContainer>
 
+        <IndexLinkContainer to='/devices'>
+           <ListItem eventKey={ 11 } caption='Devices' href='/devices' />
+        </IndexLinkContainer>
+
+        <IndexLinkContainer to='/observations'>
+           <ListItem eventKey={ 12 } caption='Observations' href='/observations' />
+        </IndexLinkContainer>
+
+        <IndexLinkContainer to='/breathalyzer'>
+           <ListItem eventKey={ 13 } caption='Breathalyzer' href='/breathalyzer' />
+        </IndexLinkContainer>
+
         <IndexLinkContainer to='/support'>
            <ListItem eventKey={ 3 } caption='Support' href='/support' />
         </IndexLinkContainer>

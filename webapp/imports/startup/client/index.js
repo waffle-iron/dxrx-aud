@@ -28,6 +28,10 @@ import { Posts as _Posts } from '/imports/api/posts/posts';
 Posts = _Posts;
 
 // global imports for subscriptions
+import { Devices as _Devices } from '/imports/api/devices/devices';
+Devices = _Devices;
+
+// global imports for subscriptions
 import { Topics as _Topics } from '/imports/api/topics/topics';
 Topics = _Topics;
 

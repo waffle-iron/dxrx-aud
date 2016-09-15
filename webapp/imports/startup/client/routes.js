@@ -17,6 +17,9 @@ import { Signup } from '/imports/ui/pages/Signup';
 import { ThemePage } from '/imports/ui/pages/ThemePage';
 import { UsersPage } from '/imports/ui/pages/UsersPage';
 import { Weblog } from '/imports/ui/pages/Weblog';
+import { DevicePage } from '/imports/ui/pages/DevicePage';
+import { ObservationPage } from '/imports/ui/pages/ObservationPage';
+import { BreathalyzerPage } from '/imports/ui/pages/BreathalyzerPage';
 import { NotFound } from '/imports/ui/pages/NotFound';
 import { RecoverPassword } from '/imports/ui/pages/RecoverPassword';
 import { ResetPassword } from '/imports/ui/pages/ResetPassword';
@@ -65,6 +68,14 @@ Meteor.startup(() => {
 
         <Route name="weblog" path="/weblog" component={ Weblog } />
         <Route name="weblogByUserId" path="/weblog/:userId" component={ Weblog } />
+
+        <Route name="devices" path="/devices" component={ DevicePage } />
+        <Route name="devicesByUserId" path="/devices/:userId" component={ DevicePage } />
+
+        <Route name="observations" path="/observations" component={ ObservationPage } />
+        <Route name="observationsByUserId" path="/observations/:userId" component={ ObservationPage } />
+
+        <Route name="breathalyzer" path="/breathalyzer" component={ BreathalyzerPage } />
 
         <Route path="*" component={ NotFound } />
 

@@ -19,6 +19,8 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 
+nathantreid:css-modules
+
 accounts-password
 accounts-base
 less
@@ -31,22 +33,19 @@ reactive-dict
 #browser-policy
 
 
-#fourseven:scss
 aldeed:collection2
 alanning:roles
 themeteorchef:bert
 mdg:validated-method
 dburles:factory
 
-momentjs:moment
 
-lmieulet:meteor-coverage
-practicalmeteor:chai
+#lmieulet:meteor-coverage
+#practicalmeteor:chai
 #practicalmeteor:mocha
-practicalmeteor:mocha-console-runner
+#practicalmeteor:mocha-console-runner
 #dispatch:mocha-phantomjs
 
-nathantreid:css-modules
 react-meteor-data
 
 simple:dev-error-overlay
@@ -69,4 +68,7 @@ percolate:synced-cron
 
 awatson1978:accounts-muppets
 
-anti:gagarin
+#anti:gagarin
+clinical:hipaa-logger
+
+momentjs:moment

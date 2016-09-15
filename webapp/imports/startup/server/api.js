@@ -11,3 +11,5 @@ import '/imports/api/posts/methods.js';
 import '/imports/api/patients/methods.js';
 import '/imports/api/practitioners/methods.js';
 import '/imports/api/topics/methods.js';
+import '/imports/api/devices/methods.js';
+import '/imports/api/observations/methods.js';

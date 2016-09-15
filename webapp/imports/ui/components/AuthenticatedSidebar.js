@@ -43,6 +43,18 @@ export class AuthenticatedSidebar extends React.Component {
            <ListItem eventKey={ 3 } caption='Forum' href='/forum' />
         </IndexLinkContainer>
 
+        <IndexLinkContainer to='/devices'>
+           <ListItem eventKey={ 11 } caption='Devices' href='/devices' />
+        </IndexLinkContainer>
+
+        <IndexLinkContainer to='/observations'>
+           <ListItem eventKey={ 12 } caption='Observations' href='/observations' />
+        </IndexLinkContainer>
+
+        <IndexLinkContainer to='/breathalyzer'>
+           <ListItem eventKey={ 13 } caption='Breathalyzer' href='/breathalyzer' />
+        </IndexLinkContainer>
+
         <IndexLinkContainer to='/'>
            <ListItem eventKey={ 4 } caption='Index' href='/' />
         </IndexLinkContainer>

@@ -117,6 +117,36 @@ export class Index extends React.Component {
             </GlassCard>
           </div>
 
+          <Spacer />
+
+          <div style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Devices'
+                subtitle='BAC and other devices.'
+              />
+            </GlassCard>
+          </div>
+
+          <div style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Observations'
+                subtitle='Observations from devices.'
+              />
+            </GlassCard>
+          </div>
+
+          <Spacer />
+
+          <div style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Breathalyzer'
+                subtitle='Test breathalyzer.'
+              />
+            </GlassCard>
+          </div>
 
         </PageContainer>
       </div>
@@ -128,6 +158,15 @@ export class Index extends React.Component {
   }
   openWeblog(){
     browserHistory.push('/weblog');
+  }
+  openDevicepage(){
+    browserHistory.push('/devices');
+  }
+  openObservationpage(){
+    browserHistory.push('/observations');
+  }
+  openBreathalyzerpage(){
+    browserHistory.push('/breathalyzer');
   }
   openUserManagement(){
     browserHistory.push('/users');
