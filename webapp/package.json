@@ -26,7 +26,10 @@
     "eslint-config-eslint": "^3.0.0",
     "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^4.3.0",
-    "chromedriver": "2.19.0"
+    "nightwatch": "0.9.8",
+    "selenium-server-standalone-jar": "2.45.0",
+    "chromedriver": "2.19.0",
+    "phantomjs-prebuilt": "2.1.12"
   },
   "eslintConfig": {
     "parserOptions": {

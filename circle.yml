@@ -71,7 +71,7 @@ test:
     - meteor npm install
 
     # install the testing infrastructure
-    - meteor npm install nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
+    - meteor npm install nightwatch starrynight phantomjs selenium-standalone-jar
 
     # - meteor remove cordova-plugin-bactrack
 
