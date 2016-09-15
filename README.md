@@ -23,7 +23,7 @@ meteor npm install --save jquery bootstrap react react-dom react-router react-bo
 meteor npm install
 
 # launch the app
-meteor run
+meteor run --settings settings.json
 
 ## Initialize with FHIR test data
 INITIALIZE=true Patients=true Practitioners=true meteor
