@@ -34,38 +34,6 @@ export class PublicSidebar extends React.Component {
            <ListItem eventKey={ 4 } caption='Index' href='/' />
         </IndexLinkContainer>
 
-        <IndexLinkContainer to='/dashboard'>
-           <ListItem eventKey={ 1 } caption='Dashboard' href='/dashboard' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/weblog'>
-           <ListItem eventKey={ 2 } caption='Weblog' href='/weblog' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/devices'>
-           <ListItem eventKey={ 11 } caption='Devices' href='/devices' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/observations'>
-           <ListItem eventKey={ 12 } caption='Observations' href='/observations' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/breathalyzer'>
-           <ListItem eventKey={ 13 } caption='Breathalyzer' href='/breathalyzer' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/support'>
-           <ListItem eventKey={ 3 } caption='Support' href='/support' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/patients'>
-           <ListItem eventKey={ 7 } caption='Patients' href='/patients' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/practitioners'>
-           <ListItem eventKey={ 8 } caption='Practitioners' href='/practitioners' />
-        </IndexLinkContainer>
-
         <IndexLinkContainer to='/about'>
            <ListItem eventKey={ 10 } caption='About' href='/about' />
         </IndexLinkContainer>
