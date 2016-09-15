@@ -25,7 +25,8 @@
     "eslint-plugin-import": "^1.13.0",
     "eslint-config-eslint": "^3.0.0",
     "eslint-plugin-meteor": "^3.6.0",
-    "eslint-plugin-react": "^4.3.0"
+    "eslint-plugin-react": "^4.3.0",
+    "chromedriver": "2.19.0"
   },
   "eslintConfig": {
     "parserOptions": {
