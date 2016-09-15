@@ -11,8 +11,11 @@ RUN apt-install python build-essential
 ADD . /app 
 WORKDIR /app
 
+RUN meteor --version
+RUN npm --version
+
 # we copy dependencies to local filestystem
-RUN meteor --release METEOR@1.3.4.1 npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js
+RUN meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js
 
 # we install local dependencies into build pre-code
 RUN meteor npm install
