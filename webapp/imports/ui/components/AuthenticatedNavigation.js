@@ -102,6 +102,7 @@ export class AuthenticatedNavigation extends React.Component {
 
   handleProfile() {
     browserHistory.push('/myprofile');
+    $('body')[0].click();
   }
 
   toggleNotificationMenu(){

@@ -16,7 +16,7 @@
 // module.exports = {
 //   tags: ['practitioners', 'Practitioners', 'crud', 'fhir'],
 //   'Sign in.': function (client) {
-//     client.resizeWindow(1200, 1024);
+//     client.resizeWindow(750, 1334);
 //
 //     const loginPage = client.page.loginPage();
 //     const indexPage = client.page.indexPage();

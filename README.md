@@ -1,5 +1,5 @@
-# Meteor on FHIR Forum
-We decided to write a Wordpress/Discourse clone using Meteor and FHIR resources.  
+# DxRx Alcohol Recovery App
+Mobile app that controls a breathalyzer and takes photo of medication compliance.  Based on the Clinical Meteor boilerplate.  
 
 [![CircleCI](https://circleci.com/gh/DxRx/dxrx-aud.svg?style=svg)](https://circleci.com/gh/DxRx/dxrx-aud)  
 
