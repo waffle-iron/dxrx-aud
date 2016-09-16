@@ -18,7 +18,8 @@
     "coverage": "COVERAGE=1 meteor",
     "monitor": "COVERAGE=1 meteor test --driver-package dispatch:mocha --port 5000",
     "nightwatch": "nightwatch -c .meteor/nightwatch.json",
-    "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom"
+    "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom",
+    "mobile-build": "meteor build ios --server https://app-3977.on-aptible.com:443"
   },
   "devDependencies": {
     "eslint": "^3.3.1",
