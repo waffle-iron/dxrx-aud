@@ -3,6 +3,6 @@
     "title": "DxRx Alcohol Recovery"
   },
   "private": {
-    "practitionerAccessCode": "sobriety"
+    "accessCode": "sobriety"
   }
 }

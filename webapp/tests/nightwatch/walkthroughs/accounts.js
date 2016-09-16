@@ -6,34 +6,34 @@ module.exports = {
   tags: ['accounts', 'passwords', 'users', 'entry'],
   before: function(client){
     client
-      .url("http://localhost:3000").pause(3000)
-      .executeAsync(function(data){
+      .url('http://localhost:3000').pause(3000)
+      .executeAsync(function(){
         Meteor.call('dropTestUsers');
       });
   },
   'User can sign up.': function (client) {
-    client.resizeWindow(1200, 1024);
+    client.resizeWindow(750, 1334);
 
-    const signupPage = client.page.signupPage();
+    // const signupPage = client.page.signupPage();
     const indexPage = client.page.indexPage();
 
     client.page.signupPage()
       .navigate()
-      .signup('Alice', 'Doe', 'alice@test.org', 'alicedoe')
+      .signup('Alice', 'Doe', 'alice@test.org', 'alicedoe', '')
       .pause(1000, client);
 
     indexPage.expect.element('#indexPage').to.be.present;
     indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
   'User gets logged in after signup.': function (client) {
-    client.verify.elementPresent('#indexPage')
+    client.verify.elementPresent('#indexPage');
   },
   'User can log out.': function (client) {
     client.verify.elementPresent('#authenticatedUsername')
       .click('#authenticatedUsername').pause(1000)
       .verify.elementPresent('#authenticatedUserMenu .notificationMenu .logoutMenuItem')
       .click('#authenticatedUserMenu .notificationMenu .logoutMenuItem').pause(500)
-      .verify.elementPresent('#loginPage')
+      .verify.elementPresent('#loginPage');
   },
   'User can sign in.': function (client) {
     const loginPage = client.page.loginPage();
@@ -41,15 +41,15 @@ module.exports = {
 
     client.page.loginPage()
       .navigate()
-      .login("alice@test.org", "alicedoe")
+      .login('alice@test.org', 'alicedoe')
       .pause(2000, client);
 
     indexPage.expect.element('#indexPage').to.be.present;
     indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
-  "User can view profile.": function (client) {
+  'User can view profile.': function (client) {
     client
-      .verify.elementPresent("#authenticatedUsername")
+      .verify.elementPresent('#authenticatedUsername')
       .click("#authenticatedUsername").pause(500)
 
       .verify.elementPresent("#authenticatedUserMenu .profileMenuItem")
@@ -78,18 +78,18 @@ module.exports = {
 
         client.pause(3000).verify.attributeEquals('#avatarImage', 'src', 'https://pbs.twimg.com/profile_images/436598467956187136/yncbkX83_400x400.jpeg')
   },
-  "User can change password.": function (client) {
+  'User can change password.': function (client) {
     var oldPassArray = 'alicedoe'.split('');
     var newPassArray = 'alice123'.split('');
 
     client
-      .verify.elementPresent("label.passwordTab")
-      .click("label.passwordTab").pause(500)
+      .verify.elementPresent('label.passwordTab')
+      .click('label.passwordTab').pause(500)
 
-      .verify.elementPresent("input[name=oldPassword]")
-      .verify.elementPresent("input[name=newPassword]")
-      .verify.elementPresent("input[name=confirmPassword]")
-      .verify.elementPresent("#changePasswordButton")
+      .verify.elementPresent('input[name="oldPassword"]')
+      .verify.elementPresent('input[name="newPassword"]')
+      .verify.elementPresent('input[name="confirmPassword"]')
+      .verify.elementPresent('#changePasswordButton')
 
 
         .clearValue('input[name="oldPassword"]')
@@ -115,17 +115,17 @@ module.exports = {
         .verify.attributeEquals('input[name="newPassword"]', 'value', '')
         .verify.attributeEquals('input[name="confirmPassword"]', 'value', '')
 
-      .verify.elementPresent("#authenticatedUsername")
-      .click("#authenticatedUsername").pause(500)
+      .verify.elementPresent('#authenticatedUsername')
+      .click('#authenticatedUsername').pause(500)
 
-      .verify.elementPresent("#authenticatedUserMenu .logoutMenuItem")
-      .click("#authenticatedUserMenu .logoutMenuItem").pause(500)
+      .verify.elementPresent('#authenticatedUserMenu .logoutMenuItem')
+      .click('#authenticatedUserMenu .logoutMenuItem').pause(500)
 
-      .verify.elementPresent("#loginPage")
+      .verify.elementPresent('#loginPage')
   },
-  "User can sign in with new password.": function (client) {
+  'User can sign in with new password.': function (client) {
     client
-        .verify.elementPresent("#loginPage")
+        .verify.elementPresent('#loginPage')
         .verify.elementPresent('input[name="emailAddress"]')
         .verify.elementPresent('input[name="password"]')
         .verify.elementPresent('#loginButton')

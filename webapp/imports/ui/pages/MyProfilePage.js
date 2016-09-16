@@ -1,5 +1,5 @@
 import { CardTitle } from 'react-toolbox/lib/card';
-import { Col, Grid } from 'react-bootstrap';
+import { Row, Col, Grid } from 'react-bootstrap';
 import { Tab, Tabs } from 'react-toolbox/lib/tabs';
 import { browserHistory } from 'react-router';
 import Button from 'react-toolbox/lib/button';
@@ -109,14 +109,18 @@ export class MyProfilePage extends React.Component {
           <GlassCard>
             <hr />
             <Grid>
-              <Col xs={6} md={4} lg={2}>
-                <img id="avatarImage" ref="avatarImage" src={this.data.user.profileImage} onError={this.imgError.bind(this)} responsive style={{width: "100%"}} />
-              </Col>
-              <Col xs={12} md={8} lg={10}>
-                <CardTitle
-                  title={this.data.user.fullName}
-                  subtitle={this.data.user.email}
-                />
+              <Col xs={12} md={12} lg={12}>
+                <Row>
+                  <Col xs={3} md={3} lg={3}>
+                    <img id="avatarImage" ref="avatarImage" src={this.data.user.profileImage} onError={this.imgError.bind(this)} responsive style={{width: "100%", maxWidth: '180px'}} />
+                  </Col>
+                  <Col xs={9} md={9} lg={9}>
+                    <CardTitle
+                      title={this.data.user.fullName}
+                      subtitle={this.data.user.email}
+                    />
+                  </Col>
+                </Row>
                 <Tabs index={this.data.state.index} onChange={this.handleTabChange}>
 
                   <Tab className="demographicsTab" label='Demographics'>

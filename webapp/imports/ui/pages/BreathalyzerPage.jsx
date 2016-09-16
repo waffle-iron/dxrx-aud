@@ -88,7 +88,7 @@ export class BreathalyzerPage extends React.Component {
         console.log("In renderAuthenticatedUserControls - 2");
 
         return (
-          <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+          <div id="breathalyzerPage" style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
 
             <Stepper activeStep={stepIndex} linear={true}>
 
@@ -159,7 +159,7 @@ export class BreathalyzerPage extends React.Component {
     let data = Session.get('bacTrackPage');
     console.log('In BreathalyzerPage render');
     return (
-      <div id="BreathalyzerPage">
+      <div id="breathalyzerPage">
         <PageContainer>
           <Tabs
             value={data.onTab}
