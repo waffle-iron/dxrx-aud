@@ -159,7 +159,7 @@ export class BreathalyzerPage extends React.Component {
     let data = Session.get('bacTrackPage');
     console.log('In BreathalyzerPage render');
     return (
-      <div id="breathalyzerPage">
+      <div id="breathalyzerPage" style={{paddingTop: "15px"}}>
         <PageContainer>
           <Tabs
             value={data.onTab}

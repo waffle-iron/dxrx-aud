@@ -57,7 +57,7 @@ export class Index extends React.Component {
       }
     };
     return (
-      <div id='indexPage'>
+      <div id='indexPage' style={{paddingTop: "20px"}}>
         <PageContainer>
 
           <div style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
