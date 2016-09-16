@@ -98,7 +98,7 @@ export default class ObservationTable extends React.Component {
           <td>{this.data.observations[i].createdAt }</td>
           <td>{this.data.observations[i].observationStatus }</td>
           <td>{this.data.observations[i].observationSource }</td>
-          <td><span class="barcode">{ this.data.observations[i]._id }</span></td>
+          <td><span className="barcode">{ this.data.observations[i]._id }</span></td>
         </tr>
       )
     }

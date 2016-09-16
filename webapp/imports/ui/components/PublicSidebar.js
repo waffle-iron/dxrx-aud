@@ -1,4 +1,4 @@
-import { IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { List, ListItem } from 'react-toolbox/lib/list';
 import React from 'react';
 import ReactMixin from 'react-mixin';
@@ -30,18 +30,17 @@ export class PublicSidebar extends React.Component {
   render () {
     return(
       <List style={{paddingLeft: '20px', position: 'absolute'}}>
-        <IndexLinkContainer to='/'>
+        <LinkContainer to='/'>
            <ListItem eventKey={ 4 } caption='Index' href='/' />
-        </IndexLinkContainer>
+        </LinkContainer>
 
-        <IndexLinkContainer to='/about'>
+        <LinkContainer to='/about'>
            <ListItem eventKey={ 10 } caption='About' href='/about' />
-        </IndexLinkContainer>
+        </LinkContainer>
 
       </List>
     );
   }
 }
-PublicSidebar.propTypes = {};
-PublicSidebar.defaultProps = {};
+
 ReactMixin(PublicSidebar.prototype, ReactMeteorData);

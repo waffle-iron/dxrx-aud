@@ -103,7 +103,7 @@ export class Header extends React.Component {
 
   render () {
     return(
-      <header className={style.appbar} flat style={this.data.style}>
+      <header className={style.appbar} style={this.data.style}>
         <IconButton icon='menu' onClick={ this.toggleDrawerActive } style={{zIndex:10000, fontSize: '140%'}}>{this.data.app.title}</IconButton>
         <div className="eastHeaderElements" style={this.data.eastStyle} >
           { this.renderNavigation(this.data.hasUser) }
