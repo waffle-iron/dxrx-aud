@@ -9,7 +9,7 @@ const Spacer = React.createClass({
       height: '3.2rem'
     };
     return(
-      <div class="spacer" style={spacerStyle}></div>
+      <div className="spacer" style={spacerStyle}></div>
     );
   }
 });

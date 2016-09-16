@@ -93,7 +93,7 @@ export default class DeviceTable extends React.Component {
           <td>{this.data.devices[i].deviceName }</td>
           <td>{this.data.devices[i].deviceProductId }</td>
           <td>{this.data.devices[i].patientId }</td>
-          <td><span class="barcode">{ this.data.devices[i]._id }</span></td>
+          <td><span className="barcode">{ this.data.devices[i]._id }</span></td>
         </tr>
       )
     }
