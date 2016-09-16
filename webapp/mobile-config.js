@@ -1,11 +1,11 @@
 App.info({
-  id: 'io.sympatomatic.support',
-  name: 'Symptomatic Support Forum',
-  description: 'A support forum for Clinical Meteor and managed services.',
-  author: 'Abigail Watson',
-  email: 'pentasyllabic.studios@gmail.com',
-  website: 'http://meteor-on-fhir.meteorapp.com',
-  version: '0.2.0'
+  id: 'com.dxrxmedical.treatalcohol',
+  name: 'Alcohol Treatment',
+  description: 'Medically supervised Alcohol Treatment Program from DxRx.',
+  author: 'DxRx Medical, Inc',
+  email: 'bob@dxrxmedical.com',
+  website: 'https://app-3977.on-aptible.com',
+  version: '0.1.0'
 });
 
 App.icons({
