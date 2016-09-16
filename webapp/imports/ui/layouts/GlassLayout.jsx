@@ -18,7 +18,7 @@ import { AuthenticatedSidebar }  from '/imports/ui/components/AuthenticatedSideb
 import { AdminSidebar }  from '/imports/ui/components/AdminSidebar';
 
 Session.setDefault('backgroundImagePath', 'url(\"images\/ForestInMist.jpg\")');
-Session.setDefault('backgroundColor', '#eeeeee');
+Session.setDefault('backgroundColor', '#cccccc');
 Session.setDefault('darkroomEnabled', false);
 Session.setDefault('glassBlurEnabled', false);
 Session.setDefault('backgroundBlurEnabled', false);
@@ -46,10 +46,7 @@ export class GlassLayout extends React.Component {
         'width': '100%',
         'height': '100%',
         'position': 'absolute',
-        'backgroundSize': 'cover',
-        'WebkitBackgroundSize': 'cover',
-        'MozBackgroundSize': 'cover',
-        'OBackgroundSize': 'cover'
+        'background': '#cccccc'
       },
       card: {
         title: 'Please log in',
@@ -75,13 +72,13 @@ export class GlassLayout extends React.Component {
       data.style.background = Session.get('backgroundColor');
     }
 
-    if (Session.get('backgroundImagePath')) {
-      data.style.WebkitBackgroundSize = 'cover';
-      data.style.MozBackgroundSize = 'cover';
-      data.style.OBackgroundSize = 'cover';
-      data.style.backgroundSize = 'cover';
-      data.style.backgroundImagePath = Session.get('backgroundImagePath');
-    }
+    // if (Session.get('backgroundImagePath')) {
+    //   data.style.WebkitBackgroundSize = 'cover';
+    //   data.style.MozBackgroundSize = 'cover';
+    //   data.style.OBackgroundSize = 'cover';
+    //   data.style.backgroundSize = 'cover';
+    //   data.style.backgroundImagePath = Session.get('backgroundImagePath');
+    // }
 
     return data;
   }
@@ -122,7 +119,7 @@ export class GlassLayout extends React.Component {
            { this.renderSidebar(this.data.state.isAdmin) }
         </NavDrawer>
 
-        <Panel pinned={this.data.state.drawerPinned} >
+        <Panel pinned={this.data.state.drawerPinned}>
           <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
             {this.props.children}
           </div>

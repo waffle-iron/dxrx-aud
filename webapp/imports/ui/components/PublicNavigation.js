@@ -39,10 +39,5 @@ export class PublicNavigation extends React.Component {
     );
   }
 }
-PublicNavigation.propTypes = {
 
-};
-PublicNavigation.defaultProps = {
-
-};
 ReactMixin(PublicNavigation.prototype, ReactMeteorData);

@@ -28,12 +28,13 @@ export class GlassApp extends React.Component {
           position: 'absolute',
           background: 'inherit'
         }
-      },
+      }
     };
 
     data.app.style = {
       zIndex: 1,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      background: '#eeeeee'
     };
 
     // and we're on a tablet or larger device (no phone)
@@ -76,10 +77,5 @@ export class GlassApp extends React.Component {
     );
   }
 }
-GlassApp.propTypes = {
 
-};
-GlassApp.defaultProps = {
-
-};
 ReactMixin(GlassApp.prototype, ReactMeteorData);
