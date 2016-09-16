@@ -9,6 +9,7 @@ import { CardTitle, CardText } from 'react-toolbox/lib/card';
 // import DevicesList from '../containers/devices-list';
 import DeviceDetail from '../workflows/devices/DeviceDetail';
 import { DevicesDeck } from '../workflows/devices/DevicesDeck';
+import { Tab, Tabs } from 'react-toolbox/lib/tabs';
 
 import { Meteor } from 'meteor/meteor';
 

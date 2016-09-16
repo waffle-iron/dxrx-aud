@@ -19,7 +19,7 @@ export class Header extends React.Component {
         top: '0px',
         width: '100%',
         display: 'flex',
-        // height: '6.4rem',
+        height: '6.4rem',
         alignItems: 'center',
         padding: '0 2.4rem',
         opacity: Session.get('globalOpacity'),
@@ -104,8 +104,7 @@ export class Header extends React.Component {
   render () {
     return(
       <header className={style.appbar} flat style={this.data.style}>
-        <IconButton icon='menu' floating accent onClick={ this.toggleDrawerActive } style={{zIndex:10000}}/>
-        <h1 className={style.title} style={{paddingLeft: '20px'}}>{this.data.app.title}</h1>
+        <IconButton icon='menu' onClick={ this.toggleDrawerActive } style={{zIndex:10000, fontSize: '140%'}}>{this.data.app.title}</IconButton>
         <div className="eastHeaderElements" style={this.data.eastStyle} >
           { this.renderNavigation(this.data.hasUser) }
         </div>

@@ -30,6 +30,7 @@
   ],
   "globals": {
     "Meteor": true,
+    "Roles": true,
     "React": true,
     "Session": true,
     "Patients": true,

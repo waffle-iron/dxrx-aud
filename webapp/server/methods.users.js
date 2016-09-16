@@ -10,9 +10,51 @@ Meteor.startup(function (){
   }
 });
 
+// Support for playing D&D: Roll 3d6 for dexterity
+Accounts.onCreateUser(function(options, user) {
+  console.log('Accounts.onCreateUser');
+
+  // We'll set the role manually
+  if (options.profile.accessCode && Meteor.settings && Meteor.settings.private && Meteor.settings.private.accessCode) {
+    if (options.profile.accessCode === Meteor.settings.private.accessCode) {
+      user.roles = ["practitioner"];
+    }
+  }
+
+  // We still want the default hook's 'profile' behavior.
+  if (options.profile)
+    user.profile = options.profile;
+  return user;
+});
+
 
 
 Meteor.methods({
+  verifyPractitioner: function(userId){
+    check(userId, String);
+
+    return Roles.userIsInRole(userId, 'practitioner');
+  },
+  grantPractitionerAccess: function(userId, accessCode){
+    check(userId, String);
+    check(accessCode, String);
+    console.log('User ' + userId + ' submitted access code "' + accessCode + '".  Verifying access code...');
+
+    //console.log('Meteor.settings.private.accessCode', Meteor.settings.private.accessCode);
+
+    if (Meteor.settings.private.accessCode) {
+      if (accessCode === Meteor.settings.private.accessCode) {
+        console.log('Access code verified.  Granting practitioner access...');
+        Roles.setUserRoles(userId, 'practitioner');
+        Roles.addUsersToRoles(userId, 'practitioner');
+      }
+
+    } else {
+      console.log('No access code set.  Skipping access grant.');
+      console.log('Set Meteor.settings.private.accessCode to enable this feature.');
+    }
+
+  },
   dropTestUsers: function(){
     console.log('Dropping test users...');
 
@@ -34,7 +76,7 @@ Meteor.methods({
   },
   updateUserProfile: function(userId, profileData){
     check(userId, String);
-    check(profileData, Object);    
+    check(profileData, Object);
 
     console.log('Updating user profile...', profileData);
 

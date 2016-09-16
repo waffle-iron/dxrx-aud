@@ -20,18 +20,30 @@ import { Weblog } from '/imports/ui/pages/Weblog';
 import { DevicePage } from '/imports/ui/pages/DevicePage';
 import { ObservationPage } from '/imports/ui/pages/ObservationPage';
 import { BreathalyzerPage } from '/imports/ui/pages/BreathalyzerPage';
+import { CarePlanPage } from '/imports/ui/pages/CarePlanPage';
 import { NotFound } from '/imports/ui/pages/NotFound';
 import { RecoverPassword } from '/imports/ui/pages/RecoverPassword';
 import { ResetPassword } from '/imports/ui/pages/ResetPassword';
+import { NeedToBePractioner } from '/imports/ui/pages/NeedToBePractioner';
 
 import { ConversationsPage } from '/imports/ui/pages/ConversationsPage';
 import { NewTopicPage } from '/imports/ui/pages/NewTopicPage';
 
+//import { Bert } from 'meteor/themeteorchef:bert';
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
     replace({
       pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
+};
+
+const requirePractitioner = (nextState, replace) => {
+  if (!Roles.userIsInRole(Meteor.userId(), 'practitioner')) {
+    replace({
+      pathname: '/need-to-be-practitioner',
       state: { nextPathname: nextState.location.pathname }
     });
   }
@@ -43,28 +55,32 @@ Meteor.startup(() => {
       <Route path="/" component={ App }>
         <IndexRoute name="index" component={ Index } onEnter={ requireAuth } />
 
-        <Route name="documents" path="/documents" component={ Documents } onEnter={ requireAuth } />
+        <Route name="documents" path="/documents" component={ Documents } onEnter={ requirePractitioner } />
         <Route name="login" path="/login" component={ Login } />
         <Route name="recover-password" path="/recover-password" component={ RecoverPassword } />
         <Route name="reset-password" path="/reset-password/:token" component={ ResetPassword } />
         <Route name="signup" path="/signup" component={ Signup } />
 
+
+
+        <Route name="needToBePractioner" path="/need-to-be-practitioner" component={ NeedToBePractioner } />
+
         <Route name="about" path="/about" component={ AboutPage } />
         <Route name="privacy" path="/privacy" component={ PrivacyPage } />
 
-        <Route name="dashboard" path="/dashboard" component={ DashboardPage } onEnter={ requireAuth } />
+        <Route name="dashboard" path="/dashboard" component={ DashboardPage } onEnter={ requirePractitioner } />
         <Route name="theming" path="/theming" component={ ThemePage } onEnter={ requireAuth } />
         <Route name="myprofile" path="/myprofile" component={ MyProfilePage } onEnter={ requireAuth } />
 
-        <Route name="practitioners" path="/practitioners" component={ PractitionersPage } />
-        <Route name="patients" path="/patients" component={ PatientsPage } onEnter={ requireAuth } />
-        <Route name="users" path="/users" component={ UsersPage } onEnter={ requireAuth } />
+        <Route name="practitioners" path="/practitioners" component={ PractitionersPage } onEnter={ requirePractitioner } />
+        <Route name="patients" path="/patients" component={ PatientsPage } onEnter={ requirePractitioner } />
+        <Route name="users" path="/users" component={ UsersPage } onEnter={ requirePractitioner } />
 
         <Route name="support" path="/support" component={ ForumPage } />
-        <Route name="forum" path="/forum" component={ ForumPage } onEnter={ requireAuth } />
+        <Route name="forum" path="/forum" component={ ForumPage } onEnter={ requirePractitioner } />
 
-        <Route name="topicById" path="/topic/:topicId" component={ ConversationsPage } onEnter={ requireAuth } />
-        <Route name="newTopic" path="/new/topic" component={ NewTopicPage } onEnter={ requireAuth } />
+        <Route name="topicById" path="/topic/:topicId" component={ ConversationsPage } onEnter={ requirePractitioner } />
+        <Route name="newTopic" path="/new/topic" component={ NewTopicPage } onEnter={ requirePractitioner } />
 
         <Route name="weblog" path="/weblog" component={ Weblog } />
         <Route name="weblogByUserId" path="/weblog/:userId" component={ Weblog } />
@@ -76,6 +92,7 @@ Meteor.startup(() => {
         <Route name="observationsByUserId" path="/observations/:userId" component={ ObservationPage } />
 
         <Route name="breathalyzer" path="/breathalyzer" component={ BreathalyzerPage } />
+        <Route name="careplan" path="/careplan" component={ CarePlanPage } />
 
         <Route path="*" component={ NotFound } />
 

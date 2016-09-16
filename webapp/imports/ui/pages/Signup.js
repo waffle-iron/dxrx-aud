@@ -24,7 +24,7 @@ export class Signup extends React.Component {
                 <h4 className="page-header" style={{color: "white"}}>Sign Up</h4>
                 <form ref="signup" className="signup" onSubmit={ this.handleSubmit }>
                   <Row>
-                    <Col xs={ 6 } sm={ 6 }>
+                    <Col xs={ 4 } sm={ 4 }>
                       <FormGroup>
                         <ControlLabel style={{color: "white"}}>First Name</ControlLabel>
                         <FormControl
@@ -35,7 +35,7 @@ export class Signup extends React.Component {
                         />
                       </FormGroup>
                     </Col>
-                    <Col xs={ 6 } sm={ 6 }>
+                    <Col xs={ 4 } sm={ 4 }>
                       <FormGroup>
                         <ControlLabel style={{color: "white"}}>Last Name</ControlLabel>
                         <FormControl
@@ -43,6 +43,17 @@ export class Signup extends React.Component {
                           ref="lastName"
                           name="lastName"
                           placeholder="Last Name"
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col xs={ 4 } sm={ 4 }>
+                      <FormGroup>
+                        <ControlLabel style={{color: "white"}}>Access Code</ControlLabel>
+                        <FormControl
+                          type="text"
+                          ref="accessCode"
+                          name="accessCode"
+                          placeholder="Access Code"
                         />
                       </FormGroup>
                     </Col>

@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { getInputValue } from './getInputValue';
+import { Meteor } from 'meteor/meteor';
 
 let component;
 
@@ -15,14 +16,15 @@ const getUserData = () => ({
       given: getInputValue(component.refs.firstName),
       family: getInputValue(component.refs.lastName),
       text: getInputValue(component.refs.firstName) + ' ' + getInputValue(component.refs.lastName)
-    }
+    },
+    accessCode: getInputValue(component.refs.accessCode)
   }
 });
 
 const signUp = () => {
   const user = getUserData();
 
-  Accounts.createUser(user, (error) => {
+  Accounts.createUser(user, function(error){
     if (error) {
       Bert.alert(error.reason, 'danger');
     } else {
@@ -30,6 +32,7 @@ const signUp = () => {
       Bert.alert('Welcome!', 'success');
     }
   });
+
 };
 
 const validate = () => {
@@ -40,6 +43,9 @@ const validate = () => {
       },
       lastName: {
         required: true
+      },
+      accessCode: {
+        required: false
       },
       emailAddress: {
         required: true,

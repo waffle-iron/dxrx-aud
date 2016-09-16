@@ -10,7 +10,7 @@ import { PageContainer } from '../components/PageContainer';
 
 import { browserHistory } from 'react-router';
 
-export class Index extends React.Component {
+export class PractitionerIndex extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -50,21 +50,89 @@ export class Index extends React.Component {
         cursor: 'pointer'
       },
       indexCardPadding: {
-        width: '100%',
+        width: '50%',
         display: 'inline-block',
         paddingLeft: '20px',
         paddingRight: '20px'
       }
     };
     return (
-      <div id='indexPage' style={{paddingTop: "20px"}}>
+      <div id='indexPage'>
         <PageContainer>
+
+          <div style={style.indexCardPadding} onClick={ this.openDiscussionForum.bind(this) }>
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Discussion Forum'
+                subtitle='Get help developing healthcare apps using Meteor.js'
+              />
+            </GlassCard>
+          </div>
+
+          <div style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Weblog'
+                subtitle='Post public thoughts using a Wordpress/Twitter style format.'
+              />
+            </GlassCard>
+          </div>
+
+          <Spacer />
+
+          <div style={style.indexCardPadding} onClick={ this.openPatients.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Patients'
+                subtitle='Browse patient in system.'
+              />
+            </GlassCard>
+          </div>
+          <div id="practitionersTile" style={style.indexCardPadding} onClick={ this.openPractitioners.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Practitioners'
+                subtitle='Browse practitioners in system.'
+              />
+            </GlassCard>
+          </div>
+
+          <Spacer />
+
+          <div style={style.inactiveIndexCard}>
+            <GlassCard >
+              <CardTitle
+                title='Data Management'
+                subtitle='Import/export data.'
+              />
+            </GlassCard>
+          </div>
+
+          <div style={style.indexCardPadding} onClick={ this.openUserManagement.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='User Management'
+                subtitle='Admin controls for user accounts.'
+              />
+            </GlassCard>
+          </div>
+
+          <Spacer />
 
           <div style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Devices'
                 subtitle='BAC and other devices.'
+              />
+            </GlassCard>
+          </div>
+
+          <div style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
+            <GlassCard style={style.indexCard} >
+              <CardTitle
+                title='Observations'
+                subtitle='Observations from devices.'
               />
             </GlassCard>
           </div>
@@ -79,30 +147,6 @@ export class Index extends React.Component {
               />
             </GlassCard>
           </div>
-
-          <Spacer />
-
-          <div style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
-            <GlassCard style={style.indexCard} >
-              <CardTitle
-                title='Observations'
-                subtitle='Observations from devices.'
-              />
-            </GlassCard>
-          </div>
-
-          <Spacer />
-
-          <div style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
-            <GlassCard style={style.indexCard} >
-              <CardTitle
-                title='Weblog'
-                subtitle='Post public thoughts using a Wordpress/Twitter style format.'
-              />
-            </GlassCard>
-          </div>
-
-          <Spacer />
 
         </PageContainer>
       </div>
