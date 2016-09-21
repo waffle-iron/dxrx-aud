@@ -51,24 +51,24 @@ react-meteor-data
 simple:dev-error-overlay
 
 #clinical:fonts
+#clinical:keybindings
 clinical:extended-api
 clinical:auto-resizing
 clinical:theming
-#clinical:keybindings
 clinical:user-model
 clinical:accounts-housemd
 clinical:keybindings
-
 clinical:accounts-famous-dead-people
+clinical:hipaa-logger
 
 clinical:hl7-resource-patient
 clinical:hl7-resource-practitioner
+clinical:hl7-resource-careplan
 
 percolate:synced-cron
 
 awatson1978:accounts-muppets
 
 #anti:gagarin
-clinical:hipaa-logger
 
 momentjs:moment
