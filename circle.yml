@@ -15,7 +15,7 @@ machine:
     NODE_ENV: circle
     Patients: true
     Practitioners: true
-    METEOR_SETTINGS: {"public": {"title": "DxRx"},"private": {"accessCode": "sobriety"}}
+    #METEOR_SETTINGS: {"public": {"title": "DxRx"},"private": {"accessCode": "sobriety"}}
 
 
 ## Customize checkout
