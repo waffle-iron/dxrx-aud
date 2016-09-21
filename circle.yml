@@ -15,6 +15,7 @@ machine:
     NODE_ENV: circle
     Patients: true
     Practitioners: true
+    METEOR_SETTINGS: {"public": {"title": "DxRx"},"private": {"accessCode": "sobriety"}}
 
 
 ## Customize checkout
@@ -78,7 +79,7 @@ test:
     - cat .meteor/nightwatch.json
     - "meteor run":
           background: true
-    - sleep 180
+    - sleep 240
   override:
     - meteor npm run-script nightwatch
 

@@ -22,15 +22,15 @@ Meteor.startup(function(){
         start: new Date(2016, 9, 20),
         end: new Date(2016, 9, 21)
       },
-      author: {
+      author: [{
         display: 'System',
         reference: 'Meteor.users/System'
-      },
+      }],
       description: 'Alcohol Abuse Disorder Treatment Plan.',
-      addresses: {
+      addresses: [{
         display: 'Alcohol Abuse Disorder',
         reference: 'Conditions/'  + Random.id()
-      },
+      }],
       relatedPlan: [{
         code: 'fullfills',
         plan: {
@@ -70,10 +70,10 @@ Meteor.startup(function(){
         reference: 'Goals/'  + Random.id()
       }],
       activity: [{
-        reference: [{
+        reference: {
           display: 'AM Breathalyzer Observation',
           reference: 'Observation/'  + Random.id()
-        }],
+        },
         detail: {
           category: {
             text: 'action'
@@ -94,10 +94,10 @@ Meteor.startup(function(){
               text: 'AM'
             }
           },
-          performer: {
+          performer: [{
             display: 'John Doe',
             reference: 'Patients/'  + Random.id()
-          },
+          }],
           quantity: {
             value: 1,
             unit: 'exhalations'
@@ -105,10 +105,10 @@ Meteor.startup(function(){
           description: 'Check your blood alcohol level in the morning.'
         }
       }, {
-        reference: [{
+        reference: {
           display: 'PM Breathalyzer Observation',
           reference: 'Observation/'  + Random.id()
-        }],
+        },
         detail: {
           category: {
             text: 'action'
@@ -129,10 +129,10 @@ Meteor.startup(function(){
               text: 'PM'
             }
           },
-          performer: {
+          performer: [{
             display: 'John Doe',
             reference: 'Patients/'  + Random.id()
-          },
+          }],
           quantity: {
             value: 1,
             unit: 'exhalations'
@@ -140,10 +140,10 @@ Meteor.startup(function(){
           description: 'Check your blood alcohol level in the evening.'
         }
       }, {
-        reference: [{
+        reference: {
           display: 'Daily medication adherence photo.',
           reference: 'Adherence/'  + Random.id()
-        }],
+        },
         detail: {
           category: {
             text: 'drug'
@@ -162,10 +162,10 @@ Meteor.startup(function(){
             start: new Date(2016, 9, 20),
             end: new Date(2016, 9, 21)
           },
-          performer: {
+          performer: [{
             display: 'John Doe',
             reference: 'Patients/'  + Random.id()
-          },
+          }],
           productReference: {
             display: 'Naltrexone',
             reference: 'Medications/'  + Random.id()
@@ -182,10 +182,6 @@ Meteor.startup(function(){
           description: 'Opiate blocker that turns habit-forming behaviors into habit.'
         }
       }, {
-        description: 'Begin reducing alcohol consumption by eliminating hard alcohol.',
-        actionResulting: [],
-        progress: [],
-        reference: [],
         detail: {
           category: {
             text: 'drug'
@@ -204,10 +200,10 @@ Meteor.startup(function(){
             start: new Date(2016, 9, 20),
             end: new Date(2016, 9, 21)
           },
-          performer: {
+          performer: [{
             display: 'John Doe',
             reference: 'Patients/'  + Random.id()
-          },
+          }],
           productReference: {
             display: 'Alcohol',
             reference: 'Medications/'  + Random.id()
@@ -219,15 +215,24 @@ Meteor.startup(function(){
             system: 'http://unitsofmeasure.org'
           },
           quantity: {
-            value: .20,
+            value: 20,
             comparator: '>',
             unit: '%',
             system: 'http://unitsofmeasure.org'
-          }
+          },
+          description: 'Begin reducing alcohol consumption by eliminating hard alcohol.'
         }
       }]
     };
 
-    CarePlans.insert(defaultCarePlan);
+    CarePlans.insert(defaultCarePlan, function(error, result){
+      if (error) {
+        console.log(error);
+      }
+      if (result) {
+        console.log("CarePlan created: " + result);
+
+      }
+    });
   }
 });
