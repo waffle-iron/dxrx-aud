@@ -27,8 +27,8 @@ describe('Observations methods', function () {
     updateObservation.call({
       _id,
       update: {
-        observationValue: '0.07',
-      },
+        observationValue: '0.07'
+      }
     });
 
     const getObservation = Observations.findOne(_id);

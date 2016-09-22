@@ -13,6 +13,3 @@ reports
 reports/*
 
 settings.*.json
-#settings.json
-
-#packages/*
