@@ -56,7 +56,6 @@ clinical:accounts-housemd
 clinical:keybindings
 clinical:hipaa-logger
 clinical:accounts-famous-dead-people
-clinical:hipaa-logger
 
 clinical:hl7-resource-patient
 clinical:hl7-resource-practitioner
