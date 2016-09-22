@@ -31,5 +31,17 @@ Meteor.methods({
     } else {
       console.log('Practitioners already exist.  Skipping.');
     }
+  },
+  dropPractitioners: function(){
+    if (process.env.NODE_ENV === 'test') {
+      console.log('-----------------------------------------');
+      console.log('Dropping practitioners... ');
+      Practitioners.find().forEach(function(practitioner){
+        Practitioners.remove({_id: practitioner._id});
+      });
+    } else {
+      console.log('This command can only be run in a test environment.');
+      console.log('Try setting NODE_ENV=test');
+    }
   }
 });

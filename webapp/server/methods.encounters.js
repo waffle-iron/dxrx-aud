@@ -19,7 +19,7 @@ Meteor.methods({
       console.log('Try setting NODE_ENV=test');
     }
   },
-  initializeEncounter:function(){
+  initializeEncounters:function(){
     if (Encounters.find().count() === 0) {
       console.log("No records found in Encounters collection.  Lets create some...");
 
@@ -30,6 +30,18 @@ Meteor.methods({
       Meteor.call('createEncounter', defaultEncounter);
     } else {
       console.log('Encounters already exist.  Skipping.');
+    }
+  },
+  dropEncounters: function(){
+    if (process.env.NODE_ENV === 'test') {
+      console.log('-----------------------------------------');
+      console.log('Dropping encounters... ');
+      Encounters.find().forEach(function(encounter){
+        Encounters.remove({_id: encounter._id});
+      });
+    } else {
+      console.log('This command can only be run in a test environment.');
+      console.log('Try setting NODE_ENV=test');
     }
   }
 });

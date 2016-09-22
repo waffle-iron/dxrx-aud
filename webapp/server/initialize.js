@@ -14,9 +14,9 @@ Meteor.startup(function(){
 
     Meteor.call('initializeCarePlan');
     Meteor.call('initializeCondition');
-    Meteor.call('initializeEncounter');
-    Meteor.call('initializeGoal');
-    Meteor.call('initializeObservation');
+    Meteor.call('initializeEncounters');
+    Meteor.call('initializeGoals');
+    Meteor.call('initializeObservation', 'bac-12345');
     Meteor.call('initializePatient');
     Meteor.call('initializePractitioner');
   }

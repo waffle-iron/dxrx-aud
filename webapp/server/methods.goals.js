@@ -19,7 +19,7 @@ Meteor.methods({
       console.log('Try setting NODE_ENV=test');
     }
   },
-  initializeGoal:function(){
+  initializeGoals:function(){
     if (Goals.find().count() === 0) {
       console.log("No records found in Goals collection.  Lets create some...");
 
@@ -30,6 +30,18 @@ Meteor.methods({
       Meteor.call('createGoal', defaultGoal);
     } else {
       console.log('Goals already exist.  Skipping.');
+    }
+  },
+  dropGoals: function(){
+    if (process.env.NODE_ENV === 'test') {
+      console.log('-----------------------------------------');
+      console.log('Dropping goals... ');
+      Goals.find().forEach(function(goal){
+        Goals.remove({_id: goal._id});
+      });
+    } else {
+      console.log('This command can only be run in a test environment.');
+      console.log('Try setting NODE_ENV=test');
     }
   }
 });
