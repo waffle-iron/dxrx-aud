@@ -37,17 +37,13 @@ Meteor.methods({
           text: 'Breathalyzer'
         },
         effectiveDateTime: new Date(),
-        // subject: {
-        //   display: Patients.findByUserId(this.userId).fullName(),
-        //   reference: 'Patients/' + Patients.findByUserId(this.userId).patientId()
-        // },
         subject: {
-          display: Meteor.users.findOne(this.userId).fullName(),
-          reference: 'Meteor.users/' + this.userId
+          display: '',
+          reference: ''
         },
         performer: {
-          display: Meteor.users.findOne(this.userId).fullName(),
-          reference: 'Meteor.users/' + this.userId
+          display: '',
+          reference: ''
         },
         device: {
           display: 'Breathalyzer',
@@ -59,6 +55,21 @@ Meteor.methods({
           system: 'http://unitsofmeasure.org'
         }
       };
+
+      if (this.userId) {
+        let user = Meteor.users.findOne({_id: this.userId});
+        if (user && user.profile && user.profile.name && user.profile.name.text) {
+
+          //   display: Patients.findByUserId(this.userId).fullName(),
+          //   reference: 'Patients/' + Patients.findByUserId(this.userId).patientId()
+
+          defaultObservation.subject.display = user.profile.name.text;
+          defaultObservation.subject.reference = 'Meteor.users/' + this.userId;
+
+          defaultObservation.performer.display = user.profile.name.text;
+          defaultObservation.performer.reference = 'Meteor.users/' + this.userId;
+        }
+      }
 
       Meteor.call('createObservation', defaultObservation);
     } else {

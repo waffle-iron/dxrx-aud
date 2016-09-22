@@ -23,11 +23,22 @@ Meteor.methods({
     if (Goals.find().count() === 0) {
       console.log("No records found in Goals collection.  Lets create some...");
 
-      var defaultGoal = {
-
+      var breathalyzerOnce = {
+        description: 'Use the breathalyzer once a day.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
       };
+      Meteor.call('createGoal', breathalyzerOnce);
 
-      Meteor.call('createGoal', defaultGoal);
+
+
+
+
     } else {
       console.log('Goals already exist.  Skipping.');
     }
