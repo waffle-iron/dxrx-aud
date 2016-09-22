@@ -30,6 +30,7 @@
   ],
   "globals": {
     "Meteor": true,
+    "Random": true,
     "Roles": true,
     "React": true,
     "Session": true,
