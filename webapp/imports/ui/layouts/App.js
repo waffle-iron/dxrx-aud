@@ -11,26 +11,19 @@ import { GlassApp } from '/imports/ui/components/GlassApp';
 import { GlassLayout } from '/imports/ui/layouts/GlassLayout';
 import { Header } from '/imports/ui/components/Header';
 import { Footer } from '/imports/ui/components/Footer';
+import {injectTapEventPlugin} from 'react-tap-event-plugin';
+
+
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
+    // injectTapEventPlugin();
   }
 
-    getChildContext() {
-	return {muiTheme: getMuiTheme(baseTheme)};
-    }
-
-    //    const App = () => (
-    //<MuiThemeProvider>
-    //<MyAwesomeReactComponent />
-    //</MuiThemeProvider>
-    //		       );
-
-    //ReactDOM.render(
-    //		    <App />,
-    //		    document.getElementById('app')
-    //		    );
+  getChildContext() {
+    return {muiTheme: getMuiTheme(baseTheme)};
+  }
 
   render(){
     return (
@@ -51,6 +44,6 @@ App.propTypes = {
   children: React.PropTypes.element.isRequired
 };
 App.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
+  muiTheme: React.PropTypes.object.isRequired
 };
 App.defaultProps = {};

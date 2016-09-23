@@ -1,18 +1,16 @@
-
-import React  from 'react';
-import ReactMixin  from 'react-mixin';
+import React from 'react';
+import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
-import {Tab,Tabs} from  'material-ui/Tabs';
-import {Step,Stepper,StepLabel} from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import { Tab, Tabs } from 'material-ui/Tabs';
 import { PageContainer } from '/imports/ui/components/PageContainer';
-import {Initialize as PreInitialize} from '/imports/ui/workflows/breathalyzer/BreathalyzerPre';
-import {Initialize as DetailInitialize} from '/imports/ui/workflows/breathalyzer/BreathalyzerDetail';
-import {Initialize as PostInitialize} from '/imports/ui/workflows/breathalyzer/BreathalyzerPost';
+import { Initialize as PreInitialize } from '/imports/ui/workflows/breathalyzer/BreathalyzerPre';
+import { Initialize as DetailInitialize } from '/imports/ui/workflows/breathalyzer/BreathalyzerDetail';
+import { Initialize as PostInitialize } from '/imports/ui/workflows/breathalyzer/BreathalyzerPost';
+import { Initialize as AdherenceInitialize } from '/imports/ui/workflows/adherence/Adherence';
 import BreathalyzerPre from '/imports/ui/workflows/breathalyzer/BreathalyzerPre';
 import BreathalyzerDetail from '/imports/ui/workflows/breathalyzer/BreathalyzerDetail';
 import BreathalyzerPost from '/imports/ui/workflows/breathalyzer/BreathalyzerPost';
+import Adherence from '/imports/ui/workflows/adherence/Adherence.js';
 import { Meteor } from 'meteor/meteor';
 
 Session.setDefault('bacTrackPage', {
@@ -26,10 +24,9 @@ Session.setDefault('bacTrackPage', {
   substepsCompleted: false
 });
 
-
 export class BreathalyzerPage extends React.Component {
 
-  getMeteorData() {
+  getMeteorData () {
     let data = Session.get('bacTrackPage');
     if (typeof data === 'undefined') {
       data = {
@@ -70,132 +67,42 @@ export class BreathalyzerPage extends React.Component {
       Session.set('mainPanelIsCard', false);
     }
     Session.set('bacTrackPage', data);
-    console.log("Finishing getMeteorData");
+    console.log('Finishing getMeteorData');
     return data;
   }
 
-  renderAuthenticatedUserControls(isLoggedIn) {
-
-    console.log("In renderAuthenticatedUserControls");
-    // user should be able to see the addBreathalyzer component if they're logged in and looking at their
-    // own profile; otherwise,
-    if (isLoggedIn) {
-      if (!this.props.routeParams.userId) {
-        let data = Session.get('bacTrackPage');
-        const finished = data.finished;
-        const stepIndex = data.stepIndex;
-        const contentStyle = {margin: '0 16px'};
-        console.log("In renderAuthenticatedUserControls - 2");
-
-        return (
-          <div id="breathalyzerPage" style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-
-            <Stepper activeStep={stepIndex} linear={true}>
-
-              <Step>
-
-                <StepLabel>Prelims</StepLabel>
-
-              </Step>
-
-              <Step>
-
-                <StepLabel>Breathalyzer</StepLabel>
-
-              </Step>
-
-              <Step>
-
-                <StepLabel>Results</StepLabel>
-
-              </Step>
-
-            </Stepper>
-
-            <div style={contentStyle}>
-              {finished ? (
-                <p>
-                  <a href="#" onClick={this.reset.bind(this)}>
-                    Click here
-
-                  </a> to reset the example.
-
-                </p>
-              ) : (
-                <div>
-
-                  <p>
-                    {this.getStepContent(stepIndex)}
-                  </p>
-                  <div style={{marginTop: 12}}>
-                    <FlatButton
-                      label="Back"
-                      disabled={stepIndex === 0}
-                      onClick={this.handlePrev.bind(this)}
-                      style={{marginRight: 12}}
-                      />
-                    <RaisedButton
-                      label={stepIndex === 2 ? 'Finish' : 'Next'}
-                      primary={true}
-                      onClick={this.handleNext.bind(this)}
-                      />
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      }
-    } else {
-      return (
-        <div>
-        </div>
-      );
-    }
-    console.log("Finishing renderAuthenticatedUserControls");
-  }
-
-  render() {
+  render () {
     let data = Session.get('bacTrackPage');
     console.log('In BreathalyzerPage render');
     return (
-      <div id="breathalyzerPage" style={{paddingTop: "15px"}}>
+      <div id='breathalyzerPage' style={{paddingTop: '15px'}}>
         <PageContainer>
-          <Tabs
-            value={data.onTab}
-            onChange={this.gotoStep.bind(this)} >
-            <Tab label="Prelims" value="prelims" >
-
-              <BreathalyzerPre
-                lastStep={this.gotoStep.bind(this,'breathalyzer')}
-                cancelStep={this.cancelStep.bind(this)} />
+          <Tabs value={data.onTab} onChange={this.gotoStep.bind(this)}>
+            <Tab label='Prelims' value='prelims'>
+              <BreathalyzerPre lastStep={this.gotoStep.bind(this, 'adherence')} cancelStep={this.cancelStep.bind(this)} />
             </Tab>
-            <Tab label="Breathalyzer" value='breathalyzer'>
-
-              <BreathalyzerDetail
-                lastStep={this.gotoStep.bind(this,'results')}
-                cancelStep={this.cancelStep.bind(this)} />
+            <Tab label='Meds' value='adherence'>
+              <Adherence lastStep={this.gotoStep.bind(this, 'breathalyzer')} cancelStep={this.cancelStep.bind(this)} />
             </Tab>
-            <Tab label="Results" value="results">
-
-              <BreathalyzerPost
-                lastStep={this.doneStep.bind(this)}
-                cancelStep={this.cancelStep.bind(this)} />
+            <Tab label='Breath' value='breathalyzer'>
+              <BreathalyzerDetail lastStep={this.gotoStep.bind(this, 'results')} cancelStep={this.cancelStep.bind(this)} />
+            </Tab>
+            <Tab label='Results' value='results'>
+              <BreathalyzerPost lastStep={this.doneStep.bind(this)} cancelStep={this.cancelStep.bind(this)} />
             </Tab>
           </Tabs>
         </PageContainer>
       </div>
     );
-    console.log("Finishing render");
   }
 
   gotoStep (nextStep) {
     let data = Session.get('bacTrackPage');
     data.onTab = nextStep;
-    Session.set('bacTrackPage',data);
+    Session.set('bacTrackPage', data);
   }
 
-  cancelStep() {
+  cancelStep () {
     let data = Session.get('bacTrackPage');
 
     if (typeof data.cancelStep === 'undefined') {
@@ -208,7 +115,7 @@ export class BreathalyzerPage extends React.Component {
     }
   }
 
-  doneStep() {
+  doneStep () {
     let data = Session.get('bacTrackPage');
     if (typeof data.doneStep === 'undefined') {
       this.gotoStep('prelims');
@@ -217,13 +124,12 @@ export class BreathalyzerPage extends React.Component {
     }
   }
 
-
   handleNext () {
     let data = Session.get('bacTrackPage');
     const stepIndex = data.stepIndex;
     data.stepIndex = stepIndex + 1;
-    data.finished = stepIndex >= 2;
-    Session.set('bacTrackPage',data);
+    data.finished = stepIndex >= 3;
+    Session.set('bacTrackPage', data);
   }
 
   handlePrev () {
@@ -231,52 +137,55 @@ export class BreathalyzerPage extends React.Component {
     const stepIndex = data.stepIndex;
     if (stepIndex > 0) {
       data.stepIndex = stepIndex - 1;
-      Session.set('bacTrackPage',data);
+      Session.set('bacTrackPage', data);
     }
   }
 
-  getStepContent(stepIndex) {
-    console.log("In getStepContent with " + stepIndex);
+  getStepContent (stepIndex) {
+    console.log('In getStepContent with ' + stepIndex);
     switch (stepIndex) {
-      case 0:
+    case 0:
       return (
-        <div>
-          <BreathalyzerPre />
-        </div>
-      );
-      case 1:
+          <div>
+            <BreathalyzerPre />
+          </div>
+        );
+    case 2:
       return (
-        <div>
-          <BreathalyzerDetail />
-        </div>
-      );
-      case 2:
+          <div>
+            <BreathalyzerDetail />
+          </div>
+        );
+    case 1:
       return (
-        <div>
-          <BreathalyzerPost />
-        </div>
-      );
-      default:
-      return "Error";
+          <div>
+            <Adherence />
+          </div>
+        );
+    case 3:
+      return (
+          <div>
+            <BreathalyzerPost />
+          </div>
+        );
+    default:
+      return 'Error';
     }
-  };
-  setData(event,value) {
-    var data = Session.get('bacTrackPage');
-    data[event]=value;
-    Session.set('bacTrackPage',data);
-  };
+  }
+
 
   reset (event) {
-    console.log ("In reset.");
-    //event.preventDefault();
+    console.log('In reset.');
+    // event.preventDefault()
     PreInitialize();
     DetailInitialize();
     PostInitialize();
+    AdherenceInitialize();
     let data = Session.get('bacTrackPage');
     data.stepIndex = 0;
     data.finished = false;
     data.substepscompleted = false;
-    Session.set('bacTrackPage',data);
+    Session.set('bacTrackPage', data);
   }
 }
 
