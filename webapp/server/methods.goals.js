@@ -36,6 +36,82 @@ Meteor.methods({
       Meteor.call('createGoal', breathalyzerOnce);
 
 
+      var breathalyzerTwice = {
+        description: 'Use the breathalyzer twice a day.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', breathalyzerTwice);
+
+
+      var takeYourMeds = {
+        description: 'Take your meds for today.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', takeYourMeds);
+      
+      
+      var takeYourMedsRegularly = {
+        description: 'Take your meds during an entire weekly treatment.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', takeYourMedsRegularly);
+
+
+      var lowerAverageIntake = {
+        description: 'Lower your weekly average alcohol intake compared to your baseline.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', lowerAverageIntake);
+
+
+      var lowerCravings = {
+        description: 'Lower your daily cravings for alcohol.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', lowerCravings);
+
+
+      var developAwareness = {
+        description: 'Develop awareness of your drinking behaviors.',
+        author: {
+          display: 'Dr. John Mendelson'
+        },
+        priority: {
+          text: 'medium'
+        },
+        status: 'planned'
+      };
+      Meteor.call('createGoal', developAwareness);
 
 
 
