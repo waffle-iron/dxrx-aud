@@ -22,13 +22,30 @@ Meteor.methods({
   initializeCondition:function(){
 
     if (Conditions.find().count() === 0) {
-      console.log("No records found in Conditions collection.  Lets create some...");
+      console.log('No records found in Conditions collection.  Lets create some...');
 
-      var defaultCondition = {
-
+      var alcoholAbuseDisorder = {
+        'resourceType' : 'Condition',
+        'asserter' : {
+          display: '',
+          reference: ''
+        },
+        'code' : {
+          text: ''
+        },
+        'category' : {
+          text: ''
+        },
+        'clinicalStatus' : 'active',
+        'verificationStatus' : 'confirmed',
+        'severity' : {
+          'text': 'moderate'
+        },
+        'onsetDateTime' : new Date(),
+        'notes' : ''
       };
 
-      Meteor.call('createCondition', defaultCondition);
+      Meteor.call('createCondition', alcoholAbuseDisorder);
     } else {
       console.log('Conditions already exist.  Skipping.');
     }

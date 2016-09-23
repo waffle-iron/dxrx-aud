@@ -21,13 +21,20 @@ Meteor.methods({
   },
   initializeEncounters:function(){
     if (Encounters.find().count() === 0) {
-      console.log("No records found in Encounters collection.  Lets create some...");
+      console.log('No records found in Encounters collection.  Lets create some...');
 
-      var defaultEncounter = {
-
+      var programEnrollmentEncounter = {
+        'resourceType' : 'Encounter',
+        'status' : 'finished',
+        'class' : 'outpatient',
+        'patient' : {
+          display: '',
+          reference: ''
+        },
+        'indication' : []
       };
 
-      Meteor.call('createEncounter', defaultEncounter);
+      Meteor.call('createEncounter', programEnrollmentEncounter);
     } else {
       console.log('Encounters already exist.  Skipping.');
     }

@@ -25,23 +25,23 @@ Meteor.methods({
       console.log('No records found in Devices collection.  Lets create some...');
 
       var defaultDevice = {
-        "resourceType" : "Device",
-        "identifier" : [{ Identifier }], 
-        "type" : { 
-          text: "Breathalyzer"
-        }, 
-        "note" : [{ Annotation }], 
-        "status" : "available", 
-        "manufacturer" : "BACtrack", 
-        "model" : "<string>",
-        "version" : "<string>", 
-        "manufactureDate" : "<dateTime>", 
-        "expiry" : "<dateTime>", 
-        "udi" : "", 
-        "lotNumber" : "", 
-        "patient" : { 
-          display:  "",
-          reference: ""
+        'resourceType' : 'Device',
+        'identifier' : [],
+        'type' : {
+          text: 'Breathalyzer'
+        },
+        'note' : [],
+        'status' : 'available',
+        'manufacturer' : 'BACtrack',
+        'model' : '',
+        'version' : '',
+        'manufactureDate' : '',
+        'expiry' : '',
+        'udi' : '',
+        'lotNumber' : '',
+        'patient' : {
+          display:  '',
+          reference: ''
         }
       }
 
