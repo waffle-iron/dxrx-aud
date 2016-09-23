@@ -2,6 +2,8 @@
 
 Meteor.methods({
   createCarePlan:function(carePlanObject){
+    check(carePlanObject, Object);
+
     if (process.env.NODE_ENV === 'test') {
       console.log('Creating CarePlan...');
       CarePlans.insert(carePlanObject, function(error, result){
@@ -19,7 +21,7 @@ Meteor.methods({
   },
   initializeCarePlan: function(){
     if (CarePlans.find().count() === 0) {
-      console.log("No records found in CarePlan collection.  Lets create some...");
+      console.log('No records found in CarePlan collection.  Lets create some...');
 
       // We're just using tis record to bootstrap the system.  In the actual pipeline,
       // we won't be using Random.id() and will reference actual external records.
