@@ -36,7 +36,7 @@
       "ie_driver": "",
       "screenshots": {
         "enabled": true,
-        "on_failure": true,
+        "on_failure": false,
         "on_error": true,
         "path": "./tests/nightwatch/screenshots"
       },
