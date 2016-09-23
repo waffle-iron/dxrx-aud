@@ -13,3 +13,6 @@ reports
 reports/*
 
 settings.*.json
+
+packages/hl7-resource-practitioner
+packages/accounts-housemd
