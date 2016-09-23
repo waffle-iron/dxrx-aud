@@ -24,25 +24,27 @@ Meteor.methods({
     if (Conditions.find().count() === 0) {
       console.log('No records found in Conditions collection.  Lets create some...');
 
+      // TODO:  we can't have empty strings in the record;
+      // but we want to eventually get the following fields into the record
       var alcoholAbuseDisorder = {
         'resourceType' : 'Condition',
-        'asserter' : {
-          display: '',
-          reference: ''
-        },
-        'code' : {
-          text: ''
-        },
-        'category' : {
-          text: ''
-        },
+        // 'asserter' : {
+        //   display: '',
+        //   reference: ''
+        // },
+        // 'code' : {
+        //   text: ''
+        // },
+        // 'category' : {
+        //   text: ''
+        // },
         'clinicalStatus' : 'active',
         'verificationStatus' : 'confirmed',
         'severity' : {
           'text': 'moderate'
         },
-        'onsetDateTime' : new Date(),
-        'notes' : ''
+        'onsetDateTime' : new Date()
+        // 'notes' : ''
       };
 
       Meteor.call('createCondition', alcoholAbuseDisorder);

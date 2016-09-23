@@ -1,4 +1,8 @@
+import { Devices } from '/imports/api/devices/devices';
 
+Meteor.publish('devices', function(){
+  return Devices.find()
+});
 
 Meteor.methods({
   createDevice:function(deviceObject){
@@ -26,19 +30,21 @@ Meteor.methods({
 
       var defaultDevice = {
         'resourceType' : 'Device',
-        'identifier' : [],
+        'identifier' : [{
+          'value': 'FHD-1498',
+          type: {
+            text: 'Serial Number'
+          }
+        }],
         'type' : {
           text: 'Breathalyzer'
         },
         'note' : [],
         'status' : 'available',
         'manufacturer' : 'BACtrack',
-        'model' : '',
-        'version' : '',
-        'manufactureDate' : '',
-        'expiry' : '',
-        'udi' : '',
-        'lotNumber' : '',
+        'model' : 'Mobile Breathalyzer',
+        'version' : 'BT-M5',
+        'udi' : 'S8B-BTBLE40',
         'patient' : {
           display:  '',
           reference: ''

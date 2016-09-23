@@ -16,9 +16,14 @@ describe('Observations methods', function () {
   });
 
   it('inserts a document into the Observations collection', function () {
-	  insertObservation.call({ observationValue: '0.08', observationType: 'BAC', observationStatus: 'OK', observationSource: 0, patientId: 0});
-	  const getObservation = Observations.findOne({ observationValue: '0.08' });
-	  assert.equal(getObservation.observationValue, '0.08');
+	  insertObservation.call({
+      observationValue: '0.08',
+      observationType: 'BAC',
+      observationStatus: 'OK',
+      observationSource: 0,
+      patientId: 0});
+	  const getObservation = Observations.findOne({ 'valueQuantity.value': '0.08' });
+	  assert.equal(getObservation.valueQuantity.value, '0.08');
   });
 
   it('updates a document in the Observations collection', function () {
@@ -32,7 +37,7 @@ describe('Observations methods', function () {
     });
 
     const getObservation = Observations.findOne(_id);
-    assert.equal(getObservation.observationValue, '0.07');
+    assert.equal(getObservation.valueQuantity.value, '0.07');
   });
 
   it('removes a document from the Observations collection', function () {
