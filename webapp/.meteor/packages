@@ -25,13 +25,9 @@ accounts-password
 accounts-base
 less
 
-#grove:less
 check
 audit-argument-checks
 reactive-dict
-#static-html
-#browser-policy
-
 
 aldeed:collection2
 alanning:roles
@@ -51,24 +47,29 @@ react-meteor-data
 simple:dev-error-overlay
 
 #clinical:fonts
+#clinical:keybindings
 clinical:extended-api
 clinical:auto-resizing
 clinical:theming
-#clinical:keybindings
 clinical:user-model
-clinical:accounts-housemd
 clinical:keybindings
-
+clinical:hipaa-logger
+clinical:accounts-housemd
 clinical:accounts-famous-dead-people
 
+clinical:hl7-resource-careplan
+clinical:hl7-resource-condition
+clinical:hl7-resource-encounter
+clinical:hl7-resource-goal
 clinical:hl7-resource-patient
 clinical:hl7-resource-practitioner
+#clinical:hl7-resource-device
+#clinical:hl7-resource-observation
 
 percolate:synced-cron
 
 awatson1978:accounts-muppets
 
 #anti:gagarin
-clinical:hipaa-logger
 
 momentjs:moment
