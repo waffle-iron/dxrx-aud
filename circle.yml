@@ -82,6 +82,7 @@ test:
     - sleep 240
   override:
     - meteor npm run-script nightwatch
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
 
 
 ## Customize deployment commands
