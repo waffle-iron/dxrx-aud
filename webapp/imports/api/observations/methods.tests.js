@@ -16,28 +16,34 @@ describe('Observations methods', function () {
   });
 
   it('inserts a document into the Observations collection', function () {
-	  insertObservation.call({
-      observationValue: '0.08',
+    let observationId = insertObservation.call({
+      observationValue: 0.08,
       observationType: 'BAC',
       observationStatus: 'OK',
-      observationSource: 0,
-      patientId: 0});
-	  const getObservation = Observations.findOne({ 'valueQuantity.value': '0.08' });
-	  assert.equal(getObservation.valueQuantity.value, '0.08');
+      observationSource: '0',
+      patientId: '0'
+    });
+    let getObservation = Observations.findOne({_id: observationId });
+    assert.equal(getObservation.category.text, 'BAC');
+    assert.equal(getObservation.valueQuantity.value, 0.08);
   });
 
   it('updates a document in the Observations collection', function () {
-    const { _id } = Factory.create('document');
+    const { _id } = Factory.create('observation');
 
     updateObservation.call({
       _id,
-      update: {
-        observationValue: '0.07'
+      breathalyzerUpdate: {
+        observationValue: 0.07,
+        observationType: 'BAC',
+        observationStatus: 'OK',
+        observationSource: '0',
+        patientId: '0'
       }
     });
 
     const getObservation = Observations.findOne(_id);
-    assert.equal(getObservation.valueQuantity.value, '0.07');
+    assert.equal(getObservation.valueQuantity.value, 0.07);
   });
 
   it('removes a document from the Observations collection', function () {

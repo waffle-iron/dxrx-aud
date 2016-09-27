@@ -16,23 +16,24 @@ describe('Devices methods', function () {
   });
 
   it('inserts a document into the Devices collection', function () {
-    insertDevice.call({ title: 'You can\'t arrest me, I\'m the Cake Boss!' });
-    const getDevice = Devices.findOne({ title: 'You can\'t arrest me, I\'m the Cake Boss!' });
-    assert.equal(getDevice.title, 'You can\'t arrest me, I\'m the Cake Boss!');
+    let deviceId = insertDevice.call({ type: 'BACtrack' });
+    let getDevice = Devices.findOne({_id: deviceId });
+    assert.equal(getDevice.type.text, 'BACtrack');
   });
 
   it('updates a document in the Devices collection', function () {
-    const { _id } = Factory.create('document');
+    const { _id } = Factory.create('device');
 
     updateDevice.call({
-      _id,
+      _id: _id,
       update: {
-        title: 'You can\'t arrest me, I\'m the Cake Boss!',
-      },
+        type: 'BreathalyzerFu',
+        identifier: 'xyz-123'
+      }
     });
 
     const getDevice = Devices.findOne(_id);
-    assert.equal(getDevice.title, 'You can\'t arrest me, I\'m the Cake Boss!');
+    assert.equal(getDevice.type.text, 'BreathalyzerFu');
   });
 
   it('removes a document from the Devices collection', function () {
