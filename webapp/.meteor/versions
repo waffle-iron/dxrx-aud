@@ -50,6 +50,8 @@ ddp-rate-limiter@1.0.5
 ddp-server@1.2.8_1
 deps@1.0.12
 diff-sequence@1.0.6
+dispatch:mocha-phantomjs@0.1.7
+dispatch:phantomjs-tests@0.0.5
 ecmascript@0.4.6_1
 ecmascript-runtime@0.2.11_1
 ejson@1.0.12
@@ -96,6 +98,11 @@ npm-mongo@1.4.44_1
 observe-sequence@1.0.12
 ordered-dict@1.0.8
 percolate:synced-cron@1.3.2
+practicalmeteor:chai@2.1.0_1
+practicalmeteor:loglevel@1.2.0_2
+practicalmeteor:mocha@2.4.5_6
+practicalmeteor:mocha-core@1.0.1
+practicalmeteor:sinon@1.14.1_2
 prime8consulting:meteor-oauth2-server@0.0.2
 promise@0.7.2_1
 raix:eventemitter@0.1.3
@@ -124,9 +131,11 @@ templating-tools@1.0.4
 themeteorchef:bert@2.1.0
 tmeasday:check-npm-versions@0.2.0
 tmeasday:publish-with-relations@0.2.0
+tmeasday:test-reporter-helpers@0.2.1
 tracker@1.0.14
 ui@1.0.11
 underscore@1.0.9
 url@1.0.10
 webapp@1.2.9_1
 webapp-hashing@1.0.9
+xolvio:cleaner@0.3.1

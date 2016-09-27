@@ -37,10 +37,12 @@ dburles:factory
 
 
 #lmieulet:meteor-coverage
-#practicalmeteor:chai
-#practicalmeteor:mocha
 #practicalmeteor:mocha-console-runner
-#dispatch:mocha-phantomjs
+#practicalmeteor:chai
+
+practicalmeteor:mocha
+dispatch:mocha-phantomjs
+xolvio:cleaner
 
 react-meteor-data
 
