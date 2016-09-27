@@ -77,12 +77,17 @@ test:
     # - meteor remove cordova-plugin-bactrack
 
     - cat .meteor/nightwatch.json
+
+    # run verification tests first
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
+
+    # then set up meteor for validation tests
     - "meteor run":
           background: true
     - sleep 240
   override:
+    # then run the validation tests
     - meteor npm run-script nightwatch
-    - meteor test --once --driver-package dispatch:mocha-phantomjs
 
 
 ## Customize deployment commands
