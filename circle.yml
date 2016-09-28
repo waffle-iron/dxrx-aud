@@ -80,6 +80,7 @@ test:
 
     # run verification tests first
     - meteor test --once --driver-package dispatch:mocha-phantomjs
+    - sleep 120
 
     # then set up meteor for validation tests
     - "meteor run":
