@@ -86,12 +86,12 @@ test:
     - meteor run:
         background: true
     - sleep 240
-    - meteor npm run-script nightwatch
 
     #-pkill -SIGQUIT meteor
 
   override:
     # then run the validation tests
+    - meteor npm run-script nightwatch
 
 
 ## Customize deployment commands
