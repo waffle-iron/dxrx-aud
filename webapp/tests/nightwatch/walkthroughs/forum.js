@@ -13,7 +13,6 @@ module.exports = {
     client.resizeWindow(750, 1334);
 
     const loginPage = client.page.loginPage();
-    const indexPage = client.page.indexPage();
 
     loginPage
       .navigate()
