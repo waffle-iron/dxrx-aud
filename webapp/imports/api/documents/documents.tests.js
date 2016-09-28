@@ -3,7 +3,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
-import { resetDatabase } from 'meteor/xolvio:cleaner';
+// import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { Documents } from './documents.js';
 import { insertDocument, updateDocument, removeDocument } from './methods.js';
@@ -18,7 +18,9 @@ describe('Documents collection', function () {
 describe('Documents methods', function () {
   beforeEach(function () {
     if (Meteor.isServer) {
-      resetDatabase();
+      Documents.find().forEach(function(document){
+        Documents.remove({_id: document._id});
+      });
     }
   });
 

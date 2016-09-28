@@ -28,7 +28,7 @@ export const BreathalyzerSchema = new SimpleSchema({
   },
   observationUnits: {
     type: String,
-    label: 'The units of the observation'
+    label: 'The units of the observation.'
   },
   observationStatus: {
     type: String,
@@ -258,6 +258,6 @@ Factory.define('observation', Observations, {
     text: 'Test'
   },
   valueQuantity: {
-    value: 0.0
+    value: 0
   }
 });

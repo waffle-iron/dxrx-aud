@@ -3,7 +3,7 @@
 
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
-import { resetDatabase } from 'meteor/xolvio:cleaner';
+// import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
 import { Devices } from './devices.js';
 import { insertDevice, updateDevice, removeDevice } from './methods.js';
@@ -11,7 +11,9 @@ import { insertDevice, updateDevice, removeDevice } from './methods.js';
 describe('Devices methods', function () {
   beforeEach(function () {
     if (Meteor.isServer) {
-      resetDatabase();
+      Devices.find().forEach(function(device){
+        Devices.remove({_id: device._id});
+      });
     }
   });
 

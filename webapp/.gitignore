@@ -16,7 +16,7 @@ settings.*.json
 
 packages/hl7-resource-careplan
 packages/hl7-resource-condition
-#packages/hl7-resource-datatypes
+packages/hl7-resource-datatypes
 packages/hl7-resource-device
 packages/hl7-resource-encounter
 packages/hl7-resource-goal
