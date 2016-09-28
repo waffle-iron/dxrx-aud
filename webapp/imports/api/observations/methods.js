@@ -1,57 +1,73 @@
-import { Observations } from '/imports/api/observations/observations';
+import { Observations, BreathalyzerSchema } from '/imports/api/observations/observations';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 export const insertObservation = new ValidatedMethod({
   name: 'observations.insert',
   validate: new SimpleSchema({
-    observationType: { type: String },
-    observationValue: { type: String },
-    observationUnits: { type: String },
-    observationStatus: { type: String },
-    observationSource: { type: String },
-    createdAt: { type: Date },
-    patientId: { type: String }
+    observationValue: {
+      optional: true,
+      type: Number,
+      decimal: true
+    },
+    observationType: {
+      optional: true,
+      type: String
+    },
+    observationStatus: {
+      optional: true,
+      type: String
+    },
+    observationSource: {
+      optional: true,
+      type: String
+    },
+    patientId: {
+      optional: true,
+      type: String
+    }
   }).validator(),
   run(breathalyzerData) {
+    console.log("observations.insert", breathalyzerData);
 
     // we're going to map the breathalyzer data onto a FHIR Observation resource
     let newObservation = {
       resourceType: 'Observation',
       status: 'final',
       category: {
-        text: breathalyzerData.observationType
+        text: ''
       },
       effectiveDateTime: new Date(),
-      subject: {
-        display: '',
-        reference: ''
-      },
-      performer: {
-        display: '',
-        reference: ''
-      },
-      device: {
-        display: 'Breathalyzer',
-        reference: ''
-      },
       valueQuantity: {
-        value: breathalyzerData.observationValue,
+        value: 0,
         unit: '%',
         system: 'http://unitsofmeasure.org'
       }
     };
 
-    Observations.insert(newObservation);
+    if (breathalyzerData && breathalyzerData.observationValue) {
+      newObservation.valueQuantity.value = breathalyzerData.observationValue;
+    }
+    if (breathalyzerData && breathalyzerData.observationType) {
+      newObservation.category.text = breathalyzerData.observationType;
+    }
+
+    //Observations.schema.validate(newObservation);
+
+    return Observations.insert(newObservation, function(error){
+      if (error) {
+        console.log("Observations.insert[error]", error);
+      }
+    });
   }
 });
 
 export const updateObservation = new ValidatedMethod({
   name: 'observations.update',
   validate: new SimpleSchema({
-    _id: { type: String },
+    _id: { type: String, optional: true },
     'breathalyzerUpdate.observationType': { type: String, optional: true },
-    'breathalyzerUpdate.observationValue': { type: String, optional: true },
+    'breathalyzerUpdate.observationValue': { type: Number, optional: true, decimal: true },
     'breathalyzerUpdate.observationUnits': { type: String, optional: true },
     'breathalyzerUpdate.observationStatus': { type: String, optional: true },
     'breathalyzerUpdate.observationSource': { type: String, optional: true },

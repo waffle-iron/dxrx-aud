@@ -5,10 +5,10 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 export const insertDevice = new ValidatedMethod({
   name: 'devices.insert',
   validate: new SimpleSchema({
-    deviceName: { type: String },
-    deviceProductId: { type: String },
-    createdAt: { type: Date },
-    patientId: { type: String }
+    type: { type: String, optional: true },
+    identifier: { type: String, optional: true },
+    createdAt: { type: Date, optional: true },
+    patientId: { type: String, optional: true }
   }).validator(),
   run(deviceFormData) {
 
@@ -16,13 +16,13 @@ export const insertDevice = new ValidatedMethod({
     var newDevice = {
       'resourceType' : 'Device',
       'identifier' : [{
-        'value': deviceFormData.deviceProductId,
+        'value': deviceFormData.identifier,
         type: {
           text: 'Serial Number'
         }
       }],
       'type' : {
-        text: deviceFormData.deviceName
+        text: deviceFormData.type
       },
       'note' : [],
       'status' : 'available',
@@ -46,7 +46,7 @@ export const insertDevice = new ValidatedMethod({
       }
     }
 
-    Devices.insert(newDevice);
+    return Devices.insert(newDevice);
   }
 });
 
@@ -54,10 +54,12 @@ export const updateDevice = new ValidatedMethod({
   name: 'devices.update',
   validate: new SimpleSchema({
     _id: { type: String },
-    'updateData.deviceName': { type: String, optional: true },
-    'updateData.deviceProductId': { type: String, optional: true }
+    'update.type': { type: String, optional: true },
+    'update.identifier': { type: String, optional: true }
   }).validator(),
-  run({ _id, updateData }) {
+  run({ _id, update }) {
+    console.log("update", update);
+
 
     // TODO: need to confirm that this works
     // should we replace the entire record, or just the changed fields?
@@ -66,13 +68,13 @@ export const updateDevice = new ValidatedMethod({
     var deviceUpdate = {
       'resourceType' : 'Device',
       'identifier' : [{
-        'value': deviceFormData.deviceProductId,
+        value: update.identifier,
         type: {
           text: 'Serial Number'
         }
       }],
       'type' : {
-        text: deviceFormData.deviceName
+        text: update.type
       },
       'note' : [],
       'status' : 'available',
@@ -88,7 +90,7 @@ export const updateDevice = new ValidatedMethod({
 
     // if we can look up the Patient info; now is the time to perform a JOIN
     // and attach that kind of data
-    if (deviceFormData.patientId) {
+    if (update.patientId) {
       let patient = Patients.findOne(patientId);
       if (patient) {
         newDevice.patient.display = patient.name.text;

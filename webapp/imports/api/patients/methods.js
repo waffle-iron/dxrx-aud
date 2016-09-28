@@ -21,7 +21,7 @@ export const insertPatient = new ValidatedMethod({
   run(document) {
 
     Patients.insert(document);
-  },
+  }
 });
 
 export const updatePatient = new ValidatedMethod({
@@ -46,18 +46,17 @@ export const updatePatient = new ValidatedMethod({
 
     console.log("diffedPatient", patient);
 
-
     Patients.update(_id, { $set: update });
-  },
+  }
 });
 
 export const removePatientById = new ValidatedMethod({
   name: 'patients.removeById',
   validate: new SimpleSchema({
-    _id: { type: String },
+    _id: { type: String }
   }).validator(),
   run({ _id }) {
     console.log("Removing user " + _id);
     Patients.remove({_id: _id});
-  },
+  }
 });

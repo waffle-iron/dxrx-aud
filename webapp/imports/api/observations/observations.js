@@ -17,39 +17,40 @@ import {
 
 
 export const BreathalyzerSchema = new SimpleSchema({
-   observationType: {
-     type: String,
-     label: 'The type of observation.'
-   },
-   observationValue: {
-     type: String,
-     label: 'The value of the observation.'
-   },
-   observationUnits: {
-     type: String,
-     label: 'The units of the observation'
-   },
-   observationStatus: {
-     type: String,
-     label: 'The status of the observation.'
-   },
-   observationSource: {
-     type: String,
-     label: 'The source of the observation.'
-   },
-   createdAt: {
-     type: Date,
-     label: 'Date of the observation.'
-   },
-   createdBy: {
-     type: String,
-     label: 'Creator of the observation.'
-   },
-   patientId: {
-     type: String,
-     label: 'Patient ID of the observation.'
-   }
- });
+  observationType: {
+    type: String,
+    label: 'The type of observation.'
+  },
+  observationValue: {
+    type: Number,
+    label: 'The value of the observation.',
+    decimal: true
+  },
+  observationUnits: {
+    type: String,
+    label: 'The units of the observation.'
+  },
+  observationStatus: {
+    type: String,
+    label: 'The status of the observation.'
+  },
+  observationSource: {
+    type: String,
+    label: 'The source of the observation.'
+  },
+  createdAt: {
+    type: Date,
+    label: 'Date of the observation.'
+  },
+  createdBy: {
+    type: String,
+    label: 'Creator of the observation.'
+  },
+  patientId: {
+    type: String,
+    label: 'Patient ID of the observation.'
+  }
+});
 
 export const Observations = new Mongo.Collection('Observations');
 Observations.schema = new SimpleSchema({
@@ -251,6 +252,12 @@ Observations.schema = new SimpleSchema({
 Observations.attachSchema(Observations.schema);
 
 Factory.define('observation', Observations, {
-  title: () => "lorem ipsum...",
-  createdAt: () => new Date()
+  resourceType: 'Obesrvation',
+  comments: 'lorem ipsum...',
+  category: {
+    text: 'Test'
+  },
+  valueQuantity: {
+    value: 0
+  }
 });

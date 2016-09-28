@@ -35,19 +35,14 @@ themeteorchef:bert
 mdg:validated-method
 dburles:factory
 
-
-#lmieulet:meteor-coverage
-#practicalmeteor:chai
-#practicalmeteor:mocha
-#practicalmeteor:mocha-console-runner
-#dispatch:mocha-phantomjs
+practicalmeteor:chai
+practicalmeteor:mocha
+dispatch:mocha-phantomjs
 
 react-meteor-data
 
 simple:dev-error-overlay
 
-#clinical:fonts
-#clinical:keybindings
 clinical:extended-api
 clinical:auto-resizing
 clinical:theming
@@ -63,13 +58,11 @@ clinical:hl7-resource-encounter
 clinical:hl7-resource-goal
 clinical:hl7-resource-patient
 clinical:hl7-resource-practitioner
-#clinical:hl7-resource-device
-#clinical:hl7-resource-observation
+clinical:hl7-resource-datatypes@0.4.7
+
 
 percolate:synced-cron
 
 awatson1978:accounts-muppets
-
-#anti:gagarin
 
 momentjs:moment

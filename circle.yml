@@ -12,7 +12,7 @@ machine:
     DISPLAY: :99.0
     NPM_PREFIX: /home/ubuntu/nvm/v0.10.33
     INITIALIZE: true
-    NODE_ENV: circle
+    NODE_ENV: test
     Patients: true
     Practitioners: true
     METEOR_SETTINGS: '{"public": {"title": "DxRx"},"private": {"accessCode": "sobriety"}}'
@@ -72,15 +72,25 @@ test:
     - meteor npm install
 
     # install the testing infrastructure
-    - meteor npm install nightwatch starrynight phantomjs selenium-standalone-jar
+    - meteor npm install nightwatch starrynight phantomjs-prebuilt selenium-standalone-jar
 
     # - meteor remove cordova-plugin-bactrack
 
     - cat .meteor/nightwatch.json
-    - "meteor run":
-          background: true
+
+    # run verification tests first
+    - meteor test --once --driver-package dispatch:mocha-phantomjs
+    - sleep 15
+
+    # then set up meteor for validation tests
+    - meteor run:
+        background: true
     - sleep 240
+
+    #-pkill -SIGQUIT meteor
+
   override:
+    # then run the validation tests
     - meteor npm run-script nightwatch
 
 

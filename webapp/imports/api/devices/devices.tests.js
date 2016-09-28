@@ -4,8 +4,8 @@
 import { assert } from 'meteor/practicalmeteor:chai';
 import { Devices } from './devices.js';
 
-describe('Documents collection', function () {
+describe('Devices collection', function () {
   it('registers the collection with Mongo properly', function () {
-    assert.equal(typeof Documents, 'object');
+    assert.equal(typeof Devices, 'object');
   });
 });
