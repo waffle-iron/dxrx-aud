@@ -28,7 +28,6 @@ export const insertObservation = new ValidatedMethod({
     }
   }).validator(),
   run(breathalyzerData) {
-    //console.log("observations.insert", breathalyzerData);
 
     // we're going to map the breathalyzer data onto a FHIR Observation resource
     let newObservation = {

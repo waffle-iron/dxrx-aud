@@ -5,8 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {DynamicSpacer} from '/imports/ui/components/DynamicSpacer';
 import {Card,CardHeader,CardText,CardActions} from 'material-ui/Card';
-import {Initialize as BACInitialize,ScanAndConnect,Connect,StartCountdown,Disconnect,
-	StopScan} from './BacTrack';
+import {Initialize as BACInitialize,ScanAndConnect,Connect,StartCountdown,Disconnect, StopScan} from './BacTrack';
+
+
 Session.setDefault('preferredBreathalyzerUuid', false);
 Session.setDefault('BreathalyzerDetailState', {
 	firstDrinkTimeSlider: undefined,

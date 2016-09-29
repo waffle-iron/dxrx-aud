@@ -28,16 +28,15 @@ module.exports = {
 
     patientJourney
       .takeTour()
-      .signup()
-      .signin()
+      .signup('janedoe@test.org', 'janedoe123', 'Jane Doe')
       .acceptWelcomeScreen()
-      .configureDevice()
-      .configureProfile()
+      .configureDevice('abc-123')
+      .configureProfile('Jane Doe', 'Female', '160lbs')
       .startCarePlan()
-      .fillOutSurvey()
-      .simulateBreath()
+      .fillOutSurvey(2, 3, 7, 8)
+      .simulateBreath(0.02)
       .takeAdherencePhoto()
-      .verifyObservation()
+      .verifyObservation(0.02)
       .verifyCarePlanHistoryElements();
 
     client

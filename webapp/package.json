@@ -58,6 +58,10 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "eslint": "^2.13.1",
+    "eslint-config-eslint": "^3.0.0",
+    "eslint-plugin-meteor": "^3.6.0",
+    "eslint-plugin-react": "^4.3.0",
+    "faker": "^3.1.0",
     "immutability-helper": "^2.0.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
@@ -65,11 +69,11 @@
     "moment": "github:moment/moment",
     "node-sass": "^3.10.0",
     "normalize.css": "^4.2.0",
-    "react": "^15.1.0",
-    "react-addons-css-transition-group": "^15.3.1",
-    "react-addons-pure-render-mixin": "^15.3.1",
+    "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-addons-pure-render-mixin": "^15.3.2",
     "react-bootstrap": "^0.29.5",
-    "react-dom": "^15.3.1",
+    "react-dom": "^15.3.2",
     "react-highcharts": "^8.4.2",
     "react-komposer": "^1.13.1",
     "react-mixin": "^3.0.5",
@@ -88,7 +92,8 @@
       "scss"
     ],
     "globalVariables": [
-      "node_modules/react-toolbox/lib/_colors.scss", {
+      "node_modules/react-toolbox/lib/_colors.scss",
+      {
         "theme-building": true
       },
       "client/main.scss"

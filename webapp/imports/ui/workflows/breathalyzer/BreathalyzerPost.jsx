@@ -7,8 +7,8 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 Session.setDefault('BreathalyzerPostState', {
-	stepIndex: 0,
-	    });
+  stepIndex: 0
+});
 
 export default class BreathalyzerPost extends React.Component {
 
@@ -43,7 +43,7 @@ export default class BreathalyzerPost extends React.Component {
 		     disableFocusRipple={true}
 	             onClick={this.props.cancelStep}
 		/>
-	      <RaisedButton  
+	      <RaisedButton
 	      disableTouchRipple={true}
 	      disableFocusRipple={true}
 	      primary={true}
@@ -70,4 +70,3 @@ BreathalyzerPost.propTypes = {
     cancelStep: React.PropTypes.func.isRequired,
 };
 ReactMixin(BreathalyzerPost.prototype, ReactMeteorData);
-
