@@ -23,7 +23,7 @@ module.exports = {
     const patientJourney = client.page.patientJourney();
 
     client
-      .url('http://localhost:3000')
+      .url('http://localhost:3000/tour')
       .sectionBreak(user.email);
 
     patientJourney

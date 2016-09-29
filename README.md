@@ -55,7 +55,7 @@ COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-
 #### Mobile Build  
 
 ```sh
-meteor run ios --mobile-server meteor-on-fhir.meteorapp.com
+meteor run ios --mobile-server app-3977.on-aptible.com --settings settings.json
 ```    
 
 

@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { App } from '/imports/ui/layouts/App';
 import { AboutPage } from '/imports/ui/pages/AboutPage';
+import { TourPage } from '/imports/ui/pages/TourPage';
 import { PrivacyPage } from '/imports/ui/pages/PrivacyPage';
 import { DashboardPage } from '/imports/ui/pages/DashboardPage';
 import { Documents } from '/imports/ui/pages/Documents';
@@ -93,6 +94,9 @@ Meteor.startup(() => {
 
         <Route name="breathalyzer" path="/breathalyzer" component={ BreathalyzerPage } />
         <Route name="careplan" path="/careplan" component={ CarePlanPage } />
+
+
+        <Route name="tour" path="/tour" component={ TourPage } />
 
         <Route path="*" component={ NotFound } />
 

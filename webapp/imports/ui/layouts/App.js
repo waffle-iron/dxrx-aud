@@ -3,7 +3,7 @@ import React from 'react';
 // import AppNavigation from '/imports/ui/containers/app-navigation';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -17,9 +17,11 @@ export class App extends React.Component {
     super(props);
   }
 
-    getChildContext() {
-	return {muiTheme: getMuiTheme(baseTheme)};
-    }
+  getChildContext() {
+    return {
+      muiTheme: getMuiTheme(baseTheme)
+    };
+  }
 
     //    const App = () => (
     //<MuiThemeProvider>
@@ -51,6 +53,6 @@ App.propTypes = {
   children: React.PropTypes.element.isRequired
 };
 App.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
+  muiTheme: React.PropTypes.object.isRequired
 };
 App.defaultProps = {};

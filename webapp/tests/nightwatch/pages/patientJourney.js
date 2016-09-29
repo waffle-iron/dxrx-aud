@@ -1,10 +1,34 @@
 module.exports = {
   url: 'https://localhost:3000',
   commands: [{
+    signup: function(firstName, lastName, emailAddress, password, accessCode) {
+      return this
+        .verify.elementPresent("#signupPage")
+        .verify.elementPresent('input[name="firstName"]')
+        .verify.elementPresent('input[name="lastName"]')
+        .verify.elementPresent('input[name="emailAddress"]')
+        .verify.elementPresent('input[name="password"]')
+        .verify.elementPresent('input[name="accessCode"]')
+
+        .clearValue('input[name="firstName"]')
+        .clearValue('input[name="lastName"]')
+        .clearValue('input[name="emailAddress"]')
+        .clearValue('input[name="password"]')
+        .clearValue('input[name="accessCode"]')
+
+        .setValue('input[name="firstName"]', firstName)
+        .setValue('input[name="lastName"]', lastName)
+        .setValue('input[name="emailAddress"]', emailAddress)
+        .setValue('input[name="password"]', password)
+        .setValue('input[name="accessCode"]', accessCode)
+
+      .verify.elementPresent('#signupButton')
+      .click('#signupButton');
+    },
     takeTour: function(){
       return this
         .verify.elementPresent('#tourPage')
-        .verify.elementPresent("#signInButton")
+        .verify.elementPresent("#signUpButton")
         .verify.elementPresent("#signUpButton")
         .click("#signUpButton");
     },

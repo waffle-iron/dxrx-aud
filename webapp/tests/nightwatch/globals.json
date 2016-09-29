@@ -1,31 +1,31 @@
 {
-  "default" : {
-    "url" : "http://localhost:3000",
-    "user": {
+  "default": {
+    "url": "http://localhost:3000",
+    "defaultUser": {
       "name": "Jane Doe",
-      "username" : "janedoe",
-      "password" : "janedoe123",
-      "email" : "janedoe@test.org",
+      "username": "janedoe",
+      "password": "janedoe123",
+      "email": "janedoe@test.org",
       "userId": null
     }
   },
-  "circle" : {
-    "url" : "http://localhost:3000",
-    "user": {
+  "circle": {
+    "url": "http://localhost:3000",
+    "defaultUser": {
       "name": "Jane Doe",
-      "username" : "janedoe",
-      "password" : "janedoe123",
-      "email" : "janedoe@test.org",
+      "username": "janedoe",
+      "password": "janedoe123",
+      "email": "janedoe@test.org",
       "userId": null
     }
   },
-  "galaxy" : {
-    "url" : "http://myapp.meteorapp.com",
-    "user": {
+  "galaxy": {
+    "url": "http://myapp.meteorapp.com",
+    "defaultUser": {
       "name": "Jane Doe",
-      "username" : "janedoe",
-      "password" : "janedoe123",
-      "email" : "janedoe@test.org",
+      "username": "janedoe",
+      "password": "janedoe123",
+      "email": "janedoe@test.org",
       "userId": null
     }
   }
