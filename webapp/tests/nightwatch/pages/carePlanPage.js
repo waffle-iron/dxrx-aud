@@ -1,23 +1,38 @@
 module.exports = {
   url: 'http://localhost:3000',
   commands: [{
-    skipToQuestionnaire: function() {
-      return this;
+    verifyCareplanElements: function() {
+      return this
+        .verify.elementPresent('#contactInfoSection')
+
+        .verify.elementPresent('#surveySection')
+        .verify.elementPresent('#breathalyzerSection')
+        .verify.elementPresent('#observationSection')
+        .verify.elementPresent('#adherenceSection');
+    },
+    skipToSurvey: function() {
+      return this.click('#surveySection');
     },
     skipToBreathalyzer: function() {
-      return this;
+      return this.click('#breathalyzerSection');
+    },
+    skipToObservation: function() {
+      return this.click('#observationSection');
     },
     skipToAdherencePhoto: function() {
-      return this;
+      return this.click('#adherenceSection');
     },
-    verifyQuestionnaireCompleted: function() {
-      return this;
+    verifySurveyCompleted: function() {
+      return this
+      .verify.elementPresent('#surveySectionCompleted');
     },
     verifyBreathalyzerCompleted: function() {
-      return this;
+      return this
+        .verify.elementPresent('#breathalyzerSectionCompleted');
     },
-    verifyPhotoTaken: function() {
-      return this;
+    verifyAdherencePhotoTaken: function() {
+      return this
+        .verify.elementPresent('#adherenceSectionCompleted');
     },
     verifyMedicationHistoryElements: function() {
       return this;
@@ -30,8 +45,17 @@ module.exports = {
     }
   }],
   elements: {
-    indexPage: {
-      selector: '#indexPage'
+    surveySection: {
+      selector: '#surveySection'
+    },
+    breathalyzerSection: {
+      selector: '#breathalyzerSection'
+    },
+    observationSection: {
+      selector: '#observationSection'
+    },
+    adherenceSection: {
+      selector: '#adherenceSection'
     }
   }
 };
