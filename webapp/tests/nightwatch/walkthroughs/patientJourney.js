@@ -11,7 +11,7 @@ module.exports = {
         Meteor.call('dropQuestionnaireResponsesCollection');
         Meteor.call('dropPatients');
         Meteor.call('dropTestUsers');
-        Meteor.call('initializeUser', user.email, user.password);
+        //Meteor.call('initializeUser', user.email, user.password);
       }, [client.globals.defaultUser]);
   },
   'Default User Journey': function(client){
@@ -28,7 +28,7 @@ module.exports = {
 
     patientJourney
       .takeTour()
-      .signup('janedoe@test.org', 'janedoe123', 'Jane Doe')
+      .signup('Jane', 'Doe', 'janedoe@test.org', 'janedoe123', '')
       .acceptWelcomeScreen()
       .configureDevice('abc-123')
       .configureProfile('Jane Doe', 'Female', '160lbs')

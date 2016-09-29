@@ -3,7 +3,7 @@ module.exports = {
   commands: [{
     signup: function(firstName, lastName, emailAddress, password, accessCode) {
       return this
-        .verify.elementPresent("#signupPage")
+        .waitForElementPresent("#signupPage", 5000)
         .verify.elementPresent('input[name="firstName"]')
         .verify.elementPresent('input[name="lastName"]')
         .verify.elementPresent('input[name="emailAddress"]')
@@ -27,14 +27,14 @@ module.exports = {
     },
     takeTour: function(){
       return this
-        .verify.elementPresent('#tourPage')
+        .waitForElementPresent('#tourPage', 5000)
         .verify.elementPresent("#signUpButton")
         .verify.elementPresent("#signUpButton")
         .click("#signUpButton");
     },
     acceptWelcomeScreen: function(){
       return this
-        .verify.elementPresent('#welcomePatientPage')
+        .waitForElementPresent('#welcomePatientPage', 5000)
 
         // add stuff here
 
@@ -43,7 +43,7 @@ module.exports = {
     },
     configureDevice: function(){
       return this
-        .verify.elementPresent('#deviceConfigurationPage')
+        .waitForElementPresent('#deviceConfigurationPage', 5000)
 
         // add stuff here
         // add device ID input?
@@ -53,7 +53,7 @@ module.exports = {
     },
     configureProfile: function(){
       return this
-        .verify.elementPresent('#myProfilePage')
+        .waitForElementPresent('#myProfilePage', 5000)
 
         .verify.elementPresent("#fullNameInput")
         .verify.elementPresent("#genderInput")
@@ -64,7 +64,7 @@ module.exports = {
     },
     verifyCarePlanHistoryElements: function(){
       return this
-        .verify.elementPresent('#carePlanHistoryPage');
+        .waitForElementPresent('#carePlanHistoryPage', 5000);
     },
     startCarePlan: function(){
       return this

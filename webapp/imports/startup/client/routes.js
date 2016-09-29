@@ -30,6 +30,8 @@ import { NeedToBePractioner } from '/imports/ui/pages/NeedToBePractioner';
 import { ConversationsPage } from '/imports/ui/pages/ConversationsPage';
 import { NewTopicPage } from '/imports/ui/pages/NewTopicPage';
 
+import { WelcomePatientPage } from '/imports/ui/pages/WelcomePatientPage';
+
 //import { Bert } from 'meteor/themeteorchef:bert';
 
 const requireAuth = (nextState, replace) => {
@@ -54,7 +56,7 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute name="index" component={ Index } onEnter={ requireAuth } />
+        <IndexRoute name="index" component={ CarePlanPage } onEnter={ requireAuth } />
 
         <Route name="documents" path="/documents" component={ Documents } onEnter={ requirePractitioner } />
         <Route name="login" path="/login" component={ Login } />
@@ -95,8 +97,8 @@ Meteor.startup(() => {
         <Route name="breathalyzer" path="/breathalyzer" component={ BreathalyzerPage } />
         <Route name="careplan" path="/careplan" component={ CarePlanPage } />
 
-
         <Route name="tour" path="/tour" component={ TourPage } />
+        <Route name="welcomePatient" path="/welcome/patient" component={ WelcomePatientPage } />
 
         <Route path="*" component={ NotFound } />
 

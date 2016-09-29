@@ -28,7 +28,7 @@ const signUp = () => {
     if (error) {
       Bert.alert(error.reason, 'danger');
     } else {
-      browserHistory.push('/');
+      browserHistory.push('/welcome/patient');
       Bert.alert('Welcome!', 'success');
     }
   });
