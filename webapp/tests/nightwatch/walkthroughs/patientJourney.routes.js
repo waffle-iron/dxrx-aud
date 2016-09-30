@@ -46,21 +46,9 @@ module.exports = {
         });
       }).pause(3000)
       .url('http://localhost:3000').pause(2000)
-      .verify.elementPresent('#indexPage')
-      .saveScreenshot('tests/nightwatch/screenshots/patientRoutes/index.png');
-  },
-  '/careplan': function (client) {
-    client
-      .url('http://localhost:3000/careplan').pause(2000)
       .verify.elementPresent('#carePlanPage')
       .saveScreenshot('tests/nightwatch/screenshots/patientRoutes/careplan.png');
   },
-  // '/breathalyzer': function (client) {
-  //   client
-  //     .url('http://localhost:3000/breathalyzer').pause(4000)
-  //     .verify.elementPresent('#breathalyzerPage')
-  //     .saveScreenshot('tests/nightwatch/screenshots/patientRoutes/breathalyzer.png');
-  // },
   '/weblog': function (client) {
     client
       .url('http://localhost:3000/weblog').pause(2000)

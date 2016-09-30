@@ -15,18 +15,20 @@ module.exports = {
     client.resizeWindow(750, 1334);
 
     // const signupPage = client.page.signupPage();
-    const indexPage = client.page.indexPage();
+    const carePlanPage = client.page.carePlanPage();
 
     client.page.signupPage()
       .navigate()
       .signup('Alice', 'Doe', 'alice@test.org', 'alicedoe', '')
       .pause(1000, client);
 
-    indexPage.expect.element('#indexPage').to.be.present;
-    indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
+    // carePlanPage.expect.element('#welcomePatientPage').to.be.present;
+    // carePlanPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
   'User gets logged in after signup.': function (client) {
-    client.verify.elementPresent('#indexPage');
+    client
+      .verify.elementPresent('#welcomePatientPage')
+      .verify.containsText('#authenticatedUsername', 'Alice Doe');
   },
   'User can log out.': function (client) {
     client.verify.elementPresent('#authenticatedUsername')
@@ -37,15 +39,15 @@ module.exports = {
   },
   'User can sign in.': function (client) {
     // const loginPage = client.page.loginPage();
-    const indexPage = client.page.indexPage();
+    const carePlanPage = client.page.carePlanPage();
 
     client.page.loginPage()
       .navigate()
       .login('alice@test.org', 'alicedoe')
       .pause(2000, client);
 
-    indexPage.expect.element('#indexPage').to.be.present;
-    indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
+    carePlanPage.expect.element('#carePlanPage').to.be.present;
+    carePlanPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
   'User can view profile.': function (client) {
     client
@@ -100,10 +102,10 @@ module.exports = {
       client.setValue('input[name="oldPassword"]', oldPassArray[i]).pause(100);
     }
     for(var j=0; j < newPassArray.length; j++) {
-      client.setValue('input[name="newPassword"]', newPassArray[i]).pause(100);
+      client.setValue('input[name="newPassword"]', newPassArray[j]).pause(100);
     }
     for(var k=0; k < newPassArray.length; k++) {
-      client.setValue('input[name="confirmPassword"]', newPassArray[i]).pause(100);
+      client.setValue('input[name="confirmPassword"]', newPassArray[k]).pause(100);
     }
 
     client.click('#changePasswordButton').pause(1000)
@@ -134,7 +136,7 @@ module.exports = {
         .setValue('input[name="password"]', 'alice123')
 
         .click('#loginButton').pause(1000)
-          .verify.elementPresent('#indexPage');
+          .verify.elementPresent('#carePlanPage');
   },
   'User can delete account.': function (client) {
     // log out

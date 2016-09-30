@@ -88,7 +88,7 @@ module.exports = {
         .verify.elementPresent('#surveySection')
         .verify.elementPresent('#breathalyzerSection')
         .verify.elementPresent('#observationSection')
-        .verify.elementPresent('#adherenceSection')
+        .verify.elementPresent('#adherenceSection');
     },
 
     startSurvey: function() {
@@ -99,7 +99,7 @@ module.exports = {
       this
         .waitForElementPresent('#questionnairePage', 2000);
 
-      this.waitForElementPresent("#firstDrinkTimeSlider", 2000)
+      this.waitForElementPresent("#firstDrinkTimeSlider", 2000);
       client
         .pause(1500)
         .moveToElement("#firstDrinkTimeSlider", 20, 0)
@@ -108,7 +108,7 @@ module.exports = {
         .click("#firstDrinkTimeSlider-NextQuestion");
 
 
-      this.waitForElementPresent("#lastDrinkTimeSlider", 2000)
+      this.waitForElementPresent("#lastDrinkTimeSlider", 2000);
       client
         .pause(1000)
         .moveToElement("#lastDrinkTimeSlider", 60, 0)
@@ -116,7 +116,7 @@ module.exports = {
         .waitForElementPresent("#lastDrinkTimeSlider-NextQuestion", 2000)
         .click("#lastDrinkTimeSlider-NextQuestion");
 
-      this.waitForElementPresent("#lastDrinkNumberSlider", 2000)
+      this.waitForElementPresent("#lastDrinkNumberSlider", 2000);
       client
         .pause(500)
         .moveToElement("#lastDrinkNumberSlider", 20, 0)
@@ -124,7 +124,7 @@ module.exports = {
         .waitForElementPresent("#lastDrinkNumberSlider-NextQuestion", 2000)
         .click("#lastDrinkNumberSlider-NextQuestion");
 
-      this.waitForElementPresent("#estimatedBacSlider", 2000)
+      this.waitForElementPresent("#estimatedBacSlider", 2000);
       client
         .pause(500)
         .moveToElement("#estimatedBacSlider", 20, 0)
