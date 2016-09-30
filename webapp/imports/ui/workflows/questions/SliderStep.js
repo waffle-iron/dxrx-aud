@@ -3,9 +3,9 @@ import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { Step, StepButton, StepContent } from 'material-ui/Stepper';
 import Slider from 'material-ui/Slider';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import {shallowCopy,setRawValue} from '../breathalyzer/Utils.js';
 import { sprintf } from 'sprintf-js';
+import QuestionNav from './QuestionNav.js';
 
 export default class SliderStep extends React.Component {
 
@@ -20,7 +20,6 @@ export default class SliderStep extends React.Component {
   render () {
     var stateStruct = this.props.stateStruct; // The name of the session variable that contains the state structure. Hack.
     var stateVariable = this.props.stateVariable; // The name of the slider value variable within the state structure. Hack.
-    var resultVariable = this.props.resultVariable; // Name of the variable holding the measurement returned from the slider
     var stepIndexName = this.props.stepIndexName; // The name of the step index variable within the state structure. Hack.
     var stepIndex = this.props.stepIndex; // The index of this step within the parent stepper.
     var maxSteps = this.props.maxStepIndex; // The max step number of the parent stepper (index of last step).
@@ -41,8 +40,12 @@ export default class SliderStep extends React.Component {
     var leftLabel = this.props.leftLabel;
     var rightLabel = this.props.rightLabel;
     var unfilledAnswer;
+    console.log('In SliderStep');
 
-    var curValue = this.getData(stateStruct, stateVariable);
+    var stateV = this.getData(stateStruct, stateVariable);
+    console.log('stateV=' + JSON.stringify(stateV));
+    var curValue = stateV.rawValue;
+    console.log('curValue=' + curValue);
     var isUnfilled = false;
     var isBeyond = false;
     var currentIndex = this.getData(stateStruct, stepIndexName);
@@ -66,7 +69,6 @@ export default class SliderStep extends React.Component {
       if (curValue > maxValue) {
         isBeyond = true;
       }
-
     } else {
       if (curValue > maxValue) {
         isUnfilled = true;
@@ -75,8 +77,15 @@ export default class SliderStep extends React.Component {
         isBeyond = true;
       }
     }
-    var getVal = this.getData(stateStruct, stateVariable);
-    console.log('Picking label with curValue=' + curValue + ', getVal=' + getVal + ', minVal=' + minValue);
+    var labels = '';
+    console.log('In Slider Step - 2');
+    if (!((typeof leftLabel === 'undefined') || (typeof rightLabel === 'undefined'))) {
+      labels = <div style={{display: 'flex',flex: 1, flexWrap: 'wrap', flexDirection: 'row',
+              justifyContent: 'space-between', fontSize: 12,lineSpacing: '13px', padding: 0,
+              marginLeft:10, marginRight:10,marginTop:0,marginBottom:3}}><div>{leftLabel}</div><div>{rightLabel}</div></div>;
+    }
+    var getVal = curValue;
+    console.log('Setting slider value to ' + getVal);
     var valueLabel = isUnfilled ? unSetLabel :
       (isBeyond ?
         sprintf(beyondLabel, interpretValue(getVal)) :
@@ -86,64 +95,45 @@ export default class SliderStep extends React.Component {
     } else {
       unfilledAnswer = sprintf(answerFormat, valueLabel);
     }
+    console.log('In Slider Step - 3');
+    console.log('The props: ', JSON.stringify(this.props));
+    console.log('UnfilledPrompt: ' + unfilledPrompt);
+    console.log('unfilledAnswer: ' + unfilledAnswer);
+    console.log('valueLabel: '  + valueLabel);
+    console.log('Labels: ' + labels);
     return (
       <Step index={stepIndex}>
-        <StepButton
-          onClick={this.setData.bind(this, stateStruct, stepIndexName, stepIndex)}
+        <StepButton style={{linespacing: 1,fontSize: 18,marginBottom: 0}}
+          onTouchTap={this.setData.bind(this, stateStruct, stepIndexName, stepIndex)}
           completed={!isUnfilled}>
           {(isUnfilled || currentIndex == stepIndex) ? unfilledPrompt : unfilledAnswer}
         </StepButton>
-        <StepContent active={(stepIndex == currentIndex)}>
-          {valueLabel}
-          <Slider
-            style={{width: '90%', margin: '0px 0px'}}
-            min={(minValue - stepIncrement)}
-            max={(maxValue + stepIncrement)}
-            step={stepIncrement}
-            defaultValue={unfilledLeft ? (minValue - stepIncrement) : (maxValue + stepIncrement)}
-            value={getVal}
-            onChange={this.setDataSlider.bind(this, stateStruct, stateVariable, resultVariable, valueForSetting)} />
-          { (maxSteps == 0) ? '' :
-        (<div style={{margin: '12px 0'}}>
-            <FlatButton
-              label='Back'
-              disabled={stepIndex === 0}
-              disableTouchRipple={true}
-              disableFocusRipple={true}
-              onClick={this.handlePrev.bind(this, stateStruct, stepIndexName)} />
-            {showDone ?
-               <FlatButton
-                 label='Next Question'
-                 disabled={stepIndex === maxSteps}
-                 disableTouchRipple={true}
-                 disableFocusRipple={true}
-                 onClick={this.handleNext.bind(this, stateStruct, stepIndexName, maxSteps)}
-                 style={{marginRight: 12}} />
-               :
-               <RaisedButton
-                 label='Next Question'
-                 disabled={stepIndex === maxSteps}
-                 disableTouchRipple={true}
-                 disableFocusRipple={true}
-                 primary={true}
-                 onClick={this.handleNext.bind(this, stateStruct, stepIndexName, maxSteps)}
-                 style={{marginRight: 12}} />}
-            </div>)}
-            {showDone ?
-               <div style={{margin: '12px 0'}}>
-                 <RaisedButton
-                 label='Finish Questions'
-                 disableTouchRipple={true}
-                 disableFocusRipple={true}
-                 primary={true}
-                 onClick={doneStep}
-                 style={{marginRight: 12}} />
-               </div>
-               : ''}
-
-        </StepContent>
-      </Step>
-    );
+        <StepContent style={{linespacing: 1, marginBottom: 0,marginTop:0, padding: 0}}
+          active={(stepIndex == currentIndex)}>
+          <div style={{marginRight:10,marginTop:0,marginBottom:0,padding: 0}}>
+            <div style={{fontSize: 16,marginLeft: 15, marginRight:15,marginTop:0,marginBottom:0,padding:0}}>
+              {valueLabel}
+            </div>
+            <Slider
+             style={{width: '90%', height:10, linespacing: 0,marginLeft:10,marginRight:10,marginTop: 0, marginBottom:0}}
+             min={(minValue - stepIncrement)}
+             max={(maxValue + stepIncrement)}
+             step={stepIncrement}
+             defaultValue={unfilledLeft ? (minValue - stepIncrement) : (maxValue + stepIncrement)}
+             value={getVal}
+             onChange={setRawValue.bind(this, stateStruct, stateVariable, valueForSetting)} />
+           {labels}
+            <QuestionNav
+              maxSteps={maxSteps}
+              showDone={showDone}
+              stepIndex={stepIndex}
+              stateStruct={stateStruct}
+              stepIndexName={stepIndexName}
+              doneStep={doneStep}
+              />
+          </div>
+          </StepContent>
+          </Step>);
   }
 
   handleNext (stateStruct, stepIndexName, maxSteps) {
@@ -164,18 +154,11 @@ export default class SliderStep extends React.Component {
     Session.set(stateStruct, data);
   }
 
-  setDataSlider (structVar, event, res, valueForSetting, ev2, val) {
-    var data = Session.get(structVar);
-    data[event] = val;
-    data[res] = (typeof val) === 'undefined' ? undefined : valueForSetting(val);
-    var classVar = Object.assign(data);
-    Session.set(structVar, classVar);
-  }
 
   setData (structVar, event, value) {
     var data = Session.get(structVar);
     data[event] = value;
-    var classVar = Object.assign(data);
+    var classVar = shallowCopy(data);
     Session.set(structVar, classVar);
   }
 
@@ -188,7 +171,6 @@ export default class SliderStep extends React.Component {
 SliderStep.propTypes = {
   stateStruct: React.PropTypes.string.isRequired,
   stateVariable: React.PropTypes.string.isRequired,
-  resultVariable: React.PropTypes.string.isRequired,
   stepIndexName: React.PropTypes.string.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   maxStepIndex: React.PropTypes.number.isRequired,

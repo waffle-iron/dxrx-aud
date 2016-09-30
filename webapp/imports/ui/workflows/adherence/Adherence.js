@@ -2,10 +2,10 @@ import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import FlatButton from 'material-ui/FlatButton';
-import { Card, CardHeader, CardText, CardActions, CardMedia } from 'material-ui/Card';
 import {Stepper} from 'material-ui/Stepper';
 import SliderStep from  '../questions/SliderStep';
 import RaisedButton from 'material-ui/RaisedButton';
+import Center from '../breathalyzer/Center.js';
 import {timeBefore,timeBeforeValue,shallowCopy} from '../breathalyzer/Utils.js';
 
 Session.setDefault('AdherenceState', {
@@ -25,6 +25,8 @@ export default class Adherence extends React.Component {
       data = {
         adherencePictureTime: undefined,
         alreadyTook: false,
+        willNotTake: false,
+        willNotTakeReason: '',
         assertedAdherenceTime: undefined,
         assertedAdherenceTimeSlider: undefined,
         startTime: undefined,
@@ -59,8 +61,8 @@ export default class Adherence extends React.Component {
     var options = {
       quality: 60,
       allowEdit: false,
-      targetWidth: 150,
-      targetHeight: 200,
+      targetWidth: 180,
+      targetHeight: 240,
       destinationType: navigator.camera.DestinationType.DATA_URL
     };
     navigator.camera.getPicture(
@@ -69,23 +71,29 @@ export default class Adherence extends React.Component {
       options);
   }
 
-  alreadyTook() {
+  alreadyTook(val) {
     let d = Session.get('AdherenceState');
-    d.alreadyTook = true;
+    d.alreadyTook = val;
+    Session.set('AdherenceState',shallowCopy(d));
+  }
+
+  willNotTake(val) {
+    let d = Session.get('AdherenceState');
+    d.willNotTake = val;
     Session.set('AdherenceState',shallowCopy(d));
   }
 
   render() {
     console.log('In  Adherence render');
     var lastStep = this.props.lastStep;
-    var cancelStep = this.props.cancelStep;
     var data = Session.get('AdherenceState');
-    var alreadyTookMsg = '';
+    var alreadyTookMsg = [];
     var showDone = !(((typeof data.assertedAdherenceTime) === 'undefined') ||
                      ((typeof data.adherencePictureTime) === 'undefined'));
     if (typeof data.startTime === 'undefined' ) {
       data.startTime = new Date();
     }
+    var pic = '';
     if (data.alreadyTook) {
       alreadyTookMsg = (<Stepper
         activeStep={0}
@@ -101,8 +109,8 @@ export default class Adherence extends React.Component {
           maxStepIndex={0}
           unsetValue={((typeof data.assertedAdherenceTime) === 'undefined')}
           maxValue={0}
-          minValue={-480}
-          stepIncrement={5}
+          minValue={-720}
+          stepIncrement={10}
           unfilledSide='right'
           unfilledPrompt='When did you take your meds?'
           answerFormat='You took your meds at: %s'
@@ -111,62 +119,68 @@ export default class Adherence extends React.Component {
           validLabel='%s'
           interpretValue={timeBefore.bind(this,data.startTime)}
           valueForSetting={timeBeforeValue.bind(this,data.startTime)}
-          showDone={showDone}
+          showDone={false}
           doneStep={lastStep}
+          leftLabel='earlier'
+          rightLabel='now'
           />
       </Stepper>);
-    }
-    var pic = (<img
-        id='adherencePicture' src='/TakeYourMeds.png' height='200px' width='150px'
-        onClick={this.capturePhoto.bind(this)}
-        />);
-    if (!(typeof data.adherencePictureTime === 'undefined')) {
+    } else {
       pic = (<img
-          id='adherencePicture' src={Session.get('AdherencePicture')}
-          height='200px' width='150px' onClick={this.capturePhoto.bind(this)}
+          id='adherencePicture' src='/TakeYourMeds.png' height='240px' width='180px'
+          onClick={this.capturePhoto.bind(this)}
           />);
+      if (!(typeof data.adherencePictureTime === 'undefined')) {
+        pic = (<img
+            id='adherencePicture' src={Session.get('AdherencePicture')}
+            height='240px' width='180px' onClick={this.capturePhoto.bind(this)}
+            />);
+      }
     }
-    console.log('Returning from Adherence render');
-    return (
-      <Card>
-        <CardHeader title='Take Your Medication' />
-        <CardText>Instructions for taking the medications.
-        </CardText>
-        <CardMedia>
-          <div style={{
-            flex: '1',
-            width: '300px',
-            justifyContent: 'center',
-            alignItems: 'center'}}>
-            <div style={{width: '150px', maxWidth: '150px', minWidth: '150px'}}>
-              {pic}
-            </div>
+    var buttons = (
+      <Center spacing={20}>
+      <div style={{display: 'flex',flex: 1,flexWrap: 'wrap', flexDirection: 'row',
+           justifyContent: 'space-around'}}>
+        <FlatButton
+          disableTouchRipple = {true}
+          disableFocusRipple = {true}
+          style = {{marginRight: 12}}
+          label = {data.alreadyTook ? 'Take a Picture' : 'Already Took Meds'}
+          onClick={this.alreadyTook.bind(this,!data.alreadyTook)} />
+        {showDone ?
+          (<RaisedButton
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            style={{marginRight: '12px'}}
+            label='Next'
+            onClick={this.props.lastStep} />) :
+          (<FlatButton
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            label='Next'
+            onClick={this.props.lastStep} />)}
           </div>
-        </CardMedia>
-        <CardActions>
-      {alreadyTookMsg}
-      <FlatButton
-        disableTouchRipple = {true}
-        disableFocusRipple = {true}
-        style = {{marginRight: 12}}
-        label = 'Already Took Meds'
-        onClick={this.alreadyTook.bind(this)} />
-          {showDone ?
-            (<RaisedButton
-              disableTouchRipple={true}
-              disableFocusRipple={true}
-              primary={true}
-              style={{marginRight: '12px'}}
-              label='Next'
-              onClick={this.props.lastStep} />) :
-              (<FlatButton
-                disableTouchRipple={true}
-                disableFocusRipple={true}
-                label='Next'
-                onClick={this.props.lastStep} />)}
-        </CardActions>
-      </Card>
-      );
+        </Center>
+    );
+
+    console.log('Returning from Adherence');
+    if (data.alreadyTook) {
+      return (<div><Center spacing={20} beforeSpacing={20} afterSpacing={20}>
+                    <h4>Take Your Meds</h4>
+              </Center>
+              {alreadyTookMsg}
+              {buttons}
+            </div>);
+    } else {
+      return (<div><Center spacing={20} beforeSpacing={20} afterSpacing={20}>
+            <div style={{width: '180px', maxWidth: '180px',minWidth: '180px'}}>
+                 {pic}
+             </div>
+           </Center>
+           {buttons}
+         </div>);
+    }
   }
 }
 

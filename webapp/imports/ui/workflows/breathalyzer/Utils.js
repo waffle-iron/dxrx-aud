@@ -26,6 +26,18 @@ export function timeBeforeValue (now,minutesAgo) {
   return (new Date(ms));
 }
 
+export function setData (structVar, event, value) {
+  var data = Session.get(structVar);
+  data[event] = value;
+  var classVar = Object.assign(data);
+  Session.set(structVar, classVar);
+}
+
+export function getData (structVar, event) {
+  var data = Session.get(structVar);
+  return data[event];
+}
+
 export function getValue(structName,fieldName,def) {
   var v= Session.get(structName);
   if (typeof v === 'undefined') {
@@ -35,6 +47,31 @@ export function getValue(structName,fieldName,def) {
     return def;
   }
   return v[fieldName];
+}
+
+export function setRawValue (structVar, event, valueForSetting, ev2, val) {
+  var data = Session.get(structVar);
+  console.log('setRawValue: ' + ' s=' + structVar + ' ev=' + event + ' vs=' +  valueForSetting + ' ev2=' + ev2 + ' val=' + val + ' payload= '+ JSON.stringify(data));
+  data[event].rawValue = val;
+  data[event].value = (typeof val) === 'undefined' ? undefined : valueForSetting(val);
+  data[event].timeStamp = new Date();
+  var classVar = shallowCopy(data);
+  Session.set(structVar, classVar);
+}
+
+
+export function getRawValue(structName,fieldName,def) {
+  var v= Session.get(structName);
+  if (typeof v === 'undefined') {
+    return def;
+  }
+  if (typeof (v[fieldName]) === 'undefined') {
+    return def;
+  }
+  if (typeof (v[fieldName].rawValue) === 'undefined') {
+    return def;
+  }
+  return v[fieldName].rawValue;
 }
 
 export function setValue (structName,fieldName, value) {

@@ -5,9 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {DynamicSpacer} from '/imports/ui/components/DynamicSpacer';
 import {Card,CardHeader,CardText,CardActions} from 'material-ui/Card';
-import {Initialize as BACInitialize,ScanAndConnect,Connect,StartCountdown,Disconnect,
+import {Initialize as BACInitialize,ScanAndConnect,Connecting1,StartCountdown,Disconnect,
   StopScan} from './BacTrack';
-import { shallowCopy } from './Utils.js';
 
 Session.setDefault('preferredBreathalyzerUuid', undefined);
 
@@ -28,9 +27,10 @@ export default class BreathalyzerDetail extends React.Component {
     if (typeof b === 'undefined') {
       haveState = false;
     }
-    console.log('In breathalyzerdetail render: ' + (haveState ? (' major state: ' +
-             b.lastMajorBacTrackState + ' minor state:' + b.lastBacTrackState) : ''));
+    console.log('In breathalyzerdetail render: ' + (haveState ? (' maj state: ' +
+             b.lastMajorBacTrackState + ' min state:' + b.lastBacTrackState) : ''));
     if (haveState && !(typeof b.bac === 'undefined')) {
+      this.handleDoneButton();
       return (
           <Card>
             <CardHeader title = 'Blood Alcohol Level' / >
@@ -141,12 +141,9 @@ export default class BreathalyzerDetail extends React.Component {
                   );
     } else if (haveState && b.lastMajorBacTrackState == 'BacTrackConnecting1') {
       console.log('handleConnecting1');
-      let b = Session.get('BacTrackState');
-      b.lastMajorBacTrackState ='BacTrackConnecting2';
-      Session.set('BacTrackState',shallowCopy(b));
       return (
                   <Card >
-                    <CardHeader title = 'Connecting.' />
+                    <CardHeader title = 'Connecting...' />
                       <CardActions >
                         <FlatButton
                           label = 'Cancel'
@@ -157,23 +154,21 @@ export default class BreathalyzerDetail extends React.Component {
                       </CardActions>
                     </Card>
           );
-    } else if (haveState && b.lastMajorBacTrackState == 'BacTrackConnecting2') {
-      console.log('handleConnecting2');
-      let p = Session.get('preferredBreathalyzerUuid');
-      Connect(p);
+    } else if (haveState && b.lastMajorBacTrackState == 'BacTrackConnecting') {
+      console.log('handleConnecting1');
       return (
-                    <Card >
-                      <CardHeader title = 'Connecting..' />
-                        <CardActions >
-                          <FlatButton
-                            label = 'Cancel'
-                            disableTouchRipple = {true}
-                            disableFocusRipple = {true}
-                            onClick = {this.handleCancelButton.bind(this)}
-                            />
-                        </CardActions>
-                      </Card>
-                  );
+                      <Card >
+                        <CardHeader title = 'Connecting...' />
+                          <CardActions >
+                            <FlatButton
+                              label = 'Cancel'
+                              disableTouchRipple = {true}
+                              disableFocusRipple = {true}
+                              onClick = {this.handleCancelButton.bind(this)}
+                              />
+                          </CardActions>
+                        </Card>
+              );
     } else if (haveState && b.isConnected && b.lastMajorBacTrackState == 'BacTrackConnectTimeout') {
       return (
                       <Card >
@@ -390,10 +385,7 @@ export default class BreathalyzerDetail extends React.Component {
   }
   handleSelection(selected) {
     console.log('handleSelection:' + selected);
-    let b = Session.get('BacTrackState');
-    b.lastMajorBacTrackState = 'BacTrackConnecting1';
-    Session.set('BacTrackState',shallowCopy(b));
-    Session.set('preferredBreathalyzerUuid', selected);
+    Connecting1(selected);
   }
   handleDoneButton() {
     console.log('handleDoneButton');

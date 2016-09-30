@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
-import { initWithDelegate, connectBreathalyzer, startScan, stopScan,disconnect, startCountdown,getBreathalyzerBatteryLevel } from './BacTrackServerDevice';
+import { initWithDelegate, connectBreathalyzer, startScan, stopScan,disconnect, startCountdown } from './BacTrackServerDevice';
 import { shallowCopy } from './Utils.js';
 
-Session.setDefault('BacTrackHotLoad',false);
+setTimeout(function() {console.log('Calling BacTrack InitializeDevice'); InitializeDevice();},2000);
+
 Session.setDefault('BacTrackState', {
   lastBacTrackState: 'noBacTrack',
   lastMajorBacTrackState: 'noBacTrack',
@@ -41,7 +42,6 @@ export default class BacTrack extends React.Component {
 
   constructor (props) {
     super(props);
-    Initialize();
   }
 }
 
@@ -66,11 +66,15 @@ export function Initialize () {
     batteryLevel: undefined,
     lastnull: undefined
   });
+  InitializeDevice();
+}
 
+export function InitializeDevice () {
   if (Meteor.isCordova) {
-    window.bactrack.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 8);
+    console.log('Initializing BacTrack');
+    window.bactrack.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 15);
   } else {
-    initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 8);
+    initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 15);
   }
 }
 
@@ -90,7 +94,7 @@ function handler (results) {
       BacTrackState.lastMajorBacTrackState = call;
       break;
     case 'BacTrackAPIKeyAuthorized':
-      BacTrackState.lastMajorBacTrackState = call;
+      console.log('API Key Authorized');
       break;
     case 'BacTrackConnectedOld':
       // Deprecated, should not be called (but it is!)
@@ -173,11 +177,11 @@ function handler (results) {
       if (arg1 == BacTrackState.preferreduuid) {
         if (Meteor.isCordova) {
           window.bactrack.stopScan(handler,errHandler);
-          window.bactrack.connectBreathalyzer(arg1,10,handler,errHandler);
+          window.bactrack.connectBreathalyzer(arg1,15,handler,errHandler);
           window.bactrack.startCountdown(handler,errHandler);
         } else {
           stopScan(handler,errHandler);
-          connectBreathalyzer(arg1,10,handler,errHandler);
+          connectBreathalyzer(arg1,15,handler,errHandler);
           startCountdown(handler,errHandler);
         }
       }
@@ -196,9 +200,7 @@ function handler (results) {
       break;
     }
   }
-  console.log('Setting state to copy');
   Session.set('BacTrackState',shallowCopy(BacTrackState));
-  console.log('Finished setting state to copy');
 }
 
 function errHandler (results) {
@@ -229,12 +231,21 @@ export function Connect (preferredUuid) {
   Session.set('BacTrackState',shallowCopy(BacTrackState));
   if (Meteor.isCordova) {
     console.log('Cordova connection ' + preferredUuid);
-    window.bactrack.connectBreathalyzer(BacTrackState.preferredUuid,10,handler,errHandler);
+    window.bactrack.connectBreathalyzer(BacTrackState.preferredUuid,15,handler,errHandler);
   } else {
     console.log('Simulated connection ' + preferredUuid);
-    connectBreathalyzer(BacTrackState.preferredUuid,10,handler,errHandler);
+    connectBreathalyzer(BacTrackState.preferredUuid,15,handler,errHandler);
   }
   console.log('Initiated connection process ' + preferredUuid);
+}
+
+export function Connecting1 (preferredUuid) {
+  var BacTrackState = Session.get('BacTrackState');
+  BacTrackState.preferredUuid = preferredUuid;
+  console.log('Starting connection process to ' + preferredUuid);
+  BacTrackState.lastMajorBacTrackState = 'BacTrackConnecting1';
+  Session.set('BacTrackState',shallowCopy(BacTrackState));
+  setTimeout(Connect.bind(this,preferredUuid),300);
 }
 
 export function ScanAndConnect (preferredUuid) {

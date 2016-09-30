@@ -20,6 +20,7 @@ var _BacTrackServerStateDispatch = {
   BacTrackAPIKeyAuthorized: function(index,step,args) {sim_BacTrackAPIKeyAuthorized(index,step,args);},
   BacTrackConnectedOld: function(index,step,args) {sim_BacTrackConnectedOld(index,step,args);},
   BacTrackConnected: function(index,step,args) {sim_BacTrackConnected(index,step,args);},
+  BacTrackConnect1: function(index,step,args) {sim_BacTrackConnect1(index,step,args);},
   BacTrackDisconnected: function(index,step,args) {sim_BacTrackDisconnected(index,step,args);},
   BacTrackCountdown: function(index,step,args) {sim_BacTrackCountdown(index,step,args);},
   BacTrackStart: function(index,step,args) {sim_BacTrackStart(index,step,args);},
@@ -83,6 +84,9 @@ function sim_connectToNearestBreathalyzer (index, step,args) {
 }
 function sim_connectBreathalyzer (index, step,args) {
   // Do Nothing, test plan should include separate BacTrackConnected
+}
+function sim_BacTrackConnect1 (index, step,args) {
+  setTimeout(this.sim_connectBreathalyzer.bind(this,index,step,args),200);
 }
 function sim_startScan (index, step,args) {
   // Do Nothing, test plan should include separate BacTrackFoundBreathalyzer

@@ -73,12 +73,13 @@ export class BreathalyzerPage extends React.Component {
 
   render () {
     let data = Session.get('bacTrackPage');
+    var skipIt = true;
     console.log('In BreathalyzerPage render');
     return (
       <div id='breathalyzerPage' style={{paddingTop: '15px'}}>
         <PageContainer>
           <Tabs value={data.onTab} onChange={this.gotoStep.bind(this)}>
-            <Tab label='Prelims' value='prelims'>
+          <Tab label='Prelims' value='prelims'>
               <BreathalyzerPre lastStep={this.gotoStep.bind(this, 'adherence')} cancelStep={this.cancelStep.bind(this)} />
             </Tab>
             <Tab label='Meds' value='adherence'>

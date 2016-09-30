@@ -44,7 +44,7 @@ export class Header extends React.Component {
         paddingTop: '0.6rem'
       },
       app: {
-        title: 'Meteor on FHIR Forum'
+        title: 'DxRx Medical'
       }
     };
 
