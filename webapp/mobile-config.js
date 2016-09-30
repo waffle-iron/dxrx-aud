@@ -1,11 +1,12 @@
 App.info({
   id: 'com.dxrxmedical.treatalcohol',
   name: 'Alcohol Treatment',
-  description: 'Medically supervised Alcohol Treatment Program from DxRx.',
+  description: 'Medically supervised Alcohol Treatment Program from DxRx Medical',
   author: 'DxRx Medical, Inc',
   email: 'bob@dxrxmedical.com',
-  website: 'https://app-3977.on-aptible.com',
-  version: '0.1.0'
+	    //  website: 'https://api.dxrxmedical.com',
+  website: 'http://localhost:3000',
+  version: '0.1.5'
 });
 
 App.icons({
@@ -56,8 +57,6 @@ App.setPreference('DisallowOverscroll', 'true');
 // Set PhoneGap/Cordova access rules
 App.accessRule('http://localhost', { type: 'navigation' } );
 App.accessRule('http://localhost:3000', { type: 'navigation' } );
-App.accessRule('http://checklist.symptomatic.io', { type: 'navigation' } );
-App.accessRule('http://checklist-manifesto.meteorapp.com', { type: 'navigation' } );
 
 App.setPreference("BackupWebStorage", "local");
 // // Pass preferences for a particular PhoneGap/Cordova plugin
