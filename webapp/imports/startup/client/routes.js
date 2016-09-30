@@ -35,6 +35,7 @@ import { WelcomePatientPage } from '/imports/ui/pages/WelcomePatientPage';
 import { DeviceConfigurationPage } from '/imports/ui/pages/DeviceConfigurationPage';
 import { ProfileSetupPage } from '/imports/ui/pages/ProfileSetupPage';
 
+import { QuestionnairePage } from '/imports/ui/pages/QuestionnairePage';
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -105,6 +106,7 @@ Meteor.startup(() => {
 
         <Route name="profileSetupPage" path="/profile-setup" component={ ProfileSetupPage } />
 
+        <Route name="questionnairePage" path="/questionnaire" component={ QuestionnairePage } />
 
 
         <Route path="*" component={ NotFound } />

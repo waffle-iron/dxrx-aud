@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
-// import {Step,Stepper,StepButton,StepContent,StepLabel} from 'material-ui/Stepper';
-// import {List,ListItem} from 'material-ui/List';
-// import {Divider} from 'material-ui/Divider';
+import {Step,Stepper,StepButton,StepContent,StepLabel} from 'material-ui/Stepper';
+import {List,ListItem} from 'material-ui/List';
+import {Divider} from 'material-ui/Divider';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {sprintf} from 'sprintf-js';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 export default class SliderStep extends React.Component {
 
@@ -167,7 +170,7 @@ SliderStep.propTypes = {
   stepIndexName: React.PropTypes.string.isRequired,
   stepIndex: React.PropTypes.number.isRequired,
   maxStepIndex: React.PropTypes.number.isRequired,
-  maxSteps: React.PropTypes.number.isRequired,
+  //maxSteps: React.PropTypes.number.isRequired,
   minValue: React.PropTypes.number.isRequired,
   unsetValue: React.PropTypes.bool.isRequired,
   maxValue: React.PropTypes.number.isRequired,
