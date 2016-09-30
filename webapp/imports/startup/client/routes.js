@@ -32,6 +32,8 @@ import { NewTopicPage } from '/imports/ui/pages/NewTopicPage';
 
 import { WelcomePatientPage } from '/imports/ui/pages/WelcomePatientPage';
 
+import { DeviceConfigurationPage } from '/imports/ui/pages/DeviceConfigurationPage';
+
 //import { Bert } from 'meteor/themeteorchef:bert';
 
 const requireAuth = (nextState, replace) => {
@@ -90,6 +92,7 @@ Meteor.startup(() => {
 
         <Route name="devices" path="/devices" component={ DevicePage } />
         <Route name="devicesByUserId" path="/devices/:userId" component={ DevicePage } />
+        <Route name="deviceConfiguration" path="/device-configuration" component={ DeviceConfigurationPage } />
 
         <Route name="observations" path="/observations" component={ ObservationPage } />
         <Route name="observationsByUserId" path="/observations/:userId" component={ ObservationPage } />
@@ -99,6 +102,9 @@ Meteor.startup(() => {
 
         <Route name="tour" path="/tour" component={ TourPage } />
         <Route name="welcomePatient" path="/welcome/patient" component={ WelcomePatientPage } />
+
+
+
 
         <Route path="*" component={ NotFound } />
 

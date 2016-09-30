@@ -15,7 +15,7 @@ export class WelcomePatientPage extends React.Component {
   }
 
   signin(){
-    browserHistory.push('/signup');
+    browserHistory.push('/device-configuration');
   }
 
   render(){
@@ -27,7 +27,7 @@ export class WelcomePatientPage extends React.Component {
               title="Welcome to DxRx Treatment Program"
             />
              <CardText>
-              Congratulations on taking the next step on your road to recovery!  
+              Congratulations on taking the next step on your road to recovery!
              </CardText>
 
              <Button id="configureDeviceButton" onClick={this.signin}>Configure Device</Button>

@@ -11,6 +11,7 @@ module.exports = {
         Meteor.call('dropQuestionnaireResponsesCollection');
         Meteor.call('dropPatients');
         Meteor.call('dropTestUsers');
+        Meteor.call('dropDevices');
         //Meteor.call('initializeUser', user.email, user.password);
       }, [client.globals.defaultUser]);
   },
@@ -30,7 +31,7 @@ module.exports = {
       .takeTour()
       .signup('Jane', 'Doe', 'janedoe@test.org', 'janedoe123', '')
       .acceptWelcomeScreen()
-      .configureDevice('abc-123')
+      .configureDevice('Breathalyzer', 'abc-123')
       .configureProfile('Jane Doe', 'Female', '160lbs')
       .startCarePlan()
       .fillOutSurvey(2, 3, 7, 8)

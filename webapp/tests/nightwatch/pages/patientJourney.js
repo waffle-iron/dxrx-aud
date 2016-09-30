@@ -41,15 +41,29 @@ module.exports = {
         .verify.elementPresent("#configureDeviceButton")
         .click("#configureDeviceButton");
     },
-    configureDevice: function(){
-      return this
+    configureDevice: function(type, identifier){
+      var self = this;
+      self
         .waitForElementPresent('#deviceConfigurationPage', 5000)
 
-        // add stuff here
-        // add device ID input?
+        .verify.elementPresent("#deviceTypeInput")
+        .verify.elementPresent("#deviceIdentifierInput")
 
-        .verify.elementPresent("#configureProfileButton")
-        .click("#configureProfileButton");
+        .clearValue("#deviceTypeInput")
+        .clearValue("#deviceIdentifierInput");
+
+      var typeArray = type.split('');
+      typeArray.forEach(function(letter){
+        self.setValue("#deviceTypeInput", letter);
+      });
+
+      var identifierArray = identifier.split('');
+      identifierArray.forEach(function(letter){
+        self.setValue("#deviceIdentifierInput", letter);
+      });
+
+      return self.verify.elementPresent("#saveDeviceConfigurationButton")
+        .click("#saveDeviceConfigurationButton");
     },
     configureProfile: function(){
       return this
