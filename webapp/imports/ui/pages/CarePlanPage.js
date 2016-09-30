@@ -57,77 +57,77 @@ export class CarePlanPage extends React.Component {
       }
     };
     return (
-      <div id='carePlanPage' style={{paddingTop: "20px"}}>
+      <section id='carePlanPage' style={{paddingTop: "20px"}}>
         <PageContainer>
 
-        <div style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
+        <section id="surveySection" style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
           <GlassCard style={style.indexCard} >
             <CardTitle
               title='Questionnaire'
               subtitle='A short treatment plan questionnaire.'
             />
           </GlassCard>
-        </div>
+        </section>
 
         <Spacer />
 
-          {/* <div style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
+          {/* <section style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Devices'
                 subtitle='BAC and other devices.'
               />
             </GlassCard>
-          </div>
+          </section>
 
           <Spacer /> */}
 
-          <div style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+          <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Breathalyzer'
                 subtitle='Measure your blood alcohol level.'
               />
             </GlassCard>
-          </div>
+          </section>
 
           <Spacer />
 
-          <div style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
+          <section id="observationSection" style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Observations'
                 subtitle='Observations from devices.'
               />
             </GlassCard>
-          </div>
+          </section>
 
           <Spacer />
 
-          <div style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+          <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Adherence'
                 subtitle='Take a photo of your medications.'
               />
             </GlassCard>
-          </div>
+          </section>
 
           <Spacer />
 
-          {/* <div style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
+          {/* <section style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Weblog'
                 subtitle='Post public thoughts using a Wordpress/Twitter style format.'
               />
             </GlassCard>
-          </div>
+          </section>
 
           <Spacer /> */}
 
         </PageContainer>
-      </div>
+      </section>
     );
   }
 
