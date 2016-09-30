@@ -67,9 +67,10 @@ module.exports = {
     },
     configureProfile: function(){
       return this
-        .waitForElementPresent('#myProfilePage', 5000)
+        .waitForElementPresent('#profileSetupPage', 5000)
 
-        .verify.elementPresent("#fullNameInput")
+        .verify.elementPresent("#givenNameInput")
+        .verify.elementPresent("#familyNameInput")
         .verify.elementPresent("#genderInput")
         .verify.elementPresent("#weightInput")
 
@@ -82,7 +83,7 @@ module.exports = {
     },
     startCarePlan: function(){
       return this
-        .verify.elementPresent('#carePlanPage')
+        .waitForElementPresent('#carePlanPage', 5000)
 
         .verify.elementPresent('#surveySection')
         .verify.elementPresent('#breathalyzerSection')

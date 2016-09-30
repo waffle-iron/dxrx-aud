@@ -17,7 +17,7 @@ module.exports = {
   },
   'Default User Journey': function(client){
     client
-      .resizeWindow(1200, 1800)
+      .resizeWindow(400, 960)
       .pause(3000);
 
     const user = client.globals.defaultUser;

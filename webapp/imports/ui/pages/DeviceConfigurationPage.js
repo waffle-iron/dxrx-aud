@@ -164,7 +164,7 @@ export class DeviceConfigurationPage extends React.Component {
             Bert.alert(error.reason, 'danger');
           } else {
             Bert.alert('Device updated!', 'success');
-            browserHistory.push('/myprofile');
+            browserHistory.push('/profile-setup');
           }
         });
       } else {
@@ -177,7 +177,7 @@ export class DeviceConfigurationPage extends React.Component {
           Bert.alert(error.reason, 'danger');
         } else {
           Bert.alert('Device added!', 'success');
-          browserHistory.push('/myprofile');
+          browserHistory.push('/profile-setup');
         }
       });
     }

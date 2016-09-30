@@ -33,8 +33,8 @@ import { NewTopicPage } from '/imports/ui/pages/NewTopicPage';
 import { WelcomePatientPage } from '/imports/ui/pages/WelcomePatientPage';
 
 import { DeviceConfigurationPage } from '/imports/ui/pages/DeviceConfigurationPage';
+import { ProfileSetupPage } from '/imports/ui/pages/ProfileSetupPage';
 
-//import { Bert } from 'meteor/themeteorchef:bert';
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -103,6 +103,7 @@ Meteor.startup(() => {
         <Route name="tour" path="/tour" component={ TourPage } />
         <Route name="welcomePatient" path="/welcome/patient" component={ WelcomePatientPage } />
 
+        <Route name="profileSetupPage" path="/profile-setup" component={ ProfileSetupPage } />
 
 
 
