@@ -9,6 +9,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import {sprintf} from 'sprintf-js';
 
+import { browserHistory } from 'react-router';
+
+
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -80,16 +83,17 @@ export default class SliderStep extends React.Component {
       <StepContent active={(stepIndex==currentIndex)}>
           {valueLabel}
       <Slider
+        id={this.props.id}
         style={{width: "90%", margin:'20px 0'}}
-             min={unsetValue ? (minValue-stepIncrement) : minValue}
-             max={(maxValue+stepIncrement)+0}
-             step={stepIncrement}
-             defaultValue={unsetValue ? (minValue-stepIncrement) : minValue}
-             value={getVal}
-            onChange={this.setDataSlider.bind(this,stateStruct,stateVariable)}
+        min={unsetValue ? (minValue-stepIncrement) : minValue}
+        max={(maxValue+stepIncrement)+0}
+        step={stepIncrement}
+        defaultValue={unsetValue ? (minValue-stepIncrement) : minValue}
+        value={getVal}
+        onChange={this.setDataSlider.bind(this,stateStruct,stateVariable)}
         />
       <div style={{margin: '12px 0'}}>
-      <FlatButton  label="Back"
+      <FlatButton label="Back"
            disabled={stepIndex===0}
            disableTouchRipple={true}
            disableFocusRipple={true}
@@ -97,6 +101,7 @@ export default class SliderStep extends React.Component {
       />
          {showDone ?
       <FlatButton  label="Next Question"
+           id={this.props.id + "Button"}
            disabled={stepIndex===maxSteps}
            disableTouchRipple={true}
            disableFocusRipple={true}
@@ -104,21 +109,23 @@ export default class SliderStep extends React.Component {
            style={{marginRight: 12}}
        /> :
        <RaisedButton
+            id={this.props.id + "-NextQuestion"}
             label="Next Question"
             disabled={stepIndex === maxSteps}
-       disableTouchRipple={true}
-       disableFocusRipple={true}
-       primary={true}
-       onClick={this.handleNext.bind(this,stateStruct,stepIndexName,maxSteps)}
-       style={{marginRight: 12}}
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            primary={true}
+            onClick={this.handleNext.bind(this,stateStruct,stepIndexName,maxSteps)}
+            style={{marginRight: 12}}
        />}
       {showDone ? <RaisedButton
-                  label="Finish Questions"
-      disableTouchRipple={true}
-      disableFocusRipple={true}
-      primary={true}
-                  onClick={doneStep}
-      style={{marginRight: 12}}
+          id="finishQuestionsButton"
+          label="Finish Questions"
+          disableTouchRipple={true}
+          disableFocusRipple={true}
+          primary={true}
+          onClick={this.backToCarePlan}
+          style={{marginRight: 12}}
       /> : ""}
       </div>
       </StepContent>
@@ -142,6 +149,10 @@ export default class SliderStep extends React.Component {
       data[stepIndexName] = stepIndex - 1;
     }
     Session.set(stateStruct,data);
+  }
+
+  backToCarePlan(){
+    browserHistory.push('/');
   }
 
   setDataSlider(structVar,event,ev2,val) {

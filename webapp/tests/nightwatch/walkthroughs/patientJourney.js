@@ -33,12 +33,15 @@ module.exports = {
       .acceptWelcomeScreen()
       .configureDevice('Breathalyzer', 'abc-123')
       .configureProfile('Jane Doe', 'Female', '160lbs')
-      .startCarePlan()
-      .fillOutSurvey(2, 3, 7, 8)
-      .simulateBreath(0.02)
-      .takeAdherencePhoto()
-      .verifyObservation(0.02)
-      .verifyCarePlanHistoryElements();
+      .verifyCarePlanElements()
+      .startSurvey()
+      .fillOutSurvey(2, 3, 7, 8, client)
+      .startBreathalyzer();
+      // .simulateBreath(0.02)
+      // .startAdherencePhoto()
+      // .takeAdherencePhoto()
+      // .verifyObservation(0.02)
+      // .verifyCarePlanHistoryElements();
 
     client
       .executeAsync(function(){

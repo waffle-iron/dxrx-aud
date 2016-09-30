@@ -60,7 +60,7 @@ export class CarePlanPage extends React.Component {
       <section id='carePlanPage' style={{paddingTop: "20px"}}>
         <PageContainer>
 
-        <section id="surveySection" style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
+        <section id="surveySection" style={style.indexCardPadding} onClick={ this.openQuestionnairePage.bind(this) } >
           <GlassCard style={style.indexCard} >
             <CardTitle
               title='Questionnaire'
@@ -70,17 +70,6 @@ export class CarePlanPage extends React.Component {
         </section>
 
         <Spacer />
-
-          {/* <section style={style.indexCardPadding} onClick={ this.openDevicepage.bind(this) } >
-            <GlassCard style={style.indexCard} >
-              <CardTitle
-                title='Devices'
-                subtitle='BAC and other devices.'
-              />
-            </GlassCard>
-          </section>
-
-          <Spacer /> */}
 
           <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
             <GlassCard style={style.indexCard} >
@@ -139,6 +128,9 @@ export class CarePlanPage extends React.Component {
   }
   openDevicepage(){
     browserHistory.push('/devices');
+  }
+  openQuestionnairePage(){
+    browserHistory.push('/questionnaire');    
   }
   openObservationpage(){
     browserHistory.push('/observations');

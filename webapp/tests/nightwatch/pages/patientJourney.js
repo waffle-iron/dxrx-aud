@@ -81,7 +81,7 @@ module.exports = {
       return this
         .waitForElementPresent('#carePlanHistoryPage', 5000);
     },
-    startCarePlan: function(){
+    verifyCarePlanElements: function(){
       return this
         .waitForElementPresent('#carePlanPage', 5000)
 
@@ -89,23 +89,68 @@ module.exports = {
         .verify.elementPresent('#breathalyzerSection')
         .verify.elementPresent('#observationSection')
         .verify.elementPresent('#adherenceSection')
-
-        .click('#surveySection');
     },
-    fillOutSurvey: function(){
+
+    startSurvey: function() {
+      return this.click('#surveySection');
+    },
+
+    fillOutSurvey: function(va1, val2, val3, val4, client){
+      this
+        .waitForElementPresent('#questionnairePage', 2000);
+
+      this.waitForElementPresent("#firstDrinkTimeSlider", 2000)
+      client
+        .pause(1500)
+        .moveToElement("#firstDrinkTimeSlider", 20, 0)
+        .mouseButtonClick(0)
+        .waitForElementPresent("#firstDrinkTimeSlider-NextQuestion", 2000)
+        .click("#firstDrinkTimeSlider-NextQuestion");
+
+
+      this.waitForElementPresent("#lastDrinkTimeSlider", 2000)
+      client
+        .pause(1000)
+        .moveToElement("#lastDrinkTimeSlider", 60, 0)
+        .mouseButtonClick(0)
+        .waitForElementPresent("#lastDrinkTimeSlider-NextQuestion", 2000)
+        .click("#lastDrinkTimeSlider-NextQuestion");
+
+      this.waitForElementPresent("#lastDrinkNumberSlider", 2000)
+      client
+        .pause(500)
+        .moveToElement("#lastDrinkNumberSlider", 20, 0)
+        .mouseButtonClick(0)
+        .waitForElementPresent("#lastDrinkNumberSlider-NextQuestion", 2000)
+        .click("#lastDrinkNumberSlider-NextQuestion");
+
+      this.waitForElementPresent("#estimatedBacSlider", 2000)
+      client
+        .pause(500)
+        .moveToElement("#estimatedBacSlider", 20, 0)
+        .mouseButtonClick(0)
+
+        .waitForElementPresent("#finishQuestionsButton", 2000)
+        .click("#finishQuestionsButton");
+
+      return this;
+    },
+    startBreathalyzer: function() {
       return this
-        .verify.elementPresent('#surveyPage')
-
-        .verify.elementPresent("#firstDrinkTimeSlider")
-        .verify.elementPresent("#lastDrinkTimeSlider")
-        .verify.elementPresent("#lastDrinkNumberSlider")
-        .verify.elementPresent("#estimatedBacSlider")
-
-        .click("#firstDrinkTimeSlider")
-        .click("#lastDrinkTimeSlider")
-        .click("#lastDrinkNumberSlider")
-        .click("#estimatedBacSlider");
+        .waitForElementPresent('#carePlanPage', 5000)
+        .click('#breathalyzerSection');
     },
+    reviewObservation: function() {
+      return this
+        .waitForElementPresent('#carePlanPage', 5000)
+        .click('#observationSection');
+    },
+    startAdherencePhoto: function() {
+      return this
+        .waitForElementPresent('#carePlanPage', 5000)
+        .click('#adherenceSection');
+    },
+
     simulateBreath: function(){
       return this
         .verify.elementPresent('#breathalyzerPage');

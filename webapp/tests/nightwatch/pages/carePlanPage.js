@@ -10,18 +10,6 @@ module.exports = {
         .verify.elementPresent('#observationSection')
         .verify.elementPresent('#adherenceSection');
     },
-    skipToSurvey: function() {
-      return this.click('#surveySection');
-    },
-    skipToBreathalyzer: function() {
-      return this.click('#breathalyzerSection');
-    },
-    skipToObservation: function() {
-      return this.click('#observationSection');
-    },
-    skipToAdherencePhoto: function() {
-      return this.click('#adherenceSection');
-    },
     verifySurveyCompleted: function() {
       return this
       .verify.elementPresent('#surveySectionCompleted');
