@@ -99,35 +99,41 @@ module.exports = {
       this
         .waitForElementPresent('#questionnairePage', 2000);
 
-      this.waitForElementPresent("#firstDrinkTimeSlider", 2000);
+      this.waitForElementPresent("input[name='didDrink'][value='true']", 2000)
+        .click("input[name='didDrink'][value='true']");
+
+      this.waitForElementPresent("#firstDrinkTimeButton", 2000)
+        .click("#firstDrinkTimeButton");
+
       client
-        .pause(1500)
+        .waitForElementPresent("#firstDrinkTimeSlider", 2000)
+        .pause(1000)
         .moveToElement("#firstDrinkTimeSlider", 20, 0)
         .mouseButtonClick(0)
-        .waitForElementPresent("#firstDrinkTimeSlider-NextQuestion", 2000)
-        .click("#firstDrinkTimeSlider-NextQuestion");
+        .waitForElementPresent("#lastDrinkTimeButton", 2000)
+        .click("#lastDrinkTimeButton");
 
 
-      this.waitForElementPresent("#lastDrinkTimeSlider", 2000);
       client
+        .waitForElementPresent("#lastDrinkTimeSlider", 2000)
         .pause(1000)
-        .moveToElement("#lastDrinkTimeSlider", 60, 0)
+        .moveToElement("#lastDrinkTimeSlider", 80, 0)
         .mouseButtonClick(0)
-        .waitForElementPresent("#lastDrinkTimeSlider-NextQuestion", 2000)
-        .click("#lastDrinkTimeSlider-NextQuestion");
+        .waitForElementPresent("#numberDrinksButton", 2000)
+        .click("#numberDrinksButton");
 
-      this.waitForElementPresent("#lastDrinkNumberSlider", 2000);
       client
-        .pause(500)
-        .moveToElement("#lastDrinkNumberSlider", 20, 0)
+        .waitForElementPresent("#numberDrinksSlider", 2000)
+        .pause(1000)
+        .moveToElement("#numberDrinksSlider", 20, 0)
         .mouseButtonClick(0)
-        .waitForElementPresent("#lastDrinkNumberSlider-NextQuestion", 2000)
-        .click("#lastDrinkNumberSlider-NextQuestion");
+        .waitForElementPresent("#estimatedBACButton", 2000)
+        .click("#estimatedBACButton");
 
-      this.waitForElementPresent("#estimatedBacSlider", 2000);
       client
-        .pause(500)
-        .moveToElement("#estimatedBacSlider", 20, 0)
+        .waitForElementPresent("#estimatedBACSlider", 2000)
+        .pause(1000)
+        .moveToElement("#estimatedBACSlider", 20, 0)
         .mouseButtonClick(0)
 
         .waitForElementPresent("#finishQuestionsButton", 2000)

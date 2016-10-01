@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob: 'unsafe-inline' 'unsafe-eval';">
+
+
+
+  <link rel="stylesheet" type="text/css" class="__meteor-css__" href="/merged-stylesheets.css?hash=78cc914950e16063ab6dacc71b90442517ac4a01">
+
+  <script type="text/javascript">
+    __meteor_runtime_config__ = JSON.parse(decodeURIComponent("%7B%22meteorRelease%22%3A%22METEOR%401.3.4.1%22%2C%22ROOT_URL%22%3A%22http%3A%2F%2Fapp-3977.on-aptible.com%2F%22%2C%22ROOT_URL_PATH_PREFIX%22%3A%22%22%2C%22DDP_DEFAULT_CONNECTION_URL%22%3A%22http%3A%2F%2Fapp-3977.on-aptible.com%2F%22%2C%22autoupdateVersionCordova%22%3A%22eb1596912b44180e3d1c922c09a260d8c258b9ba%22%2C%22appId%22%3A%221ipv1tp12xzfzhba088c%22%2C%22meteorEnv%22%3A%7B%22NODE_ENV%22%3A%22production%22%2C%22TEST_METADATA%22%3A%22%7B%7D%22%7D%7D"));
+
+    if (/Android/i.test(navigator.userAgent)) {
+      // When Android app is emulated, it cannot connect to localhost,
+      // instead it should connect to 10.0.2.2
+      // (unless we're using an http proxy; then it works!)
+      if (!__meteor_runtime_config__.httpProxyPort) {
+        __meteor_runtime_config__.ROOT_URL = (__meteor_runtime_config__.ROOT_URL || '').replace(/localhost/i, '10.0.2.2');
+        __meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL = (__meteor_runtime_config__.DDP_DEFAULT_CONNECTION_URL || '').replace(/localhost/i, '10.0.2.2');
+      }
+    }
+  </script>
+
+  <script type="text/javascript" src="/cordova.js"></script>
+  <script type="text/javascript" src="/packages/underscore.js?hash=27b3d669b418de8577518760446467e6ff429b1e"></script>
+  <script type="text/javascript" src="/packages/meteor.js?hash=0b0ea1099ba8153bbbc5fb555a755bdff3cec0c3"></script>
+  <script type="text/javascript" src="/packages/meteor-base.js?hash=78d760bd25caaa0aaaa51b630ff14fdbfddf0a80"></script>
+  <script type="text/javascript" src="/packages/mobile-experience.js?hash=228175c74a6bdd2cc7d213d791ad7633cde48eb6"></script>
+  <script type="text/javascript" src="/packages/modules-runtime.js?hash=b7370236eeaf57e8f4ac703424bc831028392451"></script>
+  <script type="text/javascript" src="/packages/modules.js?hash=d2f2ea5055584130c1aed3b65b7e91925e4e8839"></script>
+  <script type="text/javascript" src="/packages/promise.js?hash=2d5b025794b9c9e54e5cf6bea71c642ef921a2ed"></script>
+  <script type="text/javascript" src="/packages/ecmascript-runtime.js?hash=e4dd2b138377d446dc7dc3af21bb5bcd4b2b88a3"></script>
+  <script type="text/javascript" src="/packages/babel-compiler.js?hash=aa1ba23957a2a38a24bad15d8eb7dda850adb69a"></script>
+  <script type="text/javascript" src="/packages/ecmascript.js?hash=66523b499a44a9bde66a5c90da84c2f620fa9038"></script>
+  <script type="text/javascript" src="/packages/base64.js?hash=e5bbbab7ff79348492ae7e574cf7931e2ee72a11"></script>
+  <script type="text/javascript" src="/packages/ejson.js?hash=b1036d3e150ea4ea6470ea9cd45a48a12835d57e"></script>
+  <script type="text/javascript" src="/packages/id-map.js?hash=e665ae78e62a315f5fd218a68e373e364f74136c"></script>
+  <script type="text/javascript" src="/packages/ordered-dict.js?hash=61f1d7f16d10d9f37890aaf2455697ef7c8c378b"></script>
+  <script type="text/javascript" src="/packages/tracker.js?hash=b605200c15f3a57abb701c7cbc58ca5b0f2802d7"></script>
+  <script type="text/javascript" src="/packages/babel-runtime.js?hash=543034092ecef720d1732d8f72ab489f1877696f"></script>
+  <script type="text/javascript" src="/packages/random.js?hash=c4879267bde8bbc5ba66d23fa420cb239c44fb68"></script>
+  <script type="text/javascript" src="/packages/mongo-id.js?hash=172813d0ff26d0175642f30557d9980b3d852a17"></script>
+  <script type="text/javascript" src="/packages/diff-sequence.js?hash=21ebcc9500dc0ea4d28ec4454f001dfed0c5ab26"></script>
+  <script type="text/javascript" src="/packages/geojson-utils.js?hash=7214728d388f610508afa2a208b6117470822707"></script>
+  <script type="text/javascript" src="/packages/minimongo.js?hash=88217d643bc16fdf3505c6d4b2b8f5ddc400c49a"></script>
+  <script type="text/javascript" src="/packages/check.js?hash=bf95dee84c2be9008274d2385c637659760b9057"></script>
+  <script type="text/javascript" src="/packages/retry.js?hash=91c22616ae67cee99080f81fae9e6083bf7c5711"></script>
+  <script type="text/javascript" src="/packages/ddp-common.js?hash=a99cb35fd21daff658b592895ec8e2da5ee4c434"></script>
+  <script type="text/javascript" src="/packages/reload.js?hash=ad99c3e418c3fdc4fd1e08796369bded98b26b3d"></script>
+  <script type="text/javascript" src="/packages/ddp-client.js?hash=27502404fad7fc072e57e8b0b6719f40d92709c7"></script>
+  <script type="text/javascript" src="/packages/ddp.js?hash=752b775e282ca59c21ca09b9cc61f5fffb9ea2a1"></script>
+  <script type="text/javascript" src="/packages/ddp-server.js?hash=f22a106538ade54bd1190c4d309f2f94bdd3ec9b"></script>
+  <script type="text/javascript" src="/packages/allow-deny.js?hash=ac0052305457020f9223bf91c30a0dd5e7cae42a"></script>
+  <script type="text/javascript" src="/packages/insecure.js?hash=5679de9a1eaf70c1c18f8c3bf9493ebe2e4caa33"></script>
+  <script type="text/javascript" src="/packages/mongo.js?hash=d211ff82fda9b7726837e30cff7c81814e8dde69"></script>
+  <script type="text/javascript" src="/packages/reactive-var.js?hash=4ec04bee8ba46a9256d34c18c7f0fbbb6e782570"></script>
+  <script type="text/javascript" src="/packages/reactive-dict.js?hash=0d2a565e015984ae7616d708b5df3127f50509e5"></script>
+  <script type="text/javascript" src="/packages/session.js?hash=9ac45190b217c0c6a6293b0769e5a83f9dc8c003"></script>
+  <script type="text/javascript" src="/packages/standard-minifier-css.js?hash=28195a94bf7be7891ced328ed580307f7ac6ed54"></script>
+  <script type="text/javascript" src="/packages/standard-minifier-js.js?hash=555d6f310158f363207df43e0353de4a4883d7af"></script>
+  <script type="text/javascript" src="/packages/autopublish.js?hash=bc72b03fb56c2a80ef076107d3c27287cbc7ca08"></script>
+  <script type="text/javascript" src="/packages/nathantreid_css-modules.js?hash=2e970392f44438ca8739026d4d5873358652debe"></script>
+  <script type="text/javascript" src="/packages/npm-bcrypt.js?hash=999fb0a24b0b2cc3ed14998aaea9a590002759b2"></script>
+  <script type="text/javascript" src="/packages/ddp-rate-limiter.js?hash=af60434f2a5f818b825b7a15c155f7afd5ac47ec"></script>
+  <script type="text/javascript" src="/packages/localstorage.js?hash=0b3ae3298494da2289abab2377342a1054cfca0b"></script>
+  <script type="text/javascript" src="/packages/callback-hook.js?hash=fff7fdef0707c85900b21f766a4b6c65bf278ff4"></script>
+  <script type="text/javascript" src="/packages/jquery.js?hash=22a0055f59bd150c435c5aba34c7c59076b8bcd9"></script>
+  <script type="text/javascript" src="/packages/deps.js?hash=af038305759a654448f8031d60f379835ae67a8c"></script>
+  <script type="text/javascript" src="/packages/htmljs.js?hash=3035d42f05f842d4beb2111cc6739b9ce6cd4ca4"></script>
+  <script type="text/javascript" src="/packages/observe-sequence.js?hash=550c39b36ab0e65194ea03cdc7ecbe99dcdd07f6"></script>
+  <script type="text/javascript" src="/packages/blaze.js?hash=ef41aed769a8945fc99ac4954e8c9ec157a88cea"></script>
+  <script type="text/javascript" src="/packages/accounts-base.js?hash=2dec74081e86481ac13d117d6910f3fe310b876a"></script>
+  <script type="text/javascript" src="/packages/sha.js?hash=569709b873cd1ba2cef4f2b0732cb4923ff5ce20"></script>
+  <script type="text/javascript" src="/packages/srp.js?hash=94d5df94b266ef008d0425c828f1715512e429ef"></script>
+  <script type="text/javascript" src="/packages/accounts-password.js?hash=82a399af0e1a6fc526b22b14b45010b158fc562a"></script>
+  <script type="text/javascript" src="/packages/less.js?hash=b39fdd7af241f9bd5d3e15926c8447d65527f178"></script>
+  <script type="text/javascript" src="/packages/audit-argument-checks.js?hash=b9244eef108f6079bb77aa96e9d108ad3518a9ae"></script>
+  <script type="text/javascript" src="/packages/aldeed_simple-schema.js?hash=a36531b7660faa5522e7fade0b3f4daf5b4b6641"></script>
+  <script type="text/javascript" src="/packages/raix_eventemitter.js?hash=f73e7166ed24e605f095ac7f16cc2ee6b3aafcea"></script>
+  <script type="text/javascript" src="/packages/aldeed_collection2-core.js?hash=78aa4a4dfcd4f54f1b080164dd6ca648f9f16f75"></script>
+  <script type="text/javascript" src="/packages/aldeed_schema-index.js?hash=da21b578f26d8a36d658a3af94517e1e4328eddb"></script>
+  <script type="text/javascript" src="/packages/aldeed_schema-deny.js?hash=44955b65d156080d05a87e961fd692d65185e52b"></script>
+  <script type="text/javascript" src="/packages/aldeed_collection2.js?hash=5ec6fbe0b5398f1a92bcb85b39683807a681c0b1"></script>
+  <script type="text/javascript" src="/packages/alanning_roles.js?hash=903a1f148ed6ac8183cb12ec77aa3940396190e6"></script>
+  <script type="text/javascript" src="/packages/spacebars.js?hash=65db8b6a8e3fca189b416de702967b1cb83d57d5"></script>
+  <script type="text/javascript" src="/packages/templating.js?hash=f43427e80c4a8a93daf5ed094c8141a0ee19c804"></script>
+  <script type="text/javascript" src="/packages/fourseven_scss.js?hash=9229729b8cf516cce58370829acb81323d7bfc79"></script>
+  <script type="text/javascript" src="/packages/fortawesome_fontawesome.js?hash=28274b3e7f4ac744781cd1750459a96687fef99e"></script>
+  <script type="text/javascript" src="/packages/themeteorchef_bert.js?hash=df740dbd2d4590a6b22437a2252763cf83c4a87c"></script>
+  <script type="text/javascript" src="/packages/mdg_validated-method.js?hash=0da354cbd8cc9bb82c5be591a9b2a733fa921286"></script>
+  <script type="text/javascript" src="/packages/dburles_factory.js?hash=13eca88498a7be56799228a34686ec8fba2ba798"></script>
+  <script type="text/javascript" src="/packages/tmeasday_check-npm-versions.js?hash=d5a8e8dfd58b1f60e51cb3f325a92ffc6284a6bf"></script>
+  <script type="text/javascript" src="/packages/react-meteor-data.js?hash=f8d1d5bdee9e52c4024803d4b111ef226d814829"></script>
+  <script type="text/javascript" src="/packages/url.js?hash=4784636fd5077ac379ba1f01a5c4ff3295ae642b"></script>
+  <script type="text/javascript" src="/packages/http.js?hash=c2aba62dcf6fd43c7afe2ab43f858b1c38e68fe6"></script>
+  <script type="text/javascript" src="/packages/autoupdate.js?hash=b8023eef660c2b01ae18946f94c4c7755b3de37c"></script>
+  <script type="text/javascript" src="/packages/meteor-platform.js?hash=e888430a42b6351e66c5ba66210af80c318ceb75"></script>
+  <script type="text/javascript" src="/packages/webapp.js?hash=a09458059bd5dcc857ede183b8ac171c56a2e505"></script>
+  <script type="text/javascript" src="/packages/logging.js?hash=f10a7ca3adc530faf050800de8f088f68ddcfd11"></script>
+  <script type="text/javascript" src="/packages/livedata.js?hash=e7fb2e783bc81b00b914c2e27966b7b6d3d081b6"></script>
+  <script type="text/javascript" src="/packages/ui.js?hash=d0665bbf032532e2284f8843b30500babb10dd4d"></script>
+  <script type="text/javascript" src="/packages/fastclick.js?hash=f09653fe47c6acffa2d5a6a2d8e1e39664a660d3"></script>
+  <script type="text/javascript" src="/packages/mobile-status-bar.js?hash=7c4b032a3e264cb701c128f1ece5d71ba81465c7"></script>
+  <script type="text/javascript" src="/packages/launch-screen.js?hash=bc0fd472cf89d0c9b8146f07ba048efcc11ef9ee"></script>
+  <script type="text/javascript" src="/packages/clinical_extended-api.js?hash=20f7c34660c50395c3277aa01a447b126ec38ae6"></script>
+  <script type="text/javascript" src="/packages/clinical_auto-resizing.js?hash=5ea4216dfa615b531aef5ad23cc7f6378500f320"></script>
+  <script type="text/javascript" src="/packages/clinical_theming.js?hash=c41c25af7703acfc8e9b749e4eb53b8e731574b9"></script>
+  <script type="text/javascript" src="/packages/socialize_server-time.js?hash=871c48c7c749163764dce7f4329f4137b1a0b3bd"></script>
+  <script type="text/javascript" src="/packages/tmeasday_publish-with-relations.js?hash=4454be168756a3be9232ec1540c4b205a577a5ee"></script>
+  <script type="text/javascript" src="/packages/matb33_collection-hooks.js?hash=56a007be7cd8d095352c51d5ea1775e1e5551bea"></script>
+  <script type="text/javascript" src="/packages/clinical_base-model.js?hash=c02c18c649c1f725af9d35721f34a8b78b545948"></script>
+  <script type="text/javascript" src="/packages/clinical_user-model.js?hash=e48878648e668e049a57ac3f49f3eb856d41cc54"></script>
+  <script type="text/javascript" src="/packages/grove_less.js?hash=37047b43718c8eec5f77c9743ec36563606b757d"></script>
+  <script type="text/javascript" src="/packages/simple_json-routes.js?hash=0ab5204692494962e017fa9f2d4ab78547f686ba"></script>
+  <script type="text/javascript" src="/packages/prime8consulting_meteor-oauth2-server.js?hash=8aa87515d9de3750c706381a73de1920e8b725aa"></script>
+  <script type="text/javascript" src="/packages/clinical_hl7-resource-datatypes.js?hash=28a4e0238845c3296564b6d952185378b662a81f"></script>
+  <script type="text/javascript" src="/packages/clinical_hl7-resource-practitioner.js?hash=3a9561d69a24a50a6f9e983e1e996859147fc070"></script>
+  <script type="text/javascript" src="/packages/clinical_accounts-housemd.js?hash=b3c168a1cd8952b3e24575da8a598981dd1e3ee8"></script>
+  <script type="text/javascript" src="/packages/awatson1978_fonts-helveticas.js?hash=e62a4278946fb976c838129d61d9937d7e2fc502"></script>
+  <script type="text/javascript" src="/packages/clinical_modals.js?hash=0cc05ba70fe7e27dde4d4d9029bbfe014446279c"></script>
+  <script type="text/javascript" src="/packages/clinical_fonts.js?hash=8003c44d0383f4e2c419792336cdcdb5b0012880"></script>
+  <script type="text/javascript" src="/packages/mousetrap_mousetrap.js?hash=c12fb43f5580e373baee9804c8cd86719dfa9ce0"></script>
+  <script type="text/javascript" src="/packages/clinical_keybindings.js?hash=f5e9d104131dfb8486e1038d3a1de2975f48c945"></script>
+  <script type="text/javascript" src="/packages/clinical_accounts-famous-dead-people.js?hash=f1ec819fe78111f2652773e09d35e3fb7f146e16"></script>
+  <script type="text/javascript" src="/packages/clinical_hl7-resource-patient.js?hash=610d8546b44e25af3f5a76add8773e7f38963fc0"></script>
+  <script type="text/javascript" src="/packages/percolate_synced-cron.js?hash=b5466daa8ce20e8e4cc974657df9bda5f012eb10"></script>
+  <script type="text/javascript" src="/packages/awatson1978_accounts-muppets.js?hash=1eb5af8cad8156af58ab83067d2997de864ac01f"></script>
+  <script type="text/javascript" src="/packages/clinical_hipaa-logger.js?hash=23313b1cf13d6c6f2decce2e8654bff6e1018789"></script>
+  <script type="text/javascript" src="/packages/momentjs_moment.js?hash=6ab4ce28f893e0339681a2f697259672e32f0a35"></script>
+  <script type="text/javascript" src="/packages/hot-code-push.js?hash=9121bd39124b5010787be320ca559344b6691712"></script>
+  <script type="text/javascript" src="/packages/global-imports.js?hash=5b4e857771b0c1792ad5300553514c820ef1e94f"></script>
+  <script type="text/javascript" src="/app/app.js?hash=7f626d7549ad78975e1878f06754ef4440f9dc90"></script>
+  <script type="text/javascript" src="/packages/service-configuration.js?hash=331fe144dc8f69e5e44f23dd74b9de74ed80c6f3"></script>
+  <script type="text/javascript" src="/packages/mdg_validation-error.js?hash=41c298bed49d51c4a95f2097a0d46ba242126d76"></script>
+
+
+  <meta charset="utf-8">
+  <title>Application Name</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="favicon.png?v1" sizes="16x16 32x32 64x64">
+  <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-precomposed.png">
+
+  <meta name="description" content="A description for the application.">
+  <meta name="viewport" content="initial-scale=1, minimal-ui, maximum-scale=1, minimum-scale=1" />
+</head>
+
+<body>
+  
+</body>
+</html>

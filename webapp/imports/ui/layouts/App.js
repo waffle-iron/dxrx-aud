@@ -5,12 +5,23 @@ import React from 'react';
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 // import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {teal400,teal600} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { GlassApp } from '/imports/ui/components/GlassApp';
 import { GlassLayout } from '/imports/ui/layouts/GlassLayout';
 import { Header } from '/imports/ui/components/Header';
 import { Footer } from '/imports/ui/components/Footer';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: teal400,
+    primary2Color: teal600,
+    pickerHeaderColor: teal400
+  }
+});
+
 
 export class App extends React.Component {
   constructor(props) {
@@ -23,20 +34,9 @@ export class App extends React.Component {
     };
   }
 
-    //    const App = () => (
-    //<MuiThemeProvider>
-    //<MyAwesomeReactComponent />
-    //</MuiThemeProvider>
-    //		       );
-
-    //ReactDOM.render(
-    //		    <App />,
-    //		    document.getElementById('app')
-    //		    );
-
   render(){
     return (
-     <MuiThemeProvider>
+     <MuiThemeProvider muiTheme={muiTheme}>
       <GlassApp>
         <GlassLayout>
           <Header />
