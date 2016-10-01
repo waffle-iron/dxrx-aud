@@ -139,7 +139,8 @@ Meteor.methods({
             }],
             goal: [{
               display: 'Develop awareness of your drinking behaviors.',
-              reference: 'Goals/'  + Random.id()
+              displayReference: 'Goals/DRINKINGBEHAVIOR',
+              reference: 'Goals/' + Random.id()
             }],
             status: 'in-progress',
             prohibited: false,

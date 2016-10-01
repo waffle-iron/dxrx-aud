@@ -15,18 +15,20 @@ module.exports = {
     client.resizeWindow(750, 1334);
 
     // const signupPage = client.page.signupPage();
-    const indexPage = client.page.indexPage();
+    const carePlanPage = client.page.carePlanPage();
 
     client.page.signupPage()
       .navigate()
       .signup('Alice', 'Doe', 'alice@test.org', 'alicedoe', '')
       .pause(1000, client);
 
-    indexPage.expect.element('#indexPage').to.be.present;
-    indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
+    // carePlanPage.expect.element('#welcomePatientPage').to.be.present;
+    // carePlanPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
   'User gets logged in after signup.': function (client) {
-    client.verify.elementPresent('#indexPage');
+    client
+      .verify.elementPresent('#welcomePatientPage')
+      .verify.containsText('#authenticatedUsername', 'Alice Doe');
   },
   'User can log out.': function (client) {
     client.verify.elementPresent('#authenticatedUsername')
@@ -36,28 +38,28 @@ module.exports = {
       .verify.elementPresent('#loginPage');
   },
   'User can sign in.': function (client) {
-    const loginPage = client.page.loginPage();
-    const indexPage = client.page.indexPage();
+    // const loginPage = client.page.loginPage();
+    const carePlanPage = client.page.carePlanPage();
 
     client.page.loginPage()
       .navigate()
       .login('alice@test.org', 'alicedoe')
       .pause(2000, client);
 
-    indexPage.expect.element('#indexPage').to.be.present;
-    indexPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
+    carePlanPage.expect.element('#carePlanPage').to.be.present;
+    carePlanPage.expect.element('#authenticatedUsername').text.to.contain('Alice Doe');
   },
   'User can view profile.': function (client) {
     client
       .verify.elementPresent('#authenticatedUsername')
-      .click("#authenticatedUsername").pause(500)
+      .click('#authenticatedUsername').pause(500)
 
-      .verify.elementPresent("#authenticatedUserMenu .profileMenuItem")
-      .click("#authenticatedUserMenu .profileMenuItem").pause(500)
+      .verify.elementPresent('#authenticatedUserMenu .profileMenuItem')
+      .click('#authenticatedUserMenu .profileMenuItem').pause(500)
 
-      .verify.elementPresent("#myProfilePage")
+      .verify.elementPresent('#myProfilePage');
   },
-  "User can edit profile avatar.": function (client) {
+  'User can edit profile avatar.': function (client) {
     var myArray = 'https://pbs.twimg.com/profile_images/436598467956187136/yncbkX83_400x400.jpeg'.split('');
 
     client
@@ -70,13 +72,13 @@ module.exports = {
         .verify.attributeEquals('#avatarImage', 'src', 'http://localhost:3000/noAvatar.png')
 
       .verify.elementPresent('input[name="avatar"]')
-        .clearValue('input[name="avatar"]')
+        .clearValue('input[name="avatar"]');
 
-        for(var i=0; i < myArray.length; i++) {
-          client.setValue('input[name="avatar"]', myArray[i]).pause(50);
-        };
+    for(var i=0; i < myArray.length; i++) {
+      client.setValue('input[name="avatar"]', myArray[i]).pause(50);
+    }
 
-        client.pause(3000).verify.attributeEquals('#avatarImage', 'src', 'https://pbs.twimg.com/profile_images/436598467956187136/yncbkX83_400x400.jpeg')
+    client.pause(3000).verify.attributeEquals('#avatarImage', 'src', 'https://pbs.twimg.com/profile_images/436598467956187136/yncbkX83_400x400.jpeg');
   },
   'User can change password.': function (client) {
     var oldPassArray = 'alicedoe'.split('');
@@ -96,24 +98,21 @@ module.exports = {
         .clearValue('input[name="newPassword"]')
         .clearValue('input[name="confirmPassword"]').pause(300);
 
-        // .setValue('input[name="oldPassword"]', 'alice').pause(300)
-        // .setValue('input[name="newPassword"]', 'alice123').pause(300)
-        // .setValue('input[name="confirmPassword"]', 'alice123').pause(300)
-        for(var i=0; i < oldPassArray.length; i++) {
-          client.setValue('input[name="oldPassword"]', oldPassArray[i]).pause(100);
-        };
-        for(var i=0; i < newPassArray.length; i++) {
-          client.setValue('input[name="newPassword"]', newPassArray[i]).pause(100);
-        };
-        for(var i=0; i < newPassArray.length; i++) {
-          client.setValue('input[name="confirmPassword"]', newPassArray[i]).pause(100);
-        };
+    for(var i=0; i < oldPassArray.length; i++) {
+      client.setValue('input[name="oldPassword"]', oldPassArray[i]).pause(100);
+    }
+    for(var j=0; j < newPassArray.length; j++) {
+      client.setValue('input[name="newPassword"]', newPassArray[j]).pause(100);
+    }
+    for(var k=0; k < newPassArray.length; k++) {
+      client.setValue('input[name="confirmPassword"]', newPassArray[k]).pause(100);
+    }
 
-        client.click("#changePasswordButton").pause(1000)
+    client.click('#changePasswordButton').pause(1000)
 
-        .verify.attributeEquals('input[name="oldPassword"]', 'value', '')
-        .verify.attributeEquals('input[name="newPassword"]', 'value', '')
-        .verify.attributeEquals('input[name="confirmPassword"]', 'value', '')
+      .verify.attributeEquals('input[name="oldPassword"]', 'value', '')
+      .verify.attributeEquals('input[name="newPassword"]', 'value', '')
+      .verify.attributeEquals('input[name="confirmPassword"]', 'value', '')
 
       .verify.elementPresent('#authenticatedUsername')
       .click('#authenticatedUsername').pause(500)
@@ -121,7 +120,7 @@ module.exports = {
       .verify.elementPresent('#authenticatedUserMenu .logoutMenuItem')
       .click('#authenticatedUserMenu .logoutMenuItem').pause(500)
 
-      .verify.elementPresent('#loginPage')
+      .verify.elementPresent('#loginPage');
   },
   'User can sign in with new password.': function (client) {
     client
@@ -136,45 +135,45 @@ module.exports = {
         .setValue('input[name="emailAddress"]', 'alice@test.org')
         .setValue('input[name="password"]', 'alice123')
 
-        .click("#loginButton").pause(1000)
-          .verify.elementPresent("#indexPage");
+        .click('#loginButton').pause(1000)
+          .verify.elementPresent('#carePlanPage');
   },
-  "User can delete account.": function (client) {
+  'User can delete account.': function (client) {
     // log out
-    var userIdArray = "alice@test.org";
+    var userIdArray = 'alice@test.org';
 
     client
-      .verify.elementPresent("#authenticatedUsername")
-      .click("#authenticatedUsername").pause(500)
+      .verify.elementPresent('#authenticatedUsername')
+      .click('#authenticatedUsername').pause(500)
 
-      .verify.elementPresent("#authenticatedUserMenu .profileMenuItem")
-      .click("#authenticatedUserMenu .profileMenuItem").pause(500)
+      .verify.elementPresent('#authenticatedUserMenu .profileMenuItem')
+      .click('#authenticatedUserMenu .profileMenuItem').pause(500)
 
       // the menu doesn't auto-close, so we need to manually close it
       // so it doesn't obscure other components
-      .verify.elementPresent("#authenticatedUsername")
-      .click("#authenticatedUsername").pause(500)
+      .verify.elementPresent('#authenticatedUsername')
+      .click('#authenticatedUsername').pause(500)
 
-      .verify.elementPresent("label.systemTab")
-      .click("label.systemTab").pause(500)
+      .verify.elementPresent('label.systemTab')
+      .click('label.systemTab').pause(500)
 
-      .verify.elementPresent("#deleteUserButton")
-      .click("#deleteUserButton").pause(500)
+      .verify.elementPresent('#deleteUserButton')
+      .click('#deleteUserButton').pause(500)
 
 
-      .verify.elementPresent("input[name='_id']")
-      .verify.elementPresent("input[name='email']")
-      .verify.elementPresent("input[name='confirm']")
+      .verify.elementPresent('input[name="_id"]')
+      .verify.elementPresent('input[name="email"]')
+      .verify.elementPresent('input[name="confirm"]')
       .clearValue('input[name="confirm"]');
 
-      for(var i=0; i < userIdArray.length; i++) {
-        client.setValue('input[name="confirm"]', userIdArray[i]).pause(50)
-      }
+    for(var l=0; l < userIdArray.length; l++) {
+      client.setValue('input[name="confirm"]', userIdArray[l]).pause(50);
+    }
 
-      client.verify.elementPresent("#confirmDeleteUserButton")
-      .click("#confirmDeleteUserButton").pause(1500)
+    client.verify.elementPresent('#confirmDeleteUserButton')
+      .click('#confirmDeleteUserButton').pause(1500)
 
-      .verify.elementPresent("#loginPage")
+      .verify.elementPresent('#loginPage')
       .end();
   }
 };

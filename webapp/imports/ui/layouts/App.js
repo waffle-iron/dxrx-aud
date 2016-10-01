@@ -3,38 +3,40 @@ import React from 'react';
 // import AppNavigation from '/imports/ui/containers/app-navigation';
 
 import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {teal400,teal600} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { GlassApp } from '/imports/ui/components/GlassApp';
 import { GlassLayout } from '/imports/ui/layouts/GlassLayout';
 import { Header } from '/imports/ui/components/Header';
 import { Footer } from '/imports/ui/components/Footer';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: teal400,
+    primary2Color: teal600,
+    pickerHeaderColor: teal400
+  }
+});
+
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
   }
 
-    getChildContext() {
-	return {muiTheme: getMuiTheme(baseTheme)};
-    }
-
-    //    const App = () => (
-    //<MuiThemeProvider>
-    //<MyAwesomeReactComponent />
-    //</MuiThemeProvider>
-    //		       );
-
-    //ReactDOM.render(
-    //		    <App />,
-    //		    document.getElementById('app')
-    //		    );
+  getChildContext() {
+    return {
+      muiTheme: getMuiTheme(baseTheme)
+    };
+  }
 
   render(){
     return (
-     <MuiThemeProvider>
+     <MuiThemeProvider muiTheme={muiTheme}>
       <GlassApp>
         <GlassLayout>
           <Header />
@@ -51,6 +53,6 @@ App.propTypes = {
   children: React.PropTypes.element.isRequired
 };
 App.childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
+  muiTheme: React.PropTypes.object.isRequired
 };
 App.defaultProps = {};

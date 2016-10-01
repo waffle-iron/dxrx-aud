@@ -18,18 +18,20 @@
     "coverage": "COVERAGE=1 meteor",
     "monitor": "COVERAGE=1 meteor test --driver-package dispatch:mocha --port 5000",
     "nightwatch": "nightwatch -c .meteor/nightwatch.json",
-    "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom"
+    "phantom": "nightwatch -c .meteor/nightwatch.json --env phantom",
+    "mobile-build": "meteor build ios --server https://app-3977.on-aptible.com:443"
   },
   "devDependencies": {
-    "eslint": "^3.3.1",
-    "eslint-plugin-import": "^1.13.0",
+    "babel-eslint": "^6.1.2",
+    "chromedriver": "2.19.0",
+    "eslint": "^2.13.1",
     "eslint-config-eslint": "^3.0.0",
+    "eslint-plugin-import": "^1.15.0",
     "eslint-plugin-meteor": "^3.6.0",
     "eslint-plugin-react": "^4.3.0",
     "nightwatch": "0.9.8",
-    "selenium-server-standalone-jar": "2.45.0",
-    "chromedriver": "2.19.0",
-    "phantomjs-prebuilt": "2.1.12"
+    "phantomjs-prebuilt": "2.1.12",
+    "selenium-server-standalone-jar": "2.45.0"
   },
   "eslintConfig": {
     "parserOptions": {
@@ -58,6 +60,10 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "eslint": "^2.13.1",
+    "eslint-config-eslint": "^3.0.0",
+    "eslint-plugin-meteor": "^3.6.0",
+    "eslint-plugin-react": "^4.3.0",
+    "faker": "^3.1.0",
     "immutability-helper": "^2.0.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.15.1",
@@ -65,11 +71,11 @@
     "moment": "github:moment/moment",
     "node-sass": "^3.10.0",
     "normalize.css": "^4.2.0",
-    "react": "^15.1.0",
-    "react-addons-css-transition-group": "^15.3.1",
-    "react-addons-pure-render-mixin": "^15.3.1",
+    "react": "^15.3.2",
+    "react-addons-css-transition-group": "^15.3.2",
+    "react-addons-pure-render-mixin": "^15.3.2",
     "react-bootstrap": "^0.29.5",
-    "react-dom": "^15.3.1",
+    "react-dom": "^15.3.2",
     "react-highcharts": "^8.4.2",
     "react-komposer": "^1.13.1",
     "react-mixin": "^3.0.5",
@@ -79,16 +85,15 @@
     "react-tap-event-plugin": "^1.0.0",
     "react-tappable": "^0.8.1",
     "react-toolbox": "^0.16.2",
-    "sprintf": "^0.1.5",
-    "sprintf-js": "^1.0.3",
-    "sprintfjs": "^1.2.3"
+    "sprintf-js": "^1.0.3"
   },
   "cssModules": {
     "extensions": [
       "scss"
     ],
     "globalVariables": [
-      "node_modules/react-toolbox/lib/_colors.scss", {
+      "node_modules/react-toolbox/lib/_colors.scss",
+      {
         "theme-building": true
       },
       "client/main.scss"

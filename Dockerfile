@@ -22,7 +22,7 @@ RUN meteor npm install --save jquery bootstrap react react-dom react-router reac
 # RUN meteor npm install
 
 # we build the Node app
-RUN meteor build --release METEOR@1.3.4.1 --directory .
+RUN meteor build --server-only --release METEOR@1.3.4.1 --directory .
 
 WORKDIR /app/webapp/bundle/programs/server
 

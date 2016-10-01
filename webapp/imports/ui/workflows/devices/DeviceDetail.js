@@ -3,22 +3,24 @@ import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 
 import Input from 'react-toolbox/lib/input';
+import { CardText, CardActions } from 'react-toolbox/lib/card';
+
 import Button from 'react-toolbox/lib/button';
 
-import { Row, Col } from 'react-bootstrap';
-import DocumentsList from '../../containers/documents-list.js';
-import AddDocument from '../../components/AddDocument.js';
-
-import { PageContainer } from '../../components/PageContainer';
-import { GlassCard } from '/imports/ui/components/GlassCard';
-import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
-
-import {Tab, Tabs} from 'react-toolbox/lib/tabs';
+// import { Row, Col } from 'react-bootstrap';
+// import DocumentsList from '../../containers/documents-list.js';
+// import AddDocument from '../../components/AddDocument.js';
+//
+// import { PageContainer } from '../../components/PageContainer';
+// import { GlassCard } from '/imports/ui/components/GlassCard';
+// import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+//
+// import {Tab, Tabs} from 'react-toolbox/lib/tabs';
 
 import { insertDevice, updateDevice, removeDeviceById } from '../../../api/devices/methods';
 import { Bert } from 'meteor/themeteorchef:bert';
 
-import DatePicker from 'react-toolbox/lib/date_picker';
+// import DatePicker from 'react-toolbox/lib/date_picker';
 //import { DatePicker, DatePickerDialog, Calendar, CalendarDay, CalendarMonth } from 'react-toolbox/lib/date_picker';
 
 let defaultState = false;
@@ -33,9 +35,9 @@ export default class DeviceDetail extends React.Component {
       device: {
         deviceName: "",
         deviceProductId: "",
-        patientId: "",
+        patientId: ""
       }
-    }
+    };
 
     if (Session.get('selectedDevice')) {
       data.deviceId = Session.get('selectedDevice');
@@ -44,10 +46,10 @@ export default class DeviceDetail extends React.Component {
       if (selectedDevice) {
         data.device = {
           id: selectedDevice._id,
-	  deviceName: selectedDevice.deviceName,
-	  deviceProductId: selectedDevice.productId,
-	  patientId: selectedDevice.patientId
-        }
+          deviceName: selectedDevice.deviceName,
+          deviceProductId: selectedDevice.productId,
+          patientId: selectedDevice.patientId
+        };
       }
     }
 
@@ -56,69 +58,49 @@ export default class DeviceDetail extends React.Component {
     }
 
     return data;
-  };
+  }
 
   render() {
-      console.log("In device detail render");
-      return (
-	  <div className="deviceDetail">
-	      <CardText>
-	      No devices
-	      </CardText>
-          </div>
-	      );
-      if (this.data && this.data.device && this.data.device.deviceName && this.data.device.deviceProductId && this.data.device.patientId) {
-	  console.log("In device detail render with device" + this.data.device.deviceName);
-	  return (
-		  <div className="deviceDetail">
-		  <CardText>
-		  <Input ref="name" type='text' label='name' name='name' value={this.data.device.deviceName} onChange={ this.changeState.bind(this, 'name')} />
-		  <Input ref="productid" type='text' label='productid' name='productid' value={this.data.device.deviceProductId} onChange={ this.changeState.bind(this, 'productid')} />
-		  <Input ref="patientid" type='text' label='patientid' name='patientid' value={this.data.device.patientId} onChange={ this.changeState.bind(this, 'patientid')} />
-		  </CardText>
-		  <CardActions>
-		      { this.determineButtons(this.data.deviceId) }
-		  </CardActions>
-		  </div>
-		  );
-      } else {
-	  console.log("In device detail render with no device");
-	  return (
-	  <div className="deviceDetail">
-	      <CardText>
-	      No devices
-	      </CardText>
-	      </div>
-		  );
-      }
+    console.log("In device detail render");
+    return (
+      <div className="deviceDetail">
+        <CardText>
+          <Input ref="name" type='text' label='name' name='name' value={this.data.device.deviceName} onChange={ this.changeState.bind(this, 'name')} />
+          <Input ref="productid" type='text' label='productid' name='productid' value={this.data.device.deviceProductId} onChange={ this.changeState.bind(this, 'productid')} />
+          <Input ref="patientid" type='text' label='patientid' name='patientid' value={this.data.device.patientId} onChange={ this.changeState.bind(this, 'patientid')} />
+        </CardText>
+        <CardActions>
+          { this.determineButtons(this.data.deviceId) }
+        </CardActions>
+      </div>
+    );
   }
 
   determineButtons(deviceId){
     if (deviceId) {
       return (
         <div>
-          <Button label="Save" onClick={this.handleSaveButton.bind(this)} />
+          <Button label="Save" onClick={this.handleSaveDevice.bind(this)} />
           <Button label="Delete" onClick={this.handleDeleteButton.bind(this)} />
         </div>
       );
     } else {
       return(
-        <Button label="Save" onClick={this.handleSaveButton.bind(this)} />
+        <Button label="Save" onClick={this.handleSaveDevice.bind(this)} />
       );
     }
-  };
+  }
+
   // this could be a mixin
   changeState(field, value){
-
-    //console.log("changeState", value);
 
     // by default, assume there's no other data and we're creating a new device
     let deviceUpdate = {
       id: "",
       deviceName: "",
       deviceProductId: "",
-      patientId: "",
-    }
+      patientId: ""
+    };
 
     // if there's an existing device, use them
     if (Session.get('selectedDevice')) {
@@ -132,31 +114,32 @@ export default class DeviceDetail extends React.Component {
     deviceUpdate[field] = value;
     console.log("deviceUpdate", deviceUpdate);
     Session.set('deviceDetailState', deviceUpdate);
-  };
+  }
+
   openTab(index){
     // set which tab is selected
     let state = Session.get('deviceCardState');
     state["index"] = index;
     Session.set('deviceCardState', state);
-  };
+  }
 
   // this could be a mixin
-  handleSaveButton(){
+  handleSaveDevice(){
     console.log("this", this);
 
-      let deviceFormData = {
-        'deviceName': [{'text': this.refs.name.refs.input.value}],
-        'deviceProductId': [{'text': this.refs.productid.refs.input.value}],
-        'devicePatientId': [{'text': this.refs.patientid.refs.input.value}]
-      }
+    let deviceFormData = {
+      'deviceName': [{'text': this.refs.name.refs.input.value}],
+      'deviceProductId': [{'text': this.refs.productid.refs.input.value}],
+      'devicePatientId': [{'text': this.refs.patientid.refs.input.value}]
+    };
 
-      if (this.refs.active.refs.input.value === "true") {
-        deviceFormData.active = true;
-      } else {
-        deviceFormData.active = false;
-      }
+    if (this.refs.active.refs.input.value === "true") {
+      deviceFormData.active = true;
+    } else {
+      deviceFormData.active = false;
+    }
 
-      console.log("deviceFormData", deviceFormData);
+    console.log("deviceFormData", deviceFormData);
 
 
     if (Session.get('selectedDevice')) {
@@ -164,15 +147,15 @@ export default class DeviceDetail extends React.Component {
       //Meteor.users.insert(deviceFormData);
       updateDevice.call(
         {_id: Session.get('selectedDevice'), update: deviceFormData }, (error) => {
-        if (error) {
-          console.log("error", error);
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert('Device updated!', 'success');
-          this.openTab(1);
-        }
-      });
-    } else {
+          if (error) {
+            console.log("error", error);
+            Bert.alert(error.reason, 'danger');
+          } else {
+            Bert.alert('Device updated!', 'success');
+            this.openTab(1);
+          }
+        });
+      } else {
 
       console.log("create a new device", deviceFormData);
 
@@ -186,28 +169,26 @@ export default class DeviceDetail extends React.Component {
         }
       });
     }
-  };
+  }
 
   // this could be a mixin
   handleCancelButton(){
     console.log("handleCancelButton");
-  };
+  }
 
   handleDeleteButton(){
     removeDeviceById.call(
       {_id: Session.get('selectedDevice')}, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert('Device deleted!', 'success');
-        this.openTab(1);
-      }
-    });
-  };
-
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert('Device deleted!', 'success');
+          this.openTab(1);
+        }
+      });
+  }
 }
 
-DeviceDetail.propTypes = {
-  hasUser: React.PropTypes.object,
-};
+
+
 ReactMixin(DeviceDetail.prototype, ReactMeteorData);

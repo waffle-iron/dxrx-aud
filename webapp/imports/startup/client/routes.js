@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { App } from '/imports/ui/layouts/App';
 import { AboutPage } from '/imports/ui/pages/AboutPage';
+import { TourPage } from '/imports/ui/pages/TourPage';
 import { PrivacyPage } from '/imports/ui/pages/PrivacyPage';
 import { DashboardPage } from '/imports/ui/pages/DashboardPage';
 import { Documents } from '/imports/ui/pages/Documents';
@@ -29,7 +30,12 @@ import { NeedToBePractioner } from '/imports/ui/pages/NeedToBePractioner';
 import { ConversationsPage } from '/imports/ui/pages/ConversationsPage';
 import { NewTopicPage } from '/imports/ui/pages/NewTopicPage';
 
-//import { Bert } from 'meteor/themeteorchef:bert';
+import { WelcomePatientPage } from '/imports/ui/pages/WelcomePatientPage';
+
+import { DeviceConfigurationPage } from '/imports/ui/pages/DeviceConfigurationPage';
+import { ProfileSetupPage } from '/imports/ui/pages/ProfileSetupPage';
+
+import { QuestionnairePage } from '/imports/ui/pages/QuestionnairePage';
 
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
@@ -53,7 +59,7 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute name="index" component={ Index } onEnter={ requireAuth } />
+        <IndexRoute name="index" component={ CarePlanPage } onEnter={ requireAuth } />
 
         <Route name="documents" path="/documents" component={ Documents } onEnter={ requirePractitioner } />
         <Route name="login" path="/login" component={ Login } />
@@ -87,12 +93,21 @@ Meteor.startup(() => {
 
         <Route name="devices" path="/devices" component={ DevicePage } />
         <Route name="devicesByUserId" path="/devices/:userId" component={ DevicePage } />
+        <Route name="deviceConfiguration" path="/device-configuration" component={ DeviceConfigurationPage } />
 
         <Route name="observations" path="/observations" component={ ObservationPage } />
         <Route name="observationsByUserId" path="/observations/:userId" component={ ObservationPage } />
 
         <Route name="breathalyzer" path="/breathalyzer" component={ BreathalyzerPage } />
         <Route name="careplan" path="/careplan" component={ CarePlanPage } />
+
+        <Route name="tour" path="/tour" component={ TourPage } />
+        <Route name="welcomePatient" path="/welcome/patient" component={ WelcomePatientPage } />
+
+        <Route name="profileSetupPage" path="/profile-setup" component={ ProfileSetupPage } />
+
+        <Route name="questionnairePage" path="/questionnaire" component={ QuestionnairePage } />
+
 
         <Route path="*" component={ NotFound } />
 

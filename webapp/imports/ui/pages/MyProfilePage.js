@@ -131,7 +131,7 @@ export class MyProfilePage extends React.Component {
                       <Input type='text' label='avatar' ref="avatar" name='avatar' style={this.data.style} value={this.data.user.avatar} onChange={ this.handleChangeAvatar.bind(this) } />
                     </div>
                   </Tab>
-                  <Tab className="medicalHistoryTab" label='Medical History'>
+                  {/* <Tab className="medicalHistoryTab" label='Medical History'>
                     <div style={{position: "relative"}}>
                     </div>
 
@@ -143,7 +143,7 @@ export class MyProfilePage extends React.Component {
                       <Input type='text' label='longitude' name='longitude' ref="longitude" style={this.data.style} value={this.data.user.longitude} />
                     </div>
 
-                  </Tab>
+                  </Tab> */}
                   <Tab className="passwordTab" label='Password'>
                     <div id="profilePasswordPane" style={{position: "relative"}} >
                       <Input type='text' label='oldPassword' name='oldPassword' ref="oldPassword" style={this.data.style} value={this.data.state.oldPassword} onChange={ this.changeState.bind(this, 'oldPassword') } />

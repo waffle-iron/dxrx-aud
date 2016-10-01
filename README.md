@@ -1,7 +1,7 @@
 # DxRx Alcohol Recovery App
 Mobile app that controls a breathalyzer and takes photo of medication compliance.  Based on the Clinical Meteor boilerplate.  
 
-[![CircleCI](https://circleci.com/gh/DxRx/dxrx-aud.svg?style=svg)](https://circleci.com/gh/DxRx/dxrx-aud)  
+[![CircleCI](https://circleci.com/gh/DxRx/dxrx-aud/tree/master.svg?style=svg)](https://circleci.com/gh/DxRx/dxrx-aud/tree/master)
 
 
 #### Installation
@@ -55,7 +55,7 @@ COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-
 #### Mobile Build  
 
 ```sh
-meteor run ios --mobile-server meteor-on-fhir.meteorapp.com
+meteor run ios --mobile-server app-3977.on-aptible.com --settings settings.json
 ```    
 
 

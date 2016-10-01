@@ -20,7 +20,7 @@ module.exports = {
       .login('janedoe@test.org', 'janedoe123')
       .pause(1000, client);
 
-    indexPage.expect.element('#indexPage').to.be.present;
+    indexPage.expect.element('#carePlanPage').to.be.present;
     indexPage.expect.element('#authenticatedUsername').text.to.contain('Jane Doe');
   },
 
