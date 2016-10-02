@@ -21,7 +21,7 @@ const getUserData = () => ({
   }
 });
 
-const signUp = () => {
+export const signUp = () => {
   const user = getUserData();
 
   Accounts.createUser(user, function(error){

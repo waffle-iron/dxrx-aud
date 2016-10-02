@@ -33,6 +33,9 @@ export class App extends React.Component {
       muiTheme: getMuiTheme(baseTheme)
     };
   }
+  componentWillMount() {
+    injectTapEventPlugin();
+  }
 
   render(){
     return (
