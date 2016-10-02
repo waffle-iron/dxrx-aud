@@ -6,6 +6,8 @@ import { handleSignup } from '/imports/modules/handleSignup';
 import { PageContainer } from '../components/PageContainer';
 import { MobilePadding } from '../components/MobilePadding';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 export class Signup extends React.Component {
   componentDidMount() {
@@ -15,6 +17,10 @@ export class Signup extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
   }
+  signupNewUser(){
+    alert('signup!');
+  }
+
 
   render() {
     return (
@@ -76,7 +82,7 @@ export class Signup extends React.Component {
                       placeholder="Password"
                     />
                   </FormGroup>
-                  <Button id="signupButton" type="submit" bsStyle="success">Sign Up</Button>
+                  <Button id="signupButton" onClick={signupNewUser} type="submit" bsStyle="success">Sign Up</Button>
                 </form>
                 <p>Already have an account? <Link to="/login">Log In</Link>.</p>
 

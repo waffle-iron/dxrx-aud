@@ -21,7 +21,8 @@ const getUserData = () => ({
   }
 });
 
-const signUp = () => {
+export const signUp = () => {
+  //alert('signup!')
   const user = getUserData();
 
   Accounts.createUser(user, function(error){
@@ -72,7 +73,9 @@ const validate = () => {
         minlength: 'Use at least six characters, please.'
       }
     },
-    submitHandler() { signUp(); }
+    submitHandler() {
+      signUp();
+    }
   });
 };
 

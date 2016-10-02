@@ -66,6 +66,8 @@ export class CarePlanPage extends React.Component {
               title='Questionnaire'
               subtitle='A short treatment plan questionnaire.'
             />
+            <Button ref='surveyCompleted' className={style.button} icon='blur_on' floating accent onClick={this.clickOnBlurButton} style={{marginLeft: '40px'}} />
+
           </GlassCard>
         </section>
 
@@ -130,7 +132,7 @@ export class CarePlanPage extends React.Component {
     browserHistory.push('/devices');
   }
   openQuestionnairePage(){
-    browserHistory.push('/questionnaire');    
+    browserHistory.push('/questionnaire');
   }
   openObservationpage(){
     browserHistory.push('/observations');
