@@ -8,7 +8,7 @@ Mobile app that controls a breathalyzer and takes photo of medication compliance
 
 ```sh
 # get the application
-git clone http://github.com/clinical-meteor/meteor-on-fhir
+git clone http://github.com/DxRx/dxrx-aud
 
 # get the application and other utilities
 git clone --recursive http://github.com/clinical-meteor/meteor-on-fhir
