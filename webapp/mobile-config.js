@@ -59,6 +59,7 @@ App.accessRule('http://localhost', { type: 'navigation' } );
 App.accessRule('http://localhost:3000', { type: 'navigation' } );
 
 App.setPreference("BackupWebStorage", "local");
+
 // // Pass preferences for a particular PhoneGap/Cordova plugin
 // App.configurePlugin('com.phonegap.plugins.facebookconnect', {
 //   APP_ID: '1234567890',
