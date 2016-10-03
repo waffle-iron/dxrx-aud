@@ -10,8 +10,8 @@ import QuestionNav from './QuestionNav.js';
 import { browserHistory } from 'react-router';
 
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+// import injectTapEventPlugin from 'react-tap-event-plugin';
+// injectTapEventPlugin();
 
 export default class SliderStep extends React.Component {
 

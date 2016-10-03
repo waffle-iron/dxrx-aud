@@ -10,7 +10,6 @@ allow-deny@1.0.5
 audit-argument-checks@1.0.7
 autopublish@1.0.7
 autoupdate@1.2.10
-awatson1978:accounts-muppets@1.1.0
 awatson1978:fonts-helveticas@1.0.4
 babel-compiler@6.8.3
 babel-runtime@0.1.9_1
@@ -58,7 +57,7 @@ ejson@1.0.12
 email@1.0.14_1
 fastclick@1.0.12
 fortawesome:fontawesome@4.5.0
-fourseven:scss@3.4.3
+fourseven:scss@3.3.3_3
 geojson-utils@1.0.9
 grove:less@0.1.1
 hot-code-push@1.0.4

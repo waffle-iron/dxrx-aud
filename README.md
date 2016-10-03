@@ -8,7 +8,7 @@ Mobile app that controls a breathalyzer and takes photo of medication compliance
 
 ```sh
 # get the application
-git clone http://github.com/clinical-meteor/meteor-on-fhir
+git clone http://github.com/DxRx/dxrx-aud
 
 # get the application and other utilities
 git clone --recursive http://github.com/clinical-meteor/meteor-on-fhir
@@ -38,7 +38,7 @@ You may need to install [Java SDK 8](http://www.oracle.com/technetwork/java/java
 # note:  we don't want to use the --save option here.  
 # nightwatch, starrynight, etc are VERY large (as in ~1GB and 50k files large)
 # install these pkgs independently in the environments where it's needed
-meteor npm install nightwatch starrynight chromedriver phantomjs selenium-standalone-jar
+meteor npm install nightwatch starrynight chromedriver phantomjs-prebuilt selenium-standalone-jar
 
 ## run validation tests (using nightwatch)
 meteor npm run-script nightwatch

@@ -114,10 +114,6 @@ export class AuthenticatedNavigation extends React.Component {
     $('#authenticatedUserMenu .material-icons')[0].click();
   }
 }
-AuthenticatedNavigation.propTypes = {
 
-};
-AuthenticatedNavigation.defaultProps = {
 
-};
 ReactMixin(AuthenticatedNavigation.prototype, ReactMeteorData);

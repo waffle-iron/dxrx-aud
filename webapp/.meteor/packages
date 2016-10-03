@@ -41,7 +41,7 @@ dispatch:mocha-phantomjs
 
 react-meteor-data
 
-simple:dev-error-overlay
+simple:dev-error-overlay   # this may be where foreseven:css comes from
 
 clinical:extended-api
 clinical:auto-resizing
@@ -62,7 +62,5 @@ clinical:hl7-resource-datatypes@0.4.7
 
 
 percolate:synced-cron
-
-awatson1978:accounts-muppets
 
 momentjs:moment

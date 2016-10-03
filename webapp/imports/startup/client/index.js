@@ -6,6 +6,9 @@ import './globals.js';
 
 import { Meteor } from 'meteor/meteor';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+// injectTapEventPlugin();
+
 if (process.env.NODE_ENV === 'production') {
   Bert.defaults.style = 'fixed-top';
 } else {

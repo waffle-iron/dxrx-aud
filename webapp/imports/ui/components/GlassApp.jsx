@@ -6,7 +6,8 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
 
-Session.setDefault('backgroundColor', '#337ab7');
+// Session.setDefault('backgroundColor', '#337ab7');
+Session.setDefault('backgroundColor', '#eeeeee');
 Session.setDefault('darkroomEnabled', true);
 Session.setDefault('glassBlurEnabled', false);
 Session.setDefault('backgroundBlurEnabled', false);
@@ -34,7 +35,8 @@ export class GlassApp extends React.Component {
     data.app.style = {
       zIndex: 1,
       cursor: 'pointer',
-      background: '#337ab7'
+      background: '#eeeeee'
+      // background: '#337ab7'
     };
 
     // and we're on a tablet or larger device (no phone)
