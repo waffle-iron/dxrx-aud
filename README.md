@@ -57,16 +57,3 @@ COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-
 ```sh
 meteor run ios --mobile-server app-3977.on-aptible.com --settings settings.json
 ```    
-
-
-
-
-
-
-
-#### Licensing
-
-Abigail Watson
-Artistic License 2.0
-
-The code is free, but be careful about media assets, some of which are not publicly licensed.  
