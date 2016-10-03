@@ -19,7 +19,7 @@ export class Signup extends React.Component {
     event.preventDefault();
   }
   handleTouchTap(){
-    console.log("this", this);
+    //console.log("this", this);
 
     let newUserData = {
       email: this.refs.emailAddress.input.value,

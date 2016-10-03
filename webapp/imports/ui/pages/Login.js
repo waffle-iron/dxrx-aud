@@ -66,8 +66,8 @@ export class Login extends React.Component {
                       />
                     </Row>
                     <Row>
-                      <Button id="loginButton" onTouchTap={this.handleTouchTap.bind(this)} bsStyle="success">Login</Button>
-                      <Link className="pull-right" to="/recover-password" style={{color: "white", marginRight: "10px"}}>Forgot password.</Link>
+                      <Button id="loginButton" onTouchTap={this.handleTouchTap.bind(this)} bsStyle="success">Login</Button><br/>
+                      <Link to="/recover-password" style={{color: "black"}}>Forgot password?</Link>
                     </Row>
                   </Col>
                 </form>
