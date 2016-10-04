@@ -55,5 +55,11 @@ COVERAGE_APP_FOLDER=/Users/abigailwatson/Code/GlassUI/fire-demo/ meteor npm run-
 #### Mobile Build  
 
 ```sh
+# to connect to the production server
 meteor run ios --mobile-server app-3977.on-aptible.com --settings settings.json
+
+# to connect to your local server
+# you'll need to figure out what IP address your app is using ifconfig
+# be sure to double check your router, hotspot, etc.
+NODE_ENV=test meteor run ios-device --mobile-server 172.20.10.2:3000
 ```    
