@@ -104,8 +104,8 @@ export class CarePlanPage extends React.Component {
             </FloatingActionButton>
             <GlassCard style={style.indexCard} >
               <CardTitle
-                title='Observations'
-                subtitle='Observations from devices.'
+                title='Result'
+                subtitle='Calculated results.'
               />
             </GlassCard>
           </section>
@@ -155,7 +155,7 @@ export class CarePlanPage extends React.Component {
     browserHistory.push('/questionnaire');
   }
   openObservationpage(){
-    browserHistory.push('/observations');
+    browserHistory.push('/breathalyzer-result');
   }
   openBreathalyzerpage(){
     browserHistory.push('/breathalyzer');
