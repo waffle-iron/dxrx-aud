@@ -1,4 +1,7 @@
-import IconButton from 'react-toolbox/lib/button';
+// import IconButton from 'react-toolbox/lib/button';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+
 import React  from 'react';
 import ReactMixin from 'react-mixin';
 
@@ -104,7 +107,10 @@ export class Header extends React.Component {
   render () {
     return(
       <header className={style.appbar} style={this.data.style}>
-        <IconButton icon='menu' onClick={ this.toggleDrawerActive } style={{zIndex:10000, fontSize: '140%'}}>{this.data.app.title}</IconButton>
+        <IconButton icon='menu' onClick={ this.toggleDrawerActive } style={{zIndex:10000, fontSize: '140%'}}>
+          <FontIcon className="material-icons">menu</FontIcon>
+          {this.data.app.title}
+        </IconButton>
         <div className="eastHeaderElements" style={this.data.eastStyle} >
           { this.renderNavigation(this.data.hasUser) }
         </div>

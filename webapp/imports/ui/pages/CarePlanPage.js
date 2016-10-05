@@ -9,6 +9,9 @@ import { GlassCard } from '../components/GlassCard';
 import { PageContainer } from '../components/PageContainer';
 
 import { browserHistory } from 'react-router';
+// import Button from 'react-toolbox/lib/button';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ActionDone from 'material-ui/svg-icons/action/done';
 
 export class CarePlanPage extends React.Component {
   constructor(props) {
@@ -53,7 +56,14 @@ export class CarePlanPage extends React.Component {
         width: '100%',
         display: 'inline-block',
         paddingLeft: '20px',
-        paddingRight: '20px'
+        paddingRight: '20px',
+        position: 'relative'
+      },
+      completionIcon: {
+        position: 'absolute',
+        zIndex: 1,
+        left: '-10px',
+        top: '-20px'
       }
     };
     return (
@@ -61,6 +71,9 @@ export class CarePlanPage extends React.Component {
         <PageContainer>
 
         <section id="surveySection" style={style.indexCardPadding} onClick={ this.openQuestionnairePage.bind(this) } >
+          <FloatingActionButton id="questionnaireCompleted" ref='questionnaireCompleted' style={style.completionIcon}>
+            <ActionDone />
+          </FloatingActionButton>
           <GlassCard style={style.indexCard} >
             <CardTitle
               title='Questionnaire'
@@ -72,6 +85,9 @@ export class CarePlanPage extends React.Component {
         <Spacer />
 
           <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+            <FloatingActionButton id="breathalyzerCompleted" ref='breathalyzerCompleted' style={style.completionIcon}>
+              <ActionDone />
+            </FloatingActionButton>
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Breathalyzer'
@@ -83,6 +99,9 @@ export class CarePlanPage extends React.Component {
           <Spacer />
 
           <section id="observationSection" style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
+            <FloatingActionButton id="observationCompleted" ref='observationCompleted' style={style.completionIcon}>
+              <ActionDone />
+            </FloatingActionButton>
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Observations'
@@ -94,6 +113,9 @@ export class CarePlanPage extends React.Component {
           <Spacer />
 
           <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+            <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={style.completionIcon}>
+              <ActionDone />
+            </FloatingActionButton>
             <GlassCard style={style.indexCard} >
               <CardTitle
                 title='Adherence'
@@ -130,7 +152,7 @@ export class CarePlanPage extends React.Component {
     browserHistory.push('/devices');
   }
   openQuestionnairePage(){
-    browserHistory.push('/questionnaire');    
+    browserHistory.push('/questionnaire');
   }
   openObservationpage(){
     browserHistory.push('/observations');
@@ -157,7 +179,5 @@ export class CarePlanPage extends React.Component {
 
 
 
-// Index.propTypes = {
-//   hasUser: React.PropTypes.object
-// };
+
 ReactMixin(CarePlanPage.prototype, ReactMeteorData);
