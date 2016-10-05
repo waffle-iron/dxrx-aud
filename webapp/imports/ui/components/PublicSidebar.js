@@ -30,8 +30,8 @@ export class PublicSidebar extends React.Component {
   render () {
     return(
       <List style={{paddingLeft: '20px', position: 'absolute'}}>
-        <LinkContainer to='/'>
-           <ListItem eventKey={ 4 } caption='Index' href='/' />
+        <LinkContainer to='/tour'>
+           <ListItem eventKey={ 4 } caption='Tour' href='/' />
         </LinkContainer>
         <LinkContainer to='/breathalyzer-control'>
            <ListItem eventKey={ 10 } caption='Breathalyzer' href='/breathalyzer-control' />
