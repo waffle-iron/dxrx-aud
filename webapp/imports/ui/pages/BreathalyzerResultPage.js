@@ -295,7 +295,6 @@ export class BreathalyzerResultPage extends React.Component {
     }
     var adherencePicPresent = !(typeof adherenceState.adherencePictureTime === 'undefined');
 
-
     return (
       <div id="breathalyzerResultPage">
         <PageContainer >

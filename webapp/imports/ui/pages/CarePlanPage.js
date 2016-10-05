@@ -112,7 +112,7 @@ export class CarePlanPage extends React.Component {
 
           <Spacer />
 
-          <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+          <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openAdherencePage.bind(this) } >
             <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={style.completionIcon}>
               <ActionDone />
             </FloatingActionButton>
@@ -125,17 +125,6 @@ export class CarePlanPage extends React.Component {
           </section>
 
           <Spacer />
-
-          {/* <section style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
-            <GlassCard style={style.indexCard} >
-              <CardTitle
-                title='Weblog'
-                subtitle='Post public thoughts using a Wordpress/Twitter style format.'
-              />
-            </GlassCard>
-          </section>
-
-          <Spacer /> */}
 
         </PageContainer>
       </section>
@@ -153,6 +142,9 @@ export class CarePlanPage extends React.Component {
   }
   openQuestionnairePage(){
     browserHistory.push('/questionnaire');
+  }
+  openAdherencePage(){
+    browserHistory.push('/adherence');
   }
   openObservationpage(){
     browserHistory.push('/breathalyzer-result');

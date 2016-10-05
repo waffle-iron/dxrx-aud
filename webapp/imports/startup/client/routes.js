@@ -38,6 +38,7 @@ import { ProfileSetupPage } from '/imports/ui/pages/ProfileSetupPage';
 import { QuestionnairePage } from '/imports/ui/pages/QuestionnairePage';
 
 import { BreathalyzerResultPage } from '/imports/ui/pages/BreathalyzerResultPage';
+import { AdherencePage } from '/imports/ui/pages/AdherencePage';
 
 
 const requireAuth = (nextState, replace) => {
@@ -111,6 +112,7 @@ Meteor.startup(() => {
 
         <Route name="questionnaire" path="/questionnaire" component={ QuestionnairePage } />
         <Route name="breathalyzerResult" path="/breathalyzer-result" component={ BreathalyzerResultPage } />
+        <Route name="adherence" path="/adherence" component={ AdherencePage } />
 
 
 
