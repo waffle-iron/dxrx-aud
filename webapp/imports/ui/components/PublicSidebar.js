@@ -33,8 +33,8 @@ export class PublicSidebar extends React.Component {
         <LinkContainer to='/'>
            <ListItem eventKey={ 4 } caption='Index' href='/' />
         </LinkContainer>
-        <LinkContainer to='/breathalyzer'>
-           <ListItem eventKey={ 10 } caption='Breathalyzer' href='/breathalyzer' />
+        <LinkContainer to='/breathalyzer-control'>
+           <ListItem eventKey={ 10 } caption='Breathalyzer' href='/breathalyzer-control' />
         </LinkContainer>
 
         <LinkContainer to='/about'>

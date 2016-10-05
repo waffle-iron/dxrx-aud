@@ -35,30 +35,29 @@ export class AuthenticatedSidebar extends React.Component {
          <ListItem eventKey={ 4 } caption='CarePlan' href='/' />
       </IndexLinkContainer>
 
+      <IndexLinkContainer to='/adherence'>
+         <ListItem eventKey={ 11 } caption='Adherence' href='/adherence' />
+      </IndexLinkContainer>
+
       <IndexLinkContainer to='/device-configuration'>
          <ListItem eventKey={ 11 } caption='Device Configuration' href='/device-configuration' />
       </IndexLinkContainer>
 
-      <IndexLinkContainer to='/breathalyzer'>
-         <ListItem eventKey={ 13 } caption='Breathalyzer' href='/breathalyzer' />
+      <IndexLinkContainer to='/breathalyzer-control'>
+         <ListItem eventKey={ 13 } caption='Breathalyzer' href='/breathalyzer-control' />
       </IndexLinkContainer>
 
-        {/* <IndexLinkContainer to='/devices'>
-           <ListItem eventKey={ 11 } caption='Devices' href='/devices' />
-        </IndexLinkContainer> */}
+      <IndexLinkContainer to='/breathalyzer-result'>
+         <ListItem eventKey={ 12 } caption='Result' href='/breathalyzer-result' />
+      </IndexLinkContainer>
 
-        <IndexLinkContainer to='/observations'>
-           <ListItem eventKey={ 12 } caption='Observations' href='/observations' />
-        </IndexLinkContainer>
-
-        <IndexLinkContainer to='/about'>
-           <ListItem eventKey={ 10 } caption='About' href='/about' />
-        </IndexLinkContainer>
+      <IndexLinkContainer to='/about'>
+         <ListItem eventKey={ 10 } caption='About' href='/about' />
+      </IndexLinkContainer>
 
         {/* <IndexLinkContainer to='/weblog'>
            <ListItem eventKey={ 3 } caption='Weblog' href='/weblog' />
         </IndexLinkContainer> */}
-
 
       </List>
     );
