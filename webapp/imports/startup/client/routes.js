@@ -37,6 +37,12 @@ import { ProfileSetupPage } from '/imports/ui/pages/ProfileSetupPage';
 
 import { QuestionnairePage } from '/imports/ui/pages/QuestionnairePage';
 
+import { BreathalyzerResultPage } from '/imports/ui/pages/BreathalyzerResultPage';
+import { AdherencePage } from '/imports/ui/pages/AdherencePage';
+import { BreathalyzerControlPage } from '/imports/ui/pages/BreathalyzerControlPage';
+
+
+
 const requireAuth = (nextState, replace) => {
   if (!Meteor.loggingIn() && !Meteor.userId()) {
     replace({
@@ -104,9 +110,13 @@ Meteor.startup(() => {
         <Route name="tour" path="/tour" component={ TourPage } />
         <Route name="welcomePatient" path="/welcome/patient" component={ WelcomePatientPage } />
 
-        <Route name="profileSetupPage" path="/profile-setup" component={ ProfileSetupPage } />
+        <Route name="profileSetup" path="/profile-setup" component={ ProfileSetupPage } />
 
-        <Route name="questionnairePage" path="/questionnaire" component={ QuestionnairePage } />
+        <Route name="questionnaire" path="/questionnaire" component={ QuestionnairePage } />
+        <Route name="breathalyzerResult" path="/breathalyzer-result" component={ BreathalyzerResultPage } />
+        <Route name="adherence" path="/adherence" component={ AdherencePage } />
+        <Route name="breathalyzerControl" path="/breathalyzer-control" component={ BreathalyzerControlPage } />
+
 
 
         <Route path="*" component={ NotFound } />

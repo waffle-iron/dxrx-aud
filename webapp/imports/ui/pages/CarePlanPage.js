@@ -95,7 +95,21 @@ export class CarePlanPage extends React.Component {
 
         <Spacer />
 
-          <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
+        <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openAdherencePage.bind(this) } >
+          <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={style.completionIcon}>
+            <ActionDone />
+          </FloatingActionButton>
+          <GlassCard style={style.indexCard} >
+            <CardTitle
+              title='Adherence'
+              subtitle='Take a photo of your medications.'
+            />
+          </GlassCard>
+        </section>
+
+        <Spacer />
+
+          <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerControlPage.bind(this) } >
             <FloatingActionButton id="breathalyzerCompleted" ref='breathalyzerCompleted' style={style.completionIcon}>
               <ActionDone />
             </FloatingActionButton>
@@ -115,8 +129,8 @@ export class CarePlanPage extends React.Component {
             </FloatingActionButton>
             <GlassCard style={style.indexCard} >
               <CardTitle
-                title='Observations'
-                subtitle='Observations from devices.'
+                title='Result'
+                subtitle='Calculated results.'
               />
             </GlassCard>
           </section>
@@ -176,8 +190,14 @@ export class CarePlanPage extends React.Component {
   openQuestionnairePage(){
     browserHistory.push('/questionnaire');
   }
+  openAdherencePage(){
+    browserHistory.push('/adherence');
+  }
   openObservationpage(){
-    browserHistory.push('/observations');
+    browserHistory.push('/breathalyzer-result');
+  }
+  openBreathalyzerControlPage(){
+    browserHistory.push('/breathalyzer-control');
   }
   openBreathalyzerpage(){
     browserHistory.push('/breathalyzer');
