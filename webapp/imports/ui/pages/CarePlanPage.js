@@ -1,4 +1,4 @@
-import { CardTitle } from 'react-toolbox/lib/card';
+import { CardTitle, CardText } from 'react-toolbox/lib/card';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 
@@ -9,9 +9,14 @@ import { GlassCard } from '/imports/ui/components/GlassCard';
 import { PageContainer } from '../components/PageContainer';
 
 import { browserHistory } from 'react-router';
-// import Button from 'react-toolbox/lib/button';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ActionDone from 'material-ui/svg-icons/action/done';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import Divider from 'material-ui/Divider';
+
+import { CarePlans } from 'meteor/clinical:hl7-resource-careplan';
+
 
 export class CarePlanPage extends React.Component {
   constructor(props) {
@@ -19,7 +24,13 @@ export class CarePlanPage extends React.Component {
   }
   getMeteorData() {
     let data = {
-      style: {}
+      style: {},
+      primaryContact: {
+        display: ''
+      },
+      careplan: {
+        goal: []
+      }
     };
 
     // this should all be handled by props
@@ -36,6 +47,18 @@ export class CarePlanPage extends React.Component {
     if (Session.get('glassBlurEnabled')) {
       data.style.filter = 'blur(3px)';
       data.style.webkitFilter = 'blur(3px)';
+    }
+
+    // the following assumes that we only have a single CarePlan record in the database
+    if (CarePlans.find().count() > 0) {
+      let carePlanTemplate = CarePlans.find().fetch()[0];
+      console.log("carePlanTemplate", carePlanTemplate);
+
+      if (carePlanTemplate ) {
+        data.primaryContact = carePlanTemplate.author[0];
+
+        data.careplan = carePlanTemplate;
+      }
     }
 
     return data;
@@ -74,7 +97,7 @@ export class CarePlanPage extends React.Component {
           <GlassCard style={style.indexCard} >
             <CardTitle
               title='Contact'
-              subtitle='Dr. John Mendelson'
+              subtitle={this.data.primaryContact.display}
             />
           </GlassCard>
         </section>
@@ -157,6 +180,18 @@ export class CarePlanPage extends React.Component {
               title='Goals'
               subtitle="Today's goals and accomplishments."
             />
+            <CardText>
+              {this.data.careplan.goal.map((doc) => (
+                <div>
+                  <Toolbar>
+                    <ToolbarGroup>
+                      <ToolbarTitle text={doc.display} />
+                    </ToolbarGroup>
+                  </Toolbar>
+                  <br/>
+                </div>
+                ))}
+            </CardText>
           </GlassCard>
         </section>
 

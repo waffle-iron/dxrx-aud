@@ -24,7 +24,17 @@ Meteor.methods({
       console.log("No records found in Practitioners collection.  Lets create some...");
 
       var defaultPractitioner = {
-
+        name: {
+          given: "John",
+          family: "Mendelson",
+          text: "Dr. John Mendelson, M.D."
+        },
+        telecom: [{
+          system: 'phone',
+          value: '415-555-1234',
+          use: 'work',
+          rank: '1'
+        }]
       };
 
       Meteor.call('createPractitioner', defaultPractitioner);

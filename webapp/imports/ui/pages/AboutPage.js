@@ -13,17 +13,17 @@ import {orange500, blue500} from 'material-ui/styles/colors';
 
 const styles = {
   errorStyle: {
-    color: orange500,
+    color: orange500
   },
   underlineStyle: {
-    borderColor: orange500,
+    borderColor: orange500
   },
   floatingLabelStyle: {
-    color: orange500,
+    color: orange500
   },
   floatingLabelFocusStyle: {
-    color: blue500,
-  },
+    color: blue500
+  }
 };
 
 
@@ -35,8 +35,10 @@ export class AboutPage extends React.Component {
     let data = {
       environment: process.env.NODE_ENV,
       userId: Meteor.userId(),
-      url: Meteor.absoluteUrl()
+      url: Meteor.absoluteUrl(),
+      onlineStatus: Meteor.status().status
     };
+
     return data;
   }
   render(){
@@ -64,6 +66,12 @@ export class AboutPage extends React.Component {
                 id="appUserId"
                 defaultValue={this.data.userId}
                 errorText="User ID"
+                errorStyle={styles.errorStyle}
+              /><br />
+              <TextField
+                id="appOnlineStatus"
+                defaultValue={this.data.onlineStatus}
+                errorText="Connection"
                 errorStyle={styles.errorStyle}
               /><br />
             </CardText>

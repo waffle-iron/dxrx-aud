@@ -43,7 +43,7 @@ Meteor.methods({
           end: new Date(2016, 9, 21)
         },
         author: [{
-          display: 'System',
+          display: 'Dr. John Mendelson',
           reference: 'Meteor.users/System'
         }],
         description: 'Alcohol Abuse Disorder Treatment Plan.',

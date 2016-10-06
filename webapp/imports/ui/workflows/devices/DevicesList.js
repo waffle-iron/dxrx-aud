@@ -14,5 +14,5 @@ export const DevicesList = ({ devices }) => (
 );
 
 DevicesList.propTypes = {
-  devices: React.PropTypes.array,
+  devices: React.PropTypes.array
 };
