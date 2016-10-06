@@ -200,10 +200,11 @@ export class BreathalyzerResultPage extends React.Component {
     return Math.floor(stdDrinks+0.749);
   }
 
-  renderMessage(bac) {
+  renderMessage(bac, timeTilSoberString, stdDrinks) {
 
     if (bac === 0) {
-      return <CardText>
+      return
+      <CardText>
         <list>
           <li>Congratulations!  You did not drink today.</li>
           <li>This is X days without a drink!</li>
@@ -211,7 +212,8 @@ export class BreathalyzerResultPage extends React.Component {
         </list>
       </CardText>
     } else {
-      return <CardText>
+      return
+      <CardText>
         <list>
           <li>Your breathalyzer reading was {bac}</li>
            {(bac > 0.08) ? <li>You are above the legal limit for driving</li> : ''}
@@ -254,10 +256,11 @@ export class BreathalyzerResultPage extends React.Component {
                 </CardText>
                 <CardActions>
                   <FlatButton
+                    id='cancelResultsButton'
                     label='Cancel'
                     disableTouchRipple={true}
                     disableFocusRipple={true}
-                    onClick={this.props.cancelStep}
+                    onClick={this.backToCarePlan}
                     />
                 </CardActions>
               </GlassCard>
@@ -300,13 +303,14 @@ export class BreathalyzerResultPage extends React.Component {
         <PageContainer >
           <GlassCard>
             <CardHeader title='Results' />
-            { this.renderMessage(bac) }
+            { this.renderMessage(bac, timeTilSoberString, stdDrinks) }
            <CardActions>
              <FlatButton
+               id='cancelResultsButton'
                label='Cancel'
                disableTouchRipple={true}
                disableFocusRipple={true}
-               onClick={this.props.cancelStep}
+               onClick={this.backToCarePlan}
                />
              <RaisedButton
                disableTouchRipple={true}
@@ -321,6 +325,9 @@ export class BreathalyzerResultPage extends React.Component {
        </PageContainer>
      </div>
    );
+  }
+  backToCarePlan(){
+    browserHistory.push('/');
   }
 }
 

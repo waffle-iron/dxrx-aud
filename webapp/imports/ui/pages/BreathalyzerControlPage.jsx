@@ -12,8 +12,9 @@ import BreathalyzerDetail from '/imports/ui/workflows/breathalyzer/BreathalyzerD
 import BreathalyzerPost from '/imports/ui/workflows/breathalyzer/BreathalyzerPost';
 import Adherence from '/imports/ui/workflows/adherence/Adherence.js';
 import { Meteor } from 'meteor/meteor';
-
+import { Session } from 'meteor/session';
 import { GlassCard } from '/imports/ui/components/GlassCard';
+import { browserHistory } from 'react-router';
 
 Session.setDefault('bacTrackPage', {
   style: {},
@@ -81,7 +82,10 @@ export class BreathalyzerControlPage extends React.Component {
       <div id='breathalyzerControlPage' style={{paddingTop: '15px'}}>
         <PageContainer>
           <GlassCard>
-            <BreathalyzerDetail lastStep={this.gotoStep.bind(this, 'results')} cancelStep={this.cancelStep.bind(this)} />
+            <BreathalyzerDetail
+              lastStep={this.gotoStep.bind(this, 'results')}
+              cancelStep={this.cancelStep.bind(this)}
+            />
           </GlassCard>
         </PageContainer>
       </div>
@@ -89,81 +93,88 @@ export class BreathalyzerControlPage extends React.Component {
   }
 
   gotoStep (nextStep) {
-    let data = Session.get('bacTrackPage');
-    data.onTab = nextStep;
-    Session.set('bacTrackPage', data);
+    // let data = Session.get('bacTrackPage');
+    // data.onTab = nextStep;
+    // Session.set('bacTrackPage', data);
+    //Session.set('questionnaireCompleted', 'visible');
+    browserHistory.push('/');
   }
 
   cancelStep () {
-    let data = Session.get('bacTrackPage');
+      browserHistory.push('/');
 
-    if (typeof data.cancelStep === 'undefined') {
-      this.reset();
-      this.gotoStep('prelims');
-    } else {
-      let c = data.cancelStep;
-      this.reset();
-      c();
-    }
+    // let data = Session.get('bacTrackPage');
+    //
+    // if (typeof data.cancelStep === 'undefined') {
+    //   this.reset();
+    //   this.gotoStep('prelims');
+    // } else {
+    //   let c = data.cancelStep;
+    //   this.reset();
+    //   c();
+    // }
   }
 
   doneStep () {
-    let data = Session.get('bacTrackPage');
-    if (typeof data.doneStep === 'undefined') {
-      this.gotoStep('prelims');
-    } else {
-      data.doneStep();
-    }
+      Session.set('questionnaireCompleted', 'visible');
+      browserHistory.push('/');
+    // let data = Session.get('bacTrackPage');
+    // if (typeof data.doneStep === 'undefined') {
+    //   this.gotoStep('prelims');
+    // } else {
+    //   data.doneStep();
+    // }
   }
 
-  handleNext () {
-    let data = Session.get('bacTrackPage');
-    const stepIndex = data.stepIndex;
-    data.stepIndex = stepIndex + 1;
-    data.finished = stepIndex >= 3;
-    Session.set('bacTrackPage', data);
-  }
 
-  handlePrev () {
-    let data = Session.get('bacTrackPage');
-    const stepIndex = data.stepIndex;
-    if (stepIndex > 0) {
-      data.stepIndex = stepIndex - 1;
-      Session.set('bacTrackPage', data);
-    }
-  }
+  // handleNext () {
+  //   let data = Session.get('bacTrackPage');
+  //   const stepIndex = data.stepIndex;
+  //   data.stepIndex = stepIndex + 1;
+  //   data.finished = stepIndex >= 3;
+  //   Session.set('bacTrackPage', data);
+  // }
+  //
+  // handlePrev () {
+  //   let data = Session.get('bacTrackPage');
+  //   const stepIndex = data.stepIndex;
+  //   if (stepIndex > 0) {
+  //     data.stepIndex = stepIndex - 1;
+  //     Session.set('bacTrackPage', data);
+  //   }
+  // }
 
-  getStepContent (stepIndex) {
-    console.log('In getStepContent with ' + stepIndex);
-    switch (stepIndex) {
-    case 0:
-      return (
-          <div>
-            <BreathalyzerPre />
-          </div>
-        );
-    case 2:
-      return (
-          <div>
-            <BreathalyzerDetail />
-          </div>
-        );
-    case 1:
-      return (
-          <div>
-            <Adherence />
-          </div>
-        );
-    case 3:
-      return (
-          <div>
-            <BreathalyzerPost />
-          </div>
-        );
-    default:
-      return 'Error';
-    }
-  }
+  // getStepContent (stepIndex) {
+  //   console.log('In getStepContent with ' + stepIndex);
+  //   switch (stepIndex) {
+  //   case 0:
+  //     return (
+  //         <div>
+  //           <BreathalyzerPre />
+  //         </div>
+  //       );
+  //   case 2:
+  //     return (
+  //         <div>
+  //           <BreathalyzerDetail />
+  //         </div>
+  //       );
+  //   case 1:
+  //     return (
+  //         <div>
+  //           <Adherence />
+  //         </div>
+  //       );
+  //   case 3:
+  //     return (
+  //         <div>
+  //           <BreathalyzerPost />
+  //         </div>
+  //       );
+  //   default:
+  //     return 'Error';
+  //   }
+  // }
 
 
   reset (event) {

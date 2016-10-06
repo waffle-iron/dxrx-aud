@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
+import { browserHistory } from 'react-router';
+
 import FlatButton from 'material-ui/FlatButton';
 import {Stepper} from 'material-ui/Stepper';
 import SliderStep from  '../questions/SliderStep';
 import RaisedButton from 'material-ui/RaisedButton';
 import Center from '../breathalyzer/Center.js';
 import {timeBefore,timeBeforeValue,shallowCopy} from '../breathalyzer/Utils.js';
+import { Session } from 'meteor/session';
 
 Session.setDefault('AdherenceState', {
   adherencePictureTime: undefined,
@@ -51,6 +54,8 @@ export default class Adherence extends React.Component {
       finished: d.finished
     };
     Session.set('AdherenceState',x);
+    Session.set('adherenceCompleted', 'visible');
+    browserHistory.push('/');
   }
 
   onFail(message) {
@@ -75,12 +80,15 @@ export default class Adherence extends React.Component {
     let d = Session.get('AdherenceState');
     d.alreadyTook = val;
     Session.set('AdherenceState',shallowCopy(d));
+    Session.set('adherenceCompleted', 'visible');
+    browserHistory.push('/');
   }
 
   willNotTake(val) {
     let d = Session.get('AdherenceState');
     d.willNotTake = val;
     Session.set('AdherenceState',shallowCopy(d));
+    browserHistory.push('/');
   }
 
   render() {

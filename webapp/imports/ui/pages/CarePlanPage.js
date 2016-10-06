@@ -2,6 +2,7 @@ import { CardTitle, CardText } from 'react-toolbox/lib/card';
 import React from 'react';
 import ReactMixin from 'react-mixin';
 
+import { Session } from 'meteor/session';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import Spacer from '/imports/ui/components/Spacer';
 
@@ -17,14 +18,55 @@ import Divider from 'material-ui/Divider';
 
 import { CarePlans } from 'meteor/clinical:hl7-resource-careplan';
 
+Session.setDefault("questionnaireCompleted", 'hidden');
+Session.setDefault("adherenceCompleted", 'hidden');
+Session.setDefault("breathalyzerCompleted", 'hidden');
+Session.setDefault("resultCompleted", 'hidden');
 
 export class CarePlanPage extends React.Component {
   constructor(props) {
     super(props);
   }
   getMeteorData() {
+
     let data = {
       style: {},
+      questionnaireCompleted: {
+        style: {
+          position: 'absolute',
+          zIndex: 1,
+          left: '-10px',
+          top: '-20px',
+          visibility: Session.get("questionnaireCompleted")
+        }
+      },
+      adherenceCompleted: {
+        style: {
+          position: 'absolute',
+          zIndex: 1,
+          left: '-10px',
+          top: '-20px',
+          visibility: Session.get("adherenceCompleted")
+        }
+      },
+      breathalyzerCompleted: {
+        style: {
+          position: 'absolute',
+          zIndex: 1,
+          left: '-10px',
+          top: '-20px',
+          visibility: Session.get("breathalyzerCompleted")
+        }
+      },
+      resultCompleted: {
+        style: {
+          position: 'absolute',
+          zIndex: 1,
+          left: '-10px',
+          top: '-20px',
+          visibility: Session.get("resultCompleted")
+        }
+      },
       primaryContact: {
         display: ''
       },
@@ -32,6 +74,7 @@ export class CarePlanPage extends React.Component {
         goal: []
       }
     };
+
 
     // this should all be handled by props
     // or a mixin!
@@ -61,6 +104,9 @@ export class CarePlanPage extends React.Component {
       }
     }
 
+    console.log("data", data);
+
+
     return data;
   }
   render() {
@@ -81,12 +127,6 @@ export class CarePlanPage extends React.Component {
         paddingLeft: '20px',
         paddingRight: '20px',
         position: 'relative'
-      },
-      completionIcon: {
-        position: 'absolute',
-        zIndex: 1,
-        left: '-10px',
-        top: '-20px'
       }
     };
     return (
@@ -105,7 +145,7 @@ export class CarePlanPage extends React.Component {
         <Spacer />
 
         <section id="surveySection" style={style.indexCardPadding} onClick={ this.openQuestionnairePage.bind(this) } >
-          <FloatingActionButton id="questionnaireCompleted" ref='questionnaireCompleted' style={style.completionIcon}>
+          <FloatingActionButton id="questionnaireCompleted" ref='questionnaireCompleted' style={this.data.questionnaireCompleted.style}>
             <ActionDone />
           </FloatingActionButton>
           <GlassCard style={style.indexCard} >
@@ -119,7 +159,7 @@ export class CarePlanPage extends React.Component {
         <Spacer />
 
         <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openAdherencePage.bind(this) } >
-          <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={style.completionIcon}>
+          <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={this.data.adherenceCompleted.style}>
             <ActionDone />
           </FloatingActionButton>
           <GlassCard style={style.indexCard} >
@@ -133,7 +173,7 @@ export class CarePlanPage extends React.Component {
         <Spacer />
 
           <section id="breathalyzerSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerControlPage.bind(this) } >
-            <FloatingActionButton id="breathalyzerCompleted" ref='breathalyzerCompleted' style={style.completionIcon}>
+            <FloatingActionButton id="breathalyzerCompleted" ref='breathalyzerCompleted' style={this.data.breathalyzerCompleted.style}>
               <ActionDone />
             </FloatingActionButton>
             <GlassCard style={style.indexCard} >
@@ -147,7 +187,7 @@ export class CarePlanPage extends React.Component {
           <Spacer />
 
           <section id="observationSection" style={style.indexCardPadding} onClick={ this.openObservationpage.bind(this) } >
-            <FloatingActionButton id="observationCompleted" ref='observationCompleted' style={style.completionIcon}>
+            <FloatingActionButton id="observationCompleted" ref='observationCompleted' style={this.data.resultCompleted.style}>
               <ActionDone />
             </FloatingActionButton>
             <GlassCard style={style.indexCard} >
@@ -160,19 +200,6 @@ export class CarePlanPage extends React.Component {
 
           <Spacer />
 
-          <section id="adherenceSection" style={style.indexCardPadding} onClick={ this.openBreathalyzerpage.bind(this) } >
-            <FloatingActionButton id="adherenceCompleted" ref='adherenceCompleted' style={style.completionIcon}>
-              <ActionDone />
-            </FloatingActionButton>
-            <GlassCard style={style.indexCard} >
-              <CardTitle
-                title='Adherence'
-                subtitle='Take a photo of your medications.'
-              />
-            </GlassCard>
-          </section>
-
-          <Spacer />
 
         <section id="goalsSection" style={style.indexCardPadding} >
           <GlassCard style={style.indexCard} >
@@ -181,8 +208,8 @@ export class CarePlanPage extends React.Component {
               subtitle="Today's goals and accomplishments."
             />
             <CardText>
-              {this.data.careplan.goal.map((doc) => (
-                <div>
+              {this.data.careplan.goal.map((doc, index) => (
+                <div key={index}>
                   <Toolbar>
                     <ToolbarGroup>
                       <ToolbarTitle text={doc.display} />

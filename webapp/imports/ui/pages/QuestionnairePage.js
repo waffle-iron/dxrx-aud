@@ -16,6 +16,8 @@ import RadioButtonStep from  '/imports/ui/workflows/questions/RadioButtonStep';
 import {getRawValue,timeBefore,timeBeforeValue,min,echoValue,shallowCopy} from '/imports/ui/workflows/breathalyzer/Utils.js';
 import { browserHistory } from 'react-router';
 
+import { Session } from 'meteor/session';
+
 Session.setDefault('BreathalyzerPreState', {
   startTime: undefined,
   didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
@@ -55,6 +57,7 @@ export class QuestionnairePage extends React.Component {
     var cancelStep = this.props.cancelStep;
     var lastStep = function(){
       // this is done on Finish Questions Button
+      Session.set('questionnaireCompleted', 'visible');
       browserHistory.push('/');
     };
 
