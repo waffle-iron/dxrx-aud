@@ -326,6 +326,7 @@ export default class BreathalyzerDetail extends React.Component {
                                       </CardText>
                                       <CardActions >
                                         <FlatButton
+                                          id = 'skipButton'
                                           label = 'Skip'
                                           disableTouchRipple = {true}
                                           disableFocusRipple = {true}
@@ -340,6 +341,7 @@ export default class BreathalyzerDetail extends React.Component {
                                               />
                                           ) : (
                                             <RaisedButton
+                                              id='scanButton'
                                               disableTouchRipple = {true}
                                               disableFocusRipple = {true}
                                               primary = {true}

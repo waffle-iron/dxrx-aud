@@ -50,8 +50,8 @@ export class PageContainer extends React.Component {
     }
 
     if (Session.get('hasPagePadding')) {
-      data.style.marginTop = '50px';
-      data.style.marginBottom = '50px';
+      data.style.marginTop = '6.4rem';
+      data.style.marginBottom = '6.4rem';
     } else {
       data.style.marginTop = '0px';
       data.style.marginBottom = '0px';

@@ -5,8 +5,13 @@ npm-debug.log
 
 node_modules
 
-screenshots
 screenshots/*
+accounts/*.png
+iTunesConnect/*.png
+patientJourney/*.png
+patientJourney.routes/*.png
+patientRoutes/*.png
+weblog/*.png
 nightwatch/logs/*.log
 selenium-debug.log
 reports
