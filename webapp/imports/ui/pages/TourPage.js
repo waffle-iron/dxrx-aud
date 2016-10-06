@@ -30,7 +30,7 @@ export class TourPage extends React.Component {
              Welcome.  Here is where you will learn more about the DxRx Alcoholism Recovery Program.  Lorem ipsum dolor sit et...
              </CardText>
 
-             <Button id="signUpButton" onClick={this.signin}>Signup!</Button>
+             <Button id="beginRegistrationButton" onClick={this.signin}>Signup!</Button>
 
           </GlassCard>
         </PhoneContainer>

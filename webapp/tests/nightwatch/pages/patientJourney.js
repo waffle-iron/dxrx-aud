@@ -1,7 +1,17 @@
 module.exports = {
   url: 'https://localhost:3000',
   commands: [{
-    signup: function(firstName, lastName, emailAddress, password, accessCode) {
+    takeProductTour: function(){
+      return this
+        .waitForElementPresent('#tourPage', 5000);
+
+    },
+    beginRegistration(){
+      return this
+        .verify.elementPresent("#beginRegistrationButton")
+        .click("#beginRegistrationButton");
+    },
+    fillInSignupInfo: function(firstName, lastName, emailAddress, password, accessCode) {
       return this
         .waitForElementPresent("#signupPage", 5000)
         .verify.elementPresent('input[name="firstName"]')
@@ -20,25 +30,23 @@ module.exports = {
         .setValue('input[name="lastName"]', lastName)
         .setValue('input[name="emailAddress"]', emailAddress)
         .setValue('input[name="password"]', password)
-        .setValue('input[name="accessCode"]', accessCode)
+        .setValue('input[name="accessCode"]', accessCode);
 
-      .verify.elementPresent('#signupButton')
-      .click('#signupButton');
     },
-    takeTour: function(){
+    signup: function(){
       return this
-        .waitForElementPresent('#tourPage', 5000)
-        .verify.elementPresent("#signUpButton")
-        .verify.elementPresent("#signUpButton")
-        .click("#signUpButton");
+        .verify.elementPresent('#signupButton')
+        .click('#signupButton');
     },
-    acceptWelcomeScreen: function(){
-      return this
-        .waitForElementPresent('#welcomePatientPage', 5000)
 
+    reviewPatientWelcomePage: function(){
+      return this
+        .waitForElementPresent('#welcomePatientPage', 5000);
         // add stuff here
-
-        .verify.elementPresent("#configureDeviceButton")
+    },
+    beginDeviceConfiguration: function(){
+      return this
+        .waitForElementPresent("#configureDeviceButton", 5000)
         .click("#configureDeviceButton");
     },
     configureDevice: function(type, identifier){
@@ -61,19 +69,23 @@ module.exports = {
       identifierArray.forEach(function(letter){
         self.setValue("#deviceIdentifierInput", letter);
       });
-
-      return self.verify.elementPresent("#saveDeviceConfigurationButton")
+      return self;
+    },
+    saveDeviceConfiguration: function(){
+      return this.verify.elementPresent("#saveDeviceConfigurationButton")
         .click("#saveDeviceConfigurationButton");
     },
-    configureProfile: function(){
+    reviewProfileConfiguration: function(){
       return this
         .waitForElementPresent('#profileSetupPage', 5000)
 
         .verify.elementPresent("#givenNameInput")
         .verify.elementPresent("#familyNameInput")
         .verify.elementPresent("#genderInput")
-        .verify.elementPresent("#weightInput")
-
+        .verify.elementPresent("#weightInput");
+    },
+    saveUserProfile: function(){
+      return this
         .verify.elementPresent("#saveProfileButton")
         .click("#saveProfileButton");
     },
@@ -136,9 +148,12 @@ module.exports = {
         .waitForElementPresent("#estimatedBACSlider", 2000)
         .pause(1000)
         .moveToElement("#estimatedBACSlider", 20, 0)
-        .mouseButtonClick(0)
+        .mouseButtonClick(0);
 
-        .waitForElementPresent("#finishQuestionsButton", 2000)
+      return this;
+    },
+    finishSurvey: function(){
+      return this.waitForElementPresent("#finishQuestionsButton", 2000)
         .click("#finishQuestionsButton");
 
       return this;
@@ -181,14 +196,20 @@ module.exports = {
     },
     verifyResults: function(){
       return this
-        .verify.elementPresent('#breathalyzerResultPage')
+        .verify.elementPresent('#breathalyzerResultPage');
+    },
+    returnToCarePlan(){
+      return this
         .verify.elementPresent("#cancelResultsButton")
-
         .click("#cancelResultsButton");
     },
     verifyDailyBreathalyzerGoal: function(){
       return this
         .verify.elementPresent('#dailyUseGoalPage');
+    },
+    saveScreenshot: function(path, client){
+      client.saveScreenshot(path);
+      return this;
     }
   }],
   elements: {}
