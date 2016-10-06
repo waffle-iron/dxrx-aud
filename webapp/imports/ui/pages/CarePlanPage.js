@@ -5,7 +5,7 @@ import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import Spacer from '/imports/ui/components/Spacer';
 
-import { GlassCard } from '../components/GlassCard';
+import { GlassCard } from '/imports/ui/components/GlassCard';
 import { PageContainer } from '../components/PageContainer';
 
 import { browserHistory } from 'react-router';
@@ -70,6 +70,17 @@ export class CarePlanPage extends React.Component {
       <section id='carePlanPage' style={{paddingTop: "20px"}}>
         <PageContainer>
 
+        <section id="contactSection" style={style.indexCardPadding} >
+          <GlassCard style={style.indexCard} >
+            <CardTitle
+              title='Contact'
+              subtitle='Dr. John Mendelson'
+            />
+          </GlassCard>
+        </section>
+
+        <Spacer />
+
         <section id="surveySection" style={style.indexCardPadding} onClick={ this.openQuestionnairePage.bind(this) } >
           <FloatingActionButton id="questionnaireCompleted" ref='questionnaireCompleted' style={style.completionIcon}>
             <ActionDone />
@@ -125,6 +136,17 @@ export class CarePlanPage extends React.Component {
           </section>
 
           <Spacer />
+
+        <section id="goalsSection" style={style.indexCardPadding} >
+          <GlassCard style={style.indexCard} >
+            <CardTitle
+              title='Goals'
+              subtitle="Today's goals and accomplishments."
+            />
+          </GlassCard>
+        </section>
+
+        <Spacer />
 
           {/* <section style={style.indexCardPadding} onClick={ this.openWeblog.bind(this) } >
             <GlassCard style={style.indexCard} >
