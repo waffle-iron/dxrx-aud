@@ -154,8 +154,6 @@ module.exports = {
     finishSurvey: function(){
       return this.waitForElementPresent("#finishQuestionsButton", 2000)
         .click("#finishQuestionsButton");
-
-      return this;
     },
     startBreathalyzer: function() {
       return this
@@ -197,7 +195,7 @@ module.exports = {
       return this
         .verify.elementPresent('#breathalyzerResultPage');
     },
-    returnToCarePlan(){
+    returnToCarePlan: function(){
       return this
         .verify.elementPresent("#cancelResultsButton")
         .click("#cancelResultsButton");
