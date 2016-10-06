@@ -4,9 +4,8 @@ module.exports = {
     takeProductTour: function(){
       return this
         .waitForElementPresent('#tourPage', 5000);
-
     },
-    beginRegistration(){
+    beginRegistration: function(){
       return this
         .verify.elementPresent("#beginRegistrationButton")
         .click("#beginRegistrationButton");
