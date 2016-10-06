@@ -150,6 +150,7 @@ export default class Adherence extends React.Component {
       <div style={{display: 'flex',flex: 1,flexWrap: 'wrap', flexDirection: 'row',
            justifyContent: 'space-around'}}>
         <FlatButton
+          id="takePhotoButton"
           disableTouchRipple = {true}
           disableFocusRipple = {true}
           style = {{marginRight: 12}}
@@ -157,6 +158,7 @@ export default class Adherence extends React.Component {
           onClick={this.alreadyTook.bind(this,!data.alreadyTook)} />
         {showDone ?
           (<RaisedButton
+            id='nextButton'
             disableTouchRipple={true}
             disableFocusRipple={true}
             primary={true}
@@ -164,6 +166,7 @@ export default class Adherence extends React.Component {
             label='Next'
             onClick={this.props.lastStep} />) :
           (<FlatButton
+            id='nextButton'
             disableTouchRipple={true}
             disableFocusRipple={true}
             label='Next'

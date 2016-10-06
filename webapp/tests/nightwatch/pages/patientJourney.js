@@ -86,9 +86,11 @@ module.exports = {
         .waitForElementPresent('#carePlanPage', 5000)
 
         .verify.elementPresent('#surveySection')
+        .verify.elementPresent('#adherenceSection')
         .verify.elementPresent('#breathalyzerSection')
         .verify.elementPresent('#observationSection')
-        .verify.elementPresent('#adherenceSection');
+
+        .verify.elementPresent('#goalsSection');
     },
 
     startSurvey: function() {
@@ -146,28 +148,43 @@ module.exports = {
         .waitForElementPresent('#carePlanPage', 5000)
         .click('#breathalyzerSection');
     },
-    reviewObservation: function() {
-      return this
-        .waitForElementPresent('#carePlanPage', 5000)
-        .click('#observationSection');
-    },
     startAdherencePhoto: function() {
       return this
         .waitForElementPresent('#carePlanPage', 5000)
         .click('#adherenceSection');
     },
-
-    simulateBreath: function(){
+    alreadyTookMeds: function(){
       return this
-        .verify.elementPresent('#breathalyzerPage');
+        .waitForElementPresent('#adherencePage', 5000)
+        .verify.elementPresent("#adherencePicture")
+        .verify.elementPresent("#takePhotoButton")
+        .verify.elementPresent("#nextButton")
+
+        .click("#takePhotoButton");
+    },
+    simulateBreath: function(simulatedBloodAlcoholLevel){
+      return this
+        .verify.elementPresent('#breathalyzerControlPage')
+        .verify.elementPresent("#scanButton")
+        .verify.elementPresent("#skipButton")
+
+        .click("#skipButton");
     },
     takeAdherencePhoto: function(){
       return this
         .verify.elementPresent('#adherencePhotoPage');
     },
-    verifyObservation: function(){
+    startResultsReview: function() {
       return this
-        .verify.elementPresent('#observationPage');
+        .waitForElementPresent('#carePlanPage', 5000)
+        .click('#observationSection');
+    },
+    verifyResults: function(){
+      return this
+        .verify.elementPresent('#breathalyzerResultPage')
+        .verify.elementPresent("#cancelResultsButton")
+
+        .click("#cancelResultsButton");
     },
     verifyDailyBreathalyzerGoal: function(){
       return this

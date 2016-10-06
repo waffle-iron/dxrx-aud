@@ -36,12 +36,12 @@ module.exports = {
       .verifyCarePlanElements()
       .startSurvey()
       .fillOutSurvey(2, 3, 7, 8, client)
-      .startBreathalyzer();
-      // .simulateBreath(0.02)
-      // .startAdherencePhoto()
-      // .takeAdherencePhoto()
-      // .verifyObservation(0.02)
-      // .verifyCarePlanHistoryElements();
+      .startAdherencePhoto()
+      .alreadyTookMeds()
+      .startBreathalyzer()
+      .simulateBreath(0.02)
+      .startResultsReview()
+      .verifyResults(0.02);
 
     client
       .executeAsync(function(){
