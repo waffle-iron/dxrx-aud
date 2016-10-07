@@ -31,28 +31,81 @@ Meteor.methods({
       console.log('No records found in QuestionnaireResponses collection.  Lets create some...');
 
       var defaultQuestionnaireResponse = {
-        resourceType: 'QuestionnaireResponse',
-        status: 'final',
-        category: {
-          text: 'Breathalyzer'
+        resourceType: "QuestionnaireResource",
+        identifier: {
+          use: "usual",
+          type: {
+            text: "BreathalyzerQuestionnaireResponse",
+            coding: [{
+              system: "dxrxmedical",
+              version: "1",
+              code: "dxrx",
+              display: "Breathalyzer Survey Questionnaire",
+              userSelected: false
+            }]
+          }
         },
-        effectiveDateTime: new Date(),
+        status: "completed",
+        questionnaire: {
+          display: "BreathalyzerQuestionnaire",
+          reference: "Questionnaires/BreathalyzerQuestionnaire"
+        },
+        author: {
+          display: '',
+          reference: ''
+        },
         subject: {
           display: '',
           reference: ''
         },
-        performer: {
+        source: {
           display: '',
           reference: ''
         },
-        device: {
-          display: 'Breathalyzer',
-          reference: deviceId
+        encounter: {
+          display: '',
+          reference: ''
         },
-        valueQuantity: {
-          value: 0.00,
-          unit: '%',
-          system: 'http://unitsofmeasure.org'
+        group: {
+          linkId: '',
+          title: "BREATHALYZER SURVEY",
+          text: "Breathalyzer Survey",
+          required: false,
+          repeats: true,
+          question: [{
+            linkId: "survey-question-1",
+            text: "Have you drank today?",
+            answer: [{
+              valueInteger: 0,
+              valueString: ''
+            }]
+          }, {
+            linkId: "survey-question-2",
+            text: "When did you take your first drink today?",
+            answer: [{
+              valueString: ''
+            }]
+          }, {
+            linkId: "survey-question-3",
+            text: "When did you take your last drink today?",
+            answer: [{
+              valueString: ''
+            }]
+          }, {
+            linkId: "survey-question-4",
+            text: "How many drinks did you have today?",
+            helpText: "Slide to select number of drinks",
+            answer: [{
+              valueString: ''
+            }]
+          }, {
+            linkId: "survey-question-5",
+            text: "What is your estimated blood alcohol level?",
+            helpText: "Slide to estimate level",
+            answer: [{
+              valueString: ''
+            }]
+          }] // edit here for new question
         }
       };
 

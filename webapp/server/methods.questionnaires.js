@@ -49,9 +49,9 @@ Meteor.methods({
         date: new Date(),
         publisher: "DxRx Medical",
         telecom: [],
-        subjectType: "",
+        subjectType: '',
         group: {
-          linkId: "",
+          linkId: '',
           title: "BREATHALYZER SURVEY",
           concept: {},
           text: "Breathalyzer Survey",
