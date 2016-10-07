@@ -64,3 +64,4 @@ clinical:hl7-resource-datatypes@0.4.7
 percolate:synced-cron
 
 momentjs:moment
+clinical:hl7-resource-questionnaire
