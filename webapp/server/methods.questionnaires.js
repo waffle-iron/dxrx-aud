@@ -1,5 +1,5 @@
 
-import { Questionnaires } from '/imports/api/questionnaires/questionnaires';
+//import { Questionnaires } from '/imports/api/questionnaires/questionnaires';
 
 Meteor.publish('questionnaires', function(){
   return Questionnaires.find()

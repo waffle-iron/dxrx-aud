@@ -1,5 +1,5 @@
 
-import { QuestionnaireResponses } from '/imports/api/questionnaireResponses/questionnaireResponses';
+//import { QuestionnaireResponses } from '/imports/api/questionnaireResponses/questionnaireResponses';
 
 Meteor.publish('questionnaireResponses', function(){
   return QuestionnaireResponses.find()
