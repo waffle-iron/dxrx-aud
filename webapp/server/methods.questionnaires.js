@@ -88,5 +88,103 @@ Meteor.methods({
       console.log('Try setting NODE_ENV=test');
     }
   }
+});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Meteor.startup(function (){
+
+
+
+  var questionnaire = {
+    resourceType: "Questionnaire",
+    identifier: [{
+      use: "usual",
+      type: {
+        text: "BreathalyzerQuestionnaire",
+        coding: [{
+          system: "dxrxmedical",
+          version: "1",
+          code: "dxrx",
+          display: "Breathalyzer Survey Questionnaire",
+          userSelected: false
+        }]
+      }
+    }],
+    version: "1",
+    status: "published",
+    date: new Date(),
+    publisher: "Abigail Watson",
+    telecom: [],
+    subjectType: "",
+    group: {
+      linkId: "",
+      title: "BREATHALYZER SURVEY",
+      concept: {},
+      text: "GAIL",
+      required: false,
+      repeats: true,
+      group: [{
+        linkId: "1",
+        title: "ABOUT YOU",
+        concept: {},
+        required: false,
+        repeats: false,
+        question: [{
+          linkId: "birthdate",
+          concept: {
+              title:"Patient Age"
+          },
+          text: "What is your birthdate?",
+            helpText: "Your birthdate is taken into consideration for the risk assessment.",
+            placeholderText: "MM-DD-YYYY",
+            type: "date",
+          required: true,
+          repeats: false
+        }, {
+          linkId: "ethnicity",
+          concept: {
+              title:"Race/Ethnicity"
+          },
+          text: "What is your ethnicity?",
+          helptext: "foo",
+          type: "radio",
+          required: true,
+          repeats: false,
+          options: [
+            "White",
+            "African American / Black",
+            "Hispanic",
+            "Chinese",
+            "Japanese",
+            "Filipino",
+            "Other Asian American",
+            "American Indian or Alaskan Native",
+            "Hawaiian",
+            "Other Pacific Islander",
+            "Unknown"
+          ]
+        }] // edit here for new question
+      }] // edit here for new page
+    }
+  };
 });

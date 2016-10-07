@@ -1,6 +1,5 @@
 import { QuestionnaireSchema } from 'meteor/clinical:hl7-resource-questionnaire';
-import { CarePlanSchema } from 'meteor/clinical:hl7-resource-careplan';
-
+import { CarePlanSchema, CarePlans } from 'meteor/clinical:hl7-resource-careplan';
 
 CarePlanQuestionnaireSchema = new SimpleSchema([
   CarePlanSchema,
@@ -11,4 +10,4 @@ CarePlanQuestionnaireSchema = new SimpleSchema([
     }
   }
 ]);
-CarePlanSchema.attachSchema( CarePlanQuestionnaireSchema );
+CarePlans.attachSchema( CarePlanQuestionnaireSchema );
