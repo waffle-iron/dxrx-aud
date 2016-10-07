@@ -24,54 +24,83 @@ Meteor.methods({
       console.log('Try setting NODE_ENV=test');
     }
   },
-  initializeQuestionnaire:function(deviceId){
-    check(deviceId, String);
+  initializeQuestionnaire:function(){
 
     if (Questionnaires.find().count() === 0) {
       console.log('No records found in Questionnaires collection.  Lets create some...');
 
-      var defaultQuestionnaire = {
-        resourceType: 'Questionnaire',
-        status: 'final',
-        category: {
-          text: 'Breathalyzer'
-        },
-        effectiveDateTime: new Date(),
-        subject: {
-          display: '',
-          reference: ''
-        },
-        performer: {
-          display: '',
-          reference: ''
-        },
-        device: {
-          display: 'Breathalyzer',
-          reference: deviceId
-        },
-        valueQuantity: {
-          value: 0.00,
-          unit: '%',
-          system: 'http://unitsofmeasure.org'
+      var breathalyzerQuestionnaire = {
+        resourceType: "Questionnaire",
+        identifier: [{
+          use: "usual",
+          type: {
+            text: "BreathalyzerQuestionnaire",
+            coding: [{
+              system: "dxrxmedical",
+              version: "1",
+              code: "dxrx",
+              display: "Breathalyzer Survey Questionnaire",
+              userSelected: false
+            }]
+          }
+        }],
+        version: "1",
+        status: "published",
+        date: new Date(),
+        publisher: "DxRx Medical",
+        telecom: [],
+        subjectType: "",
+        group: {
+          linkId: "",
+          title: "BREATHALYZER SURVEY",
+          concept: {},
+          text: "Breathalyzer Survey",
+          required: false,
+          repeats: true,
+          question: [{
+            linkId: "survey-question-1",
+            text: "Have you drank today?",
+            helptext: "foo",
+            type: "radio",
+            required: true,
+            repeats: false,
+            options: [
+              "Nope!  No alcohol today.",
+              "I have had alcohol today"
+            ]
+          }, {
+            linkId: "survey-question-2",
+            text: "When did you take your first drink today?",
+            helpText: "Slide to select time",
+            type: "time",
+            required: true,
+            repeats: false
+          }, {
+            linkId: "survey-question-3",
+            text: "When did you take your last drink today?",
+            helpText: "Slide to select time",
+            type: "time",
+            required: true,
+            repeats: false
+          }, {
+            linkId: "survey-question-4",
+            text: "How many drinks did you have today?",
+            helpText: "Slide to select number of drinks",
+            type: "number",
+            required: true,
+            repeats: false
+          }, {
+            linkId: "survey-question-5",
+            text: "What is your estimated blood alcohol level?",
+            helpText: "Slide to estimate level",
+            type: "number",
+            required: true,
+            repeats: false
+          }] // edit here for new question
         }
       };
 
-      if (this.userId) {
-        let user = Meteor.users.findOne({_id: this.userId});
-        if (user && user.profile && user.profile.name && user.profile.name.text) {
-
-          //   display: Patients.findByUserId(this.userId).fullName(),
-          //   reference: 'Patients/' + Patients.findByUserId(this.userId).patientId()
-
-          defaultQuestionnaire.subject.display = user.profile.name.text;
-          defaultQuestionnaire.subject.reference = 'Meteor.users/' + this.userId;
-
-          defaultQuestionnaire.performer.display = user.profile.name.text;
-          defaultQuestionnaire.performer.reference = 'Meteor.users/' + this.userId;
-        }
-      }
-
-      Meteor.call('createQuestionnaire', defaultQuestionnaire);
+      Meteor.call('createQuestionnaire', breathalyzerQuestionnaire);
     } else {
       console.log('Questionnaires already exist.  Skipping.');
     }
@@ -88,103 +117,4 @@ Meteor.methods({
       console.log('Try setting NODE_ENV=test');
     }
   }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Meteor.startup(function (){
-
-
-
-  var questionnaire = {
-    resourceType: "Questionnaire",
-    identifier: [{
-      use: "usual",
-      type: {
-        text: "BreathalyzerQuestionnaire",
-        coding: [{
-          system: "dxrxmedical",
-          version: "1",
-          code: "dxrx",
-          display: "Breathalyzer Survey Questionnaire",
-          userSelected: false
-        }]
-      }
-    }],
-    version: "1",
-    status: "published",
-    date: new Date(),
-    publisher: "Abigail Watson",
-    telecom: [],
-    subjectType: "",
-    group: {
-      linkId: "",
-      title: "BREATHALYZER SURVEY",
-      concept: {},
-      text: "GAIL",
-      required: false,
-      repeats: true,
-      group: [{
-        linkId: "1",
-        title: "ABOUT YOU",
-        concept: {},
-        required: false,
-        repeats: false,
-        question: [{
-          linkId: "birthdate",
-          concept: {
-              title:"Patient Age"
-          },
-          text: "What is your birthdate?",
-            helpText: "Your birthdate is taken into consideration for the risk assessment.",
-            placeholderText: "MM-DD-YYYY",
-            type: "date",
-          required: true,
-          repeats: false
-        }, {
-          linkId: "ethnicity",
-          concept: {
-              title:"Race/Ethnicity"
-          },
-          text: "What is your ethnicity?",
-          helptext: "foo",
-          type: "radio",
-          required: true,
-          repeats: false,
-          options: [
-            "White",
-            "African American / Black",
-            "Hispanic",
-            "Chinese",
-            "Japanese",
-            "Filipino",
-            "Other Asian American",
-            "American Indian or Alaskan Native",
-            "Hawaiian",
-            "Other Pacific Islander",
-            "Unknown"
-          ]
-        }] // edit here for new question
-      }] // edit here for new page
-    }
-  };
 });

@@ -25,8 +25,8 @@ Meteor.methods({
 
       var defaultPractitioner = {
         name: {
-          given: "John",
-          family: "Mendelson",
+          given: ["John"],
+          family: ["Mendelson"],
           text: "Dr. John Mendelson, M.D."
         },
         telecom: [{
