@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
 // import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Factory } from 'meteor/dburles:factory';
-import { Questionnaires } from './questionnaires.js';
+import { Questionnaires } from 'meteor/clinical:hl7-resource-questionnaire';
 import { insertQuestionnaire, updateQuestionnaire, removeQuestionnaire } from './methods.js';
 
 describe('Questionnaires methods', function () {
@@ -19,11 +19,12 @@ describe('Questionnaires methods', function () {
 
   it('inserts a document into the Questionnaires collection', function () {
     let questionnaireId = insertQuestionnaire.call({
-
+      version: 1,
+      publisher: 'Test'
     });
     let getQuestionnaire = Questionnaires.findOne({_id: questionnaireId });
-    assert.equal(getQuestionnaire.category.text, 'BAC');
-    assert.equal(getQuestionnaire.valueQuantity.value, 0.08);
+    assert.equal(getQuestionnaire.publisher, 'Test');
+    assert.equal(getQuestionnaire.version, 1);
   });
 
   it('updates a document in the Questionnaires collection', function () {
@@ -31,17 +32,19 @@ describe('Questionnaires methods', function () {
 
     updateQuestionnaire.call({
       _id,
-      breathalyzerUpdate: {
-
+      update: {
+        version: 2,
+        publisher: 'Lorem Ipsum...'
       }
     });
 
     const getQuestionnaire = Questionnaires.findOne(_id);
-    assert.equal(getQuestionnaire.valueQuantity.value, 0.07);
+    assert.equal(getQuestionnaire.publisher, 'Lorem Ipsum...');
+    assert.equal(getQuestionnaire.version, 2);
   });
 
   it('removes a document from the Questionnaires collection', function () {
-    const { _id } = Factory.create('document');
+    const { _id } = Factory.create('questionnaire');
     removeQuestionnaire.call({ _id });
     const getQuestionnaire = Questionnaires.findOne(_id);
     assert.equal(getQuestionnaire, undefined);

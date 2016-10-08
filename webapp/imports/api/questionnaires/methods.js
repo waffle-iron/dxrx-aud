@@ -5,10 +5,26 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 export const insertQuestionnaire = new ValidatedMethod({
   name: 'questionnaires.insert',
-  validate: new SimpleSchema().validator(),
+  validate: new SimpleSchema({
+    version: {
+      type: Number,
+      optional: true
+    },
+    publisher: {
+      type: String,
+      optional: true
+    }
+  }).validator(),
   run(surveyData) {
 
-    let newQuestionnaire = {};
+    let newQuestionnaire = {
+      resourceType: 'Questionnaire',
+      version: surveyData.version,
+      status: "published",
+      date: new Date(),
+      publisher: surveyData.publisher
+    };
+
 
     return Questionnaires.insert(newQuestionnaire, function(error){
       if (error) {
@@ -20,12 +36,26 @@ export const insertQuestionnaire = new ValidatedMethod({
 
 export const updateQuestionnaire = new ValidatedMethod({
   name: 'questionnaires.update',
-  validate: new SimpleSchema().validator(),
-  run({ _id, surveyUpdate }) {
+  validate: new SimpleSchema({
+    '_id': {
+      type: String
+    },
+    'update.version': {
+      type: Number
+    },
+    'update.publisher': {
+      type: String
+    }
+  }).validator(),
+  run({ _id, update }) {
 
     // we're going to map the breathalyzer data onto a FHIR Questionnaire resource
     let updatedQuestionnaire = {
-      resourceType: 'Questionnaire'
+      resourceType: 'Questionnaire',
+      version: update.version,
+      status: "published",
+      date: new Date(),
+      publisher: update.publisher
     };
     Questionnaires.update(_id, { $set: updatedQuestionnaire });
   }
@@ -39,4 +69,18 @@ export const removeQuestionnaire = new ValidatedMethod({
   run({ _id }) {
     Questionnaires.remove(_id);
   }
+});
+
+
+
+//-------------------------------------------------------------------------
+// Factories
+
+import { Factory } from 'meteor/dburles:factory';
+Factory.define('questionnaire', Questionnaires, {
+  resourceType: 'Questionnaire',
+  version: "1",
+  status: "published",
+  date: new Date(),
+  publisher: "System Test"
 });

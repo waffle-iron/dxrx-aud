@@ -10,7 +10,7 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
   //survey response
   validate: new SimpleSchema({
     haveHadAlcoholToday: {
-      type: Boolean
+      type: Number
     },
     firstDrink: {
       type: Date,
@@ -85,13 +85,13 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
           linkId: "survey-question-2",
           text: "When did you take your first drink today?",
           answer: [{
-            valueString: surveyData.firstDrink
+            valueString: surveyData.firstDrink.toString()
           }]
         }, {
           linkId: "survey-question-3",
           text: "When did you take your last drink today?",
           answer: [{
-            valueString: surveyData.lastDrink
+            valueString: surveyData.lastDrink.toString()
           }]
         }, {
           linkId: "survey-question-4",
@@ -126,28 +126,28 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
     _id: {
       type: String
     },
-    'surveyUpdate.haveHadAlcoholToday': {
-      type: Boolean
+    'update.haveHadAlcoholToday': {
+      type: Number
     },
-    'surveyUpdate.firstDrink': {
+    'update.firstDrink': {
       type: Date,
       optional: true
     },
-    'surveyUpdate.lastDrink': {
+    'update.lastDrink': {
       type: Date,
       optional: true
     },
-    'surveyUpdate.numberOfDrinks': {
+    'update.numberOfDrinks': {
       type: Number,
       optional: true
     },
-    'surveyUpdate.estimatedBloodAlcoholLevel': {
+    'update.estimatedBloodAlcoholLevel': {
       type: Number,
       decimal: true,
       optional: true
     }
   }).validator(),
-  run({ _id, surveyUpdate }) {
+  run({ _id, update }) {
 
     // we're going to map the survey data onto a FHIR QuestionnaireResponse resource
     let updatedQuestionnaireResponse = {
@@ -171,11 +171,11 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
         reference: "Questionnaires/BreathalyzerQuestionnaire"
       },
       author: {
-        display: Meteor.user.getFullName(),
+        display: '',
         reference: 'Meteor.users/' + Meteor.userId
       },
       subject: {
-        display:Meteor.user.getFullName(),
+        display: '',
         reference: 'Meteor.users/' + Meteor.userId
       },
       source: {
@@ -196,37 +196,45 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
           linkId: "survey-question-1",
           text: "Have you drank today?",
           answer: [{
-            valueInteger: surveyUpdate.haveHadAlcoholToday
+            valueInteger: update.haveHadAlcoholToday
           }]
         }, {
           linkId: "survey-question-2",
           text: "When did you take your first drink today?",
           answer: [{
-            valueString: surveyUpdate.firstDrink
+            valueString: update.firstDrink
           }]
         }, {
           linkId: "survey-question-3",
           text: "When did you take your last drink today?",
           answer: [{
-            valueString: surveyUpdate.lastDrink
+            valueString: update.lastDrink
           }]
         }, {
           linkId: "survey-question-4",
           text: "How many drinks did you have today?",
           helpText: "Slide to select number of drinks",
           answer: [{
-            valueString: surveyUpdate.numberOfDrinks
+            valueString: update.numberOfDrinks
           }]
         }, {
           linkId: "survey-question-5",
           text: "What is your estimated blood alcohol level?",
           helpText: "Slide to estimate level",
           answer: [{
-            valueString: surveyUpdate.estimatedBloodAlcoholLevel
+            valueString: update.estimatedBloodAlcoholLevel
           }]
         }]
       }
     };
+
+    if (Meteor.users.findOne({_id: Meteor.userId})) {
+      let user = Meteor.users.findOne({_id: Meteor.userId});
+      if (user.emails && user.emails[0] && user.emails[0].address) {
+        updatedQuestionnaireResponse.author.display = user.emails[0].address;
+        updatedQuestionnaireResponse.subject.display = user.emails[0].address;
+      }
+    }
     QuestionnaireResponses.update(_id, { $set: updatedQuestionnaireResponse });
   }
 });
@@ -239,4 +247,18 @@ export const removeQuestionnaireResponse = new ValidatedMethod({
   run({ _id }) {
     QuestionnaireResponses.remove(_id);
   }
+});
+
+
+
+//-------------------------------------------------------------------------
+// Factories
+
+import { Factory } from 'meteor/dburles:factory';
+Factory.define('questionnaireResponse', QuestionnaireResponses, {
+  resourceType: 'QuestionnaireResponse',
+  version: "1",
+  status: "published",
+  date: new Date(),
+  publisher: "System Test"
 });

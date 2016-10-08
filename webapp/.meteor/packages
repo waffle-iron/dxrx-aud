@@ -58,10 +58,11 @@ clinical:hl7-resource-encounter
 clinical:hl7-resource-goal
 clinical:hl7-resource-patient
 clinical:hl7-resource-practitioner
+clinical:hl7-resource-questionnaire
+clinical:hl7-resource-questionnaire-response
 clinical:hl7-resource-datatypes@0.4.7
 
 
 percolate:synced-cron
 
 momentjs:moment
-clinical:hl7-resource-questionnaire
