@@ -66,8 +66,9 @@ export default class Adherence extends React.Component {
     var options = {
       quality: 60,
       allowEdit: false,
-      targetWidth: 180,
-      targetHeight: 240,
+      targetWidth: 200,
+      targetHeight: 200,
+      correctOrientation: true,
       destinationType: navigator.camera.DestinationType.DATA_URL
     };
     navigator.camera.getPicture(
@@ -135,13 +136,13 @@ export default class Adherence extends React.Component {
       </Stepper>);
     } else {
       pic = (<img
-          id='adherencePicture' src='/TakeYourMeds.png' height='240px' width='180px'
+          id='adherencePicture' src='/TakeYourMeds.png' height='200px' width='200px'
           onClick={this.capturePhoto.bind(this)}
           />);
       if (!(typeof data.adherencePictureTime === 'undefined')) {
         pic = (<img
             id='adherencePicture' src={Session.get('AdherencePicture')}
-            height='240px' width='180px' onClick={this.capturePhoto.bind(this)}
+            height='200px' width='200px' onClick={this.capturePhoto.bind(this)}
             />);
       }
     }
@@ -185,7 +186,7 @@ export default class Adherence extends React.Component {
             </div>);
     } else {
       return (<div><Center spacing={20} beforeSpacing={20} afterSpacing={20}>
-            <div style={{width: '180px', maxWidth: '180px',minWidth: '180px'}}>
+            <div style={{width: '200px', maxWidth: '200px',minWidth: '200px'}}>
                  {pic}
              </div>
            </Center>
