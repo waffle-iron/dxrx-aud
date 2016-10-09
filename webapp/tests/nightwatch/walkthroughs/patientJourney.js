@@ -6,7 +6,7 @@ module.exports = {
   beforeEach: function(client){
     client
       .url('http://localhost:3000').pause(3000)
-      .executeAsync(function(user){
+      .executeAsync(function(){
         Meteor.call('dropRiskAssessmentsCollection');
         Meteor.call('dropQuestionnaireResponsesCollection');
         Meteor.call('dropPatients');

@@ -5,7 +5,7 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { GlassCard } from '/imports/ui/components/GlassCard';
 import { PhoneContainer } from '/imports/ui/components/PhoneContainer';
 
-import {Step,Stepper,StepButton,StepContent,StepLabel} from 'material-ui/Stepper';
+import {Step, Stepper, StepButton, StepContent, StepLabel} from 'material-ui/Stepper';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -17,6 +17,11 @@ import {getRawValue,timeBefore,timeBeforeValue,min,echoValue,shallowCopy} from '
 import { browserHistory } from 'react-router';
 
 import { Session } from 'meteor/session';
+
+import { insertQuestionnaireResponse } from '/imports/api/questionnaireResponses/methods';
+import { Bert } from 'meteor/themeteorchef:bert';
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+
 
 Session.setDefault('BreathalyzerPreState', {
   startTime: undefined,
@@ -51,15 +56,53 @@ export class QuestionnairePage extends React.Component {
 
     return data;
   }
+  lastStep(){
 
-  render(){
-    //var lastStep = this.props.lastStep;
-    var cancelStep = this.props.cancelStep;
-    var lastStep = function(){
-      // this is done on Finish Questions Button
-      Session.set('questionnaireCompleted', 'visible');
-      browserHistory.push('/');
+    let survey = Session.get('BreathalyzerPreState');
+    console.log("survey", survey);
+
+    // this is done on Finish Questions Button
+    //console.log("finished!  yup, we're done!", this);
+
+    let surveyData = {
+      didDrink: false,
+      firstDrink: '',
+      lastDrink: '',
+      numberDrinks: 0,
+      estimatedBAC: 0.0
     };
+
+    if (survey) {
+      if (survey.firstDrinkTime && survey.firstDrinkTime.value) {
+        surveyData.firstDrink = survey.firstDrinkTime.value;
+      }
+      if (survey.lastDrinkTime && survey.lastDrinkTime.value) {
+        surveyData.lastDrink = survey.lastDrinkTime.value;
+      }
+      if (survey.numberDrinks && survey.numberDrinks.value) {
+        surveyData.numberDrinks = survey.numberDrinks.value;
+      }
+      if (survey.estimatedBAC && survey.estimatedBAC.value) {
+        surveyData.estimatedBAC = survey.estimatedBAC.value;
+      }
+    }
+
+
+
+    insertQuestionnaireResponse.call(surveyData, (error) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Survey response saved!', 'success');
+        this.openTab(1);
+      }
+    });
+
+    Session.set('questionnaireCompleted', 'visible');
+    browserHistory.push('/');
+  }
+  render(){
+    var cancelStep = this.props.cancelStep;
 
     var data = Session.get('BreathalyzerPreState');
     var stepIndex = data.stepIndex;
@@ -84,6 +127,8 @@ export class QuestionnairePage extends React.Component {
         <div id="questionnairePage">
           <PhoneContainer >
             <GlassCard>
+              <form>
+
               <Stepper
                 activeStep={stepIndex}
                 linear={false}
@@ -91,6 +136,7 @@ export class QuestionnairePage extends React.Component {
                 >
                 <RadioButtonStep
                   inputId='haveYouDrankRadio'
+                  ref='haveYouDrankRadio'
                   stateStruct='BreathalyzerPreState'
                   stateVariable='didDrink'
                   stepIndexName='stepIndex'
@@ -101,10 +147,11 @@ export class QuestionnairePage extends React.Component {
                   falseLabel='Nope! No alcohol today.'
                   trueLabel='I have had alcohol today.'
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   />
                 <SliderStep
                   id="firstDrinkTimeSlider"
+                  ref="firstDrinkTimeSlider"
                   stateStruct='BreathalyzerPreState'
                   stateVariable='firstDrinkTime'
                   stepIndexName='stepIndex'
@@ -123,12 +170,13 @@ export class QuestionnairePage extends React.Component {
                   interpretValue={timeBefore.bind(this,data.startTime)}
                   valueForSetting={timeBeforeValue.bind(this,data.startTime)}
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   leftLabel = 'yesterday'
                   rightLabel = 'now'
                   />
                 <SliderStep
                   id="lastDrinkTimeSlider"
+                  ref="lastDrinkTimeSlider"
                   stateStruct='BreathalyzerPreState'
                   stateVariable='lastDrinkTime'
                   stepIndexName='stepIndex'
@@ -147,12 +195,13 @@ export class QuestionnairePage extends React.Component {
                   interpretValue={timeBefore.bind(this,data.startTime)}
                   valueForSetting={timeBeforeValue.bind(this,data.startTime)}
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   rightLabel='now'
                   leftLabel='first'
                   />
                 <SliderStep
                   id="lastDrinkNumberSlider"
+                  ref="lastDrinkNumberSlider"
                   stateStruct='BreathalyzerPreState'
                   stateVariable='numberDrinks'
                   stepIndexName='stepIndex'
@@ -171,12 +220,13 @@ export class QuestionnairePage extends React.Component {
                   interpretValue={echoValue.bind(this)}
                   valueForSetting={echoValue.bind(this)}
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   leftLabel='none'
                   rightLabel='16+'
                   />
                 <SliderStep
                   id="estimatedBacSlider"
+                  ref="estimatedBacSlider"
                   stateStruct='BreathalyzerPreState'
                   stateVariable='estimatedBAC'
                   stepIndexName='stepIndex'
@@ -195,12 +245,12 @@ export class QuestionnairePage extends React.Component {
                   interpretValue={echoValue.bind(this)}
                   valueForSetting={echoValue.bind(this)}
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   leftLabel='none'
                   rightLabel='0.16+'
                   />
               </Stepper>
-              <p>
+              <CardActions>
                 <FlatButton
                   label='Cancel'
                   disableTouchRipple={true}
@@ -208,7 +258,17 @@ export class QuestionnairePage extends React.Component {
                   onClick={cancelStep}
                   onTouchTap={cancelStep}
                   />
-              </p>
+                <RaisedButton
+                  id='finishQuestionsButton'
+                  style={{marginBottom:0,marginTop:0}}
+                  label='Finish Questions'
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  primary={true}
+                  onTouchTap={this.lastStep.bind(this)}
+                  />
+              </CardActions>
+              </form>
             </GlassCard>
           </PhoneContainer>
         </div>
@@ -234,10 +294,10 @@ export class QuestionnairePage extends React.Component {
                   falseLabel='Nope! No alcohol today.'
                   trueLabel='I have had alcohol today.'
                   showDone={showDone}
-                  doneStep={lastStep}
+                  doneStep={this.lastStep.bind(this)}
                   />
               </Stepper>
-              <p>
+              <CardActions>
                 <FlatButton
                   label='Cancel'
                   disableTouchRipple={true}
@@ -245,12 +305,25 @@ export class QuestionnairePage extends React.Component {
                   onClick={cancelStep}
                   onTouchTap={cancelStep}
                   />
-              </p>
+                <RaisedButton
+                  id='finishQuestionsButton'
+                  style={{marginBottom:0,marginTop:0}}
+                  label='Finish Questions'
+                  disableTouchRipple={true}
+                  disableFocusRipple={true}
+                  primary={true}
+                  onTouchTap={this.lastStep.bind(this)}
+                  />
+              </CardActions>
             </GlassCard>
           </PhoneContainer>
         </div>
       );
     }
+  }
+
+  saveData(){
+
   }
 }
 
@@ -271,9 +344,9 @@ export function Initialize() {
   Session.set('BreathalyzerPreState', shallowCopy(data));
 }
 
-QuestionnairePage.propTypes = {
-  hasUser: React.PropTypes.object,
-  lastStep: React.PropTypes.func.isRequired,
-  cancelStep: React.PropTypes.func.isRequired
-};
+// QuestionnairePage.propTypes = {
+//   hasUser: React.PropTypes.object,
+//   doneStep: React.PropTypes.func.isRequired,
+//   cancelStep: React.PropTypes.func.isRequired
+// };
 ReactMixin(QuestionnairePage.prototype, ReactMeteorData);

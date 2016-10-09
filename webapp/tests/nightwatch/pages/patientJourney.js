@@ -174,7 +174,7 @@ module.exports = {
 
         .click("#takePhotoButton");
     },
-    simulateBreath: function(simulatedBloodAlcoholLevel){
+    simulateBreath: function(){
       return this
         .verify.elementPresent('#breathalyzerControlPage')
         .verify.elementPresent("#scanButton")

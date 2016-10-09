@@ -20,5 +20,6 @@ Meteor.startup(function(){
     Meteor.call('initializeObservation', 'bac-12345');
     Meteor.call('initializePatient');
     Meteor.call('initializePractitioner');
+    Meteor.call('initializeQuestionnaire');
   }
 });

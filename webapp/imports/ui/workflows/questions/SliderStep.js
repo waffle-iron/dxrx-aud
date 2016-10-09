@@ -133,14 +133,6 @@ export default class SliderStep extends React.Component {
              value={getVal}
              onChange={setRawValue.bind(this, stateStruct, stateVariable, valueForSetting)} />
            {labels}
-            <QuestionNav
-              maxSteps={maxSteps}
-              showDone={showDone}
-              stepIndex={stepIndex}
-              stateStruct={stateStruct}
-              stepIndexName={stepIndexName}
-              doneStep={doneStep}
-              />
           </div>
           </StepContent>
           </Step>);
@@ -179,6 +171,7 @@ export default class SliderStep extends React.Component {
 }
 
 SliderStep.propTypes = {
+  ref: React.PropTypes.string,
   stateStruct: React.PropTypes.string.isRequired,
   stateVariable: React.PropTypes.string.isRequired,
   stepIndexName: React.PropTypes.string.isRequired,

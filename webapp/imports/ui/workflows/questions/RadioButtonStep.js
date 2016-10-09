@@ -68,14 +68,6 @@ export default class RadioButtonStep extends React.Component {
               style={{marginBottom: 10}}
               />
         </RadioButtonGroup>
-        <QuestionNav
-          maxSteps={maxSteps}
-          showDone={showDone}
-          stepIndex={stepIndex}
-          stateStruct={stateStruct}
-          stepIndexName={stepIndexName}
-          doneStep={doneStep}
-          />
       </StepContent>
       </Step>);
   }

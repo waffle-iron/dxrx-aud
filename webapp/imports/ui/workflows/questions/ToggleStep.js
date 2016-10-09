@@ -63,14 +63,6 @@ export default class ToggleStep extends React.Component {
           style={{}}
           onChange={setRawValue.bind(this, stateStruct, stateVariable)}
           />
-        <QuestionNav
-            maxSteps={maxSteps}
-            showDone={showDone}
-            stepIndex={stepIndex}
-            stateStruct={stateStruct}
-            stepIndexName={stepIndexName}
-            doneStep={doneStep}
-          />
         </StepContent>
         </Step>);
   }
