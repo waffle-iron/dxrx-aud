@@ -19,11 +19,11 @@ describe('QuestionnaireResponses methods', function () {
 
   it('inserts a document into the QuestionnaireResponses collection', function () {
     let questionnaireResponseId = insertQuestionnaireResponse.call({
-      haveHadAlcoholToday: 1,
+      didDrink: true,
       firstDrink: new Date(),
       lastDrink: new Date(),
-      numberOfDrinks: 4,
-      estimatedBloodAlcoholLevel: 0.02
+      numberDrinks: 4,
+      estimatedBAC: 0.02
     });
     let response = QuestionnaireResponses.findOne({_id: questionnaireResponseId });
 
@@ -32,7 +32,7 @@ describe('QuestionnaireResponses methods', function () {
     assert.equal(response.questionnaire.display, 'BreathalyzerQuestionnaire');
     assert.equal(response.group.text, 'Breathalyzer Survey');
 
-    assert.equal(response.group.question[0].answer[0].valueInteger, 1);
+    assert.equal(response.group.question[0].answer[0].valueBoolean, true);
     assert.ok(response.group.question[1].answer[0].valueString);
     assert.ok(response.group.question[2].answer[0].valueString);
     assert.equal(response.group.question[3].answer[0].valueString, 4);
@@ -45,11 +45,11 @@ describe('QuestionnaireResponses methods', function () {
     updateQuestionnaireResponse.call({
       _id,
       update: {
-        haveHadAlcoholToday: 1,
+        didDrink: true,
         firstDrink: new Date(),
         lastDrink: new Date(),
-        numberOfDrinks: 12,
-        estimatedBloodAlcoholLevel: 0.08
+        numberDrinks: 12,
+        estimatedBAC: 0.08
       }
     });
 
@@ -60,7 +60,7 @@ describe('QuestionnaireResponses methods', function () {
     assert.equal(response.questionnaire.display, 'BreathalyzerQuestionnaire');
     assert.equal(response.group.text, 'Breathalyzer Survey');
 
-    assert.equal(response.group.question[0].answer[0].valueInteger, 1);
+    assert.equal(response.group.question[0].answer[0].valueBoolean, true);
     assert.ok(response.group.question[1].answer[0].valueString);
     assert.ok(response.group.question[2].answer[0].valueString);
     assert.equal(response.group.question[3].answer[0].valueString, 12);

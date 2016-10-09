@@ -274,7 +274,7 @@ export class BreathalyzerResultPage extends React.Component {
     var startTime = preState.startTime;
     var firstDrinkTime = timeBeforeValue(startTime,firstDrinkDelta);
     var lastDrinkTime = timeBeforeValue(startTime,lastDrinkDelta);
-    var numberOfDrinks = getRawValue('BreathalyzerPreState','numberDrinks',undefined);
+    var numberDrinks = getRawValue('BreathalyzerPreState','numberDrinks',undefined);
     var estimatedBAC = getRawValue('BreathalyzerPreState','estimatedBAC',undefined);
     console.log('Post - 3');
     var testingAdjustment = 0.04; // Goose it for testing.

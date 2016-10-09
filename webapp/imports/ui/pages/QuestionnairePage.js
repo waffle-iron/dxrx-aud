@@ -18,7 +18,7 @@ import { browserHistory } from 'react-router';
 
 import { Session } from 'meteor/session';
 
-import { createQuestionnaireResponse } from '/imports/api/questionnaireResponses/methods';
+import { insertQuestionnaireResponse } from '/imports/api/questionnaireResponses/methods';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
@@ -57,22 +57,43 @@ export class QuestionnairePage extends React.Component {
     return data;
   }
   lastStep(){
+
+    let survey = Session.get('BreathalyzerPreState');
+    console.log("survey", survey);
+
     // this is done on Finish Questions Button
-    console.log("finished!  yup, we're done!", this);
+    //console.log("finished!  yup, we're done!", this);
 
     let surveyData = {
-      haveHadAlcoholToday: 0,
+      didDrink: false,
       firstDrink: '',
       lastDrink: '',
-      numberOfDrinks: '',
-      estimatedBloodAlcoholLevel: ''
+      numberDrinks: 0,
+      estimatedBAC: 0.0
     };
 
-    createQuestionnaireResponse.call(surveyData, (error) => {
+    if (survey) {
+      if (survey.firstDrinkTime && survey.firstDrinkTime.value) {
+        surveyData.firstDrink = survey.firstDrinkTime.value;
+      }
+      if (survey.lastDrinkTime && survey.lastDrinkTime.value) {
+        surveyData.lastDrink = survey.lastDrinkTime.value;
+      }
+      if (survey.numberDrinks && survey.numberDrinks.value) {
+        surveyData.numberDrinks = survey.numberDrinks.value;
+      }
+      if (survey.estimatedBAC && survey.estimatedBAC.value) {
+        surveyData.estimatedBAC = survey.estimatedBAC.value;
+      }
+    }
+
+
+
+    insertQuestionnaireResponse.call(surveyData, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Device added!', 'success');
+        Bert.alert('Survey response saved!', 'success');
         this.openTab(1);
       }
     });

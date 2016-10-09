@@ -9,8 +9,8 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
   name: 'questionnaireResponses.insert',
   //survey response
   validate: new SimpleSchema({
-    haveHadAlcoholToday: {
-      type: Number
+    didDrink: {
+      type: Boolean
     },
     firstDrink: {
       type: Date,
@@ -20,11 +20,11 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
       type: Date,
       optional: true
     },
-    numberOfDrinks: {
+    numberDrinks: {
       type: Number,
       optional: true
     },
-    estimatedBloodAlcoholLevel: {
+    estimatedBAC: {
       type: Number,
       decimal: true,
       optional: true
@@ -79,7 +79,7 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
           linkId: "survey-question-1",
           text: "Have you drank today?",
           answer: [{
-            valueInteger: surveyData.haveHadAlcoholToday
+            valueBoolean: surveyData.didDrink
           }]
         }, {
           linkId: "survey-question-2",
@@ -98,14 +98,14 @@ export const insertQuestionnaireResponse = new ValidatedMethod({
           text: "How many drinks did you have today?",
           helpText: "Slide to select number of drinks",
           answer: [{
-            valueString: surveyData.numberOfDrinks
+            valueString: surveyData.numberDrinks
           }]
         }, {
           linkId: "survey-question-5",
           text: "What is your estimated blood alcohol level?",
           helpText: "Slide to estimate level",
           answer: [{
-            valueString: surveyData.estimatedBloodAlcoholLevel
+            valueString: surveyData.estimatedBAC
           }]
         }]
       }
@@ -126,8 +126,8 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
     _id: {
       type: String
     },
-    'update.haveHadAlcoholToday': {
-      type: Number
+    'update.didDrink': {
+      type: Boolean
     },
     'update.firstDrink': {
       type: Date,
@@ -137,11 +137,11 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
       type: Date,
       optional: true
     },
-    'update.numberOfDrinks': {
+    'update.numberDrinks': {
       type: Number,
       optional: true
     },
-    'update.estimatedBloodAlcoholLevel': {
+    'update.estimatedBAC': {
       type: Number,
       decimal: true,
       optional: true
@@ -196,7 +196,7 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
           linkId: "survey-question-1",
           text: "Have you drank today?",
           answer: [{
-            valueInteger: update.haveHadAlcoholToday
+            valueBoolean: update.didDrink
           }]
         }, {
           linkId: "survey-question-2",
@@ -215,14 +215,14 @@ export const updateQuestionnaireResponse = new ValidatedMethod({
           text: "How many drinks did you have today?",
           helpText: "Slide to select number of drinks",
           answer: [{
-            valueString: update.numberOfDrinks
+            valueString: update.numberDrinks
           }]
         }, {
           linkId: "survey-question-5",
           text: "What is your estimated blood alcohol level?",
           helpText: "Slide to estimate level",
           answer: [{
-            valueString: update.estimatedBloodAlcoholLevel
+            valueString: update.estimatedBAC
           }]
         }]
       }
