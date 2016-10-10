@@ -66,7 +66,7 @@ test:
 
     # don't know why `meteor npm install` doesn't take care of this
     # but apparently we need to install this manually
-    - meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js
+    - meteor npm install --save jquery bootstrap react react-dom react-router react-bootstrap react-komposer react-router-bootstrap faker jquery-validation react-addons-css-transition-group react-addons-pure-render-mixin react-toolbox react-mixin faker react-highcharts eslint-plugin-react eslint-plugin-meteor eslint-config-eslint react-scroll-box material-ui normalize.css react-tap-event-plugin immutability-helper classnames eslint sprintf-js react-fontawesome
 
     # install app
     - meteor npm install
