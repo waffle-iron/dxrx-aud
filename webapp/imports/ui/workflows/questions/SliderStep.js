@@ -88,7 +88,7 @@ export default class SliderStep extends React.Component {
     if (!((typeof leftLabel === 'undefined') || (typeof rightLabel === 'undefined'))) {
       labels = <div style={{display: 'flex',flex: 1, flexWrap: 'wrap', flexDirection: 'row',
               justifyContent: 'space-between', fontSize: 12,lineSpacing: '13px', padding: 0,
-              marginLeft:10, marginRight:10,marginTop:0,marginBottom:3}}><div>{leftLabel}</div><div>{rightLabel}</div></div>;
+              marginLeft:2, marginRight:2,marginTop:0,marginBottom:3}}><div>{leftLabel}</div><div>{rightLabel}</div></div>;
     }
     var getVal = curValue;
     console.log('Setting slider value to ' + getVal);
@@ -119,13 +119,13 @@ export default class SliderStep extends React.Component {
         </StepButton>
         <StepContent style={{linespacing: 1, marginBottom: 0,marginTop:0, padding: 0}}
           active={(stepIndex == currentIndex)}>
-          <div style={{marginRight:10,marginTop:0,marginBottom:0,padding: 0}}>
-            <div style={{fontSize: 16,marginLeft: 15, marginRight:15,marginTop:0,marginBottom:0,padding:0}}>
+          <div style={{marginLeft: 10, marginRight: 20, marginTop:0,marginBottom:0,padding: 0}}>
+            <div style={{fontSize: 16, marginTop:0,marginBottom:0,linespacing: '16px', padding:0}}>
               {valueLabel}
             </div>
             <Slider
             id={stateVariable + "Slider"}
-             style={{width: '90%', height:10, linespacing: 0,marginLeft:10,marginRight:10,marginTop: 0, marginBottom:0}}
+             style={{width: '100%', height:10, linespacing: 0,marginTop: 0, marginBottom:0}}
              min={(minValue - stepIncrement)}
              max={(maxValue + stepIncrement)}
              step={stepIncrement}

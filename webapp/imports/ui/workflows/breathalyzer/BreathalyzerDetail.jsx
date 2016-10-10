@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {DynamicSpacer} from '/imports/ui/components/DynamicSpacer';
 import {Card,CardHeader,CardText,CardActions} from 'material-ui/Card';
 
-import {Initialize as BACInitialize,ScanAndConnect,Connecting1,StartCountdown,Disconnect, StopScan} from './BacTrack';
+import {Initialize as BACInitialize,ScanAndConnect,Connect,StartCountdown,Disconnect, StopScan} from './BacTrack';
 
 Session.setDefault('preferredBreathalyzerUuid', undefined);
 
@@ -388,7 +388,7 @@ export default class BreathalyzerDetail extends React.Component {
   }
   handleSelection(selected) {
     console.log('handleSelection:' + selected);
-    Connecting1(selected);
+    Connect(selected);
   }
   handleDoneButton() {
     console.log('handleDoneButton');

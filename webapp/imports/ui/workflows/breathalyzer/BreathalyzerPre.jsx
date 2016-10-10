@@ -9,7 +9,7 @@ import {getRawValue,timeBefore,timeBeforeValue,min,echoValue,shallowCopy} from '
 
 Session.setDefault('BreathalyzerPreState', {
   startTime: undefined,
-  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
   numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
   firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
   lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
@@ -26,7 +26,7 @@ export default class BreathalyzerPre extends React.Component {
     if (typeof data === 'undefined') {
       data = {
         startTime: undefined,
-        didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+        didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
         numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
         firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
         lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
@@ -225,7 +225,7 @@ export default class BreathalyzerPre extends React.Component {
 export function Initialize() {
   let data = {
     startTime: undefined,
-    didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+    didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
     numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
     firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
     lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},

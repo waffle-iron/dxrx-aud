@@ -5,8 +5,7 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { GlassCard } from '/imports/ui/components/GlassCard';
 import { PhoneContainer } from '/imports/ui/components/PhoneContainer';
 
-import {Step, Stepper, StepButton, StepContent, StepLabel} from 'material-ui/Stepper';
-import Slider from 'material-ui/Slider';
+import {Stepper} from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -20,12 +19,12 @@ import { Session } from 'meteor/session';
 
 import { insertQuestionnaireResponse } from '/imports/api/questionnaireResponses/methods';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import { CardActions } from 'react-toolbox/lib/card';
 
 
 Session.setDefault('BreathalyzerPreState', {
   startTime: undefined,
-  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
   numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
   firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
   lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
@@ -44,6 +43,7 @@ export class QuestionnairePage extends React.Component {
 
     if (typeof data === 'undefined') {
       data = {
+        didDrink: undefined,
         firstDrinkTimeSlider: undefined,
         lastDrinkTimeSlider: undefined,
         lastDrinkNumberSlider: undefined,
@@ -73,6 +73,9 @@ export class QuestionnairePage extends React.Component {
     };
 
     if (survey) {
+      if (survey.didDrink && survey.didDrink.value) {
+        surveyData.didDrink = (survey.didDrink.value == 'true');
+      }
       if (survey.firstDrinkTime && survey.firstDrinkTime.value) {
         surveyData.firstDrink = survey.firstDrinkTime.value;
       }
@@ -87,8 +90,6 @@ export class QuestionnairePage extends React.Component {
       }
     }
 
-
-
     insertQuestionnaireResponse.call(surveyData, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -101,6 +102,7 @@ export class QuestionnairePage extends React.Component {
     Session.set('questionnaireCompleted', 'visible');
     browserHistory.push('/');
   }
+
   render(){
     var cancelStep = this.props.cancelStep;
 
@@ -113,9 +115,9 @@ export class QuestionnairePage extends React.Component {
       ((typeof data.numberDrinks.timeStamp) === 'undefined') ||
       ((typeof data.estimatedBAC.timeStamp) === 'undefined'));
     var showVals = (typeof data.didDrink.timeStamp !== 'undefined') &&
-                  data.didDrink.rawValue;
+                  (data.didDrink.rawValue == 'true');
     var showDone = ((typeof data.didDrink.timeStamp !== 'undefined') &&
-                    (! data.didDrink.rawValue)) ||
+                    (data.didDrink.rawValue == 'true')) ||
                     showDoneVals;
     console.log('showDoneVals = ' + showDoneVals + ', showVals=' + showVals + ', showDone=' + showDone);
     if ((typeof data.startTime) === 'undefined') {
@@ -142,10 +144,10 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={0}
                   maxStepIndex={4}
-                  unsetValue={((typeof data.didDrink.timeStamp) === 'undefined')}
-                  unfilledPrompt='Have you drank today?'
-                  falseLabel='Nope! No alcohol today.'
-                  trueLabel='I have had alcohol today.'
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','didDrink',undefined)) === 'undefined'}
+                  unfilledPrompt='Did you drink today?'
+                  falseLabel='You did not drink alcohol today.'
+                  trueLabel='You have had alcohol today.'
                   showDone={showDone}
                   doneStep={this.lastStep.bind(this)}
                   />
@@ -157,7 +159,7 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={1}
                   maxStepIndex={4}
-                  unsetValue={((typeof data.firstDrinkTime.timeStamp) === 'undefined')}
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','lastDrinkTime',undefined)) === 'undefined'}
                   maxValue={min(getRawValue('BreathalyzerPreState','lastDrinkTime',0),0)}
                   minValue={-1440}
                   stepIncrement={20}
@@ -183,7 +185,7 @@ export class QuestionnairePage extends React.Component {
                   stepIndex={2}
                   maxStepIndex={4}
                   minValue={getRawValue('BreathalyzerPreState','firstDrinkTime',-1440)}
-                  unsetValue={((typeof data.lastDrinkTime.timeStamp) === 'undefined')}
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','lastDrinkTime',undefined)) === 'undefined'}
                   maxValue={0}
                   stepIncrement={20}
                   unfilledSide='right'
@@ -207,7 +209,7 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={3}
                   maxStepIndex={4}
-                  unsetValue={(((typeof data.numberDrinks.timeStamp) === 'undefined') || (data.numberDrinks.rawValue < 0))}
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','numberDrinks',undefined)) === 'undefined'}
                   minValue={0}
                   maxValue={15}
                   stepIncrement={1}
@@ -232,7 +234,7 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={4}
                   maxStepIndex={4}
-                  unsetValue={(((typeof data.estimatedBAC.timeStamp) === 'undefined')   || (data.estimatedBAC.rawValue < 0))}
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','estimatedBAC',undefined)) === 'undefined'}
                   minValue={0.0}
                   maxValue={0.15}
                   stepIncrement={0.01}
@@ -289,10 +291,10 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={0}
                   maxStepIndex={0}
-                  unsetValue={((typeof data.didDrink.timeStamp) === 'undefined')}
-                  unfilledPrompt='Have you drank today?'
-                  falseLabel='Nope! No alcohol today.'
-                  trueLabel='I have had alcohol today.'
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','didDrink',undefined)) === 'undefined'}
+                  unfilledPrompt='Did you drink today?'
+                  falseLabel='You did not drink alcohol today.'
+                  trueLabel='You have had alcohol today.'
                   showDone={showDone}
                   doneStep={this.lastStep.bind(this)}
                   />
@@ -333,7 +335,7 @@ export class QuestionnairePage extends React.Component {
 export function Initialize() {
   let data = {
     startTime: undefined,
-    didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+    didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
     numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
     firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
     lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},

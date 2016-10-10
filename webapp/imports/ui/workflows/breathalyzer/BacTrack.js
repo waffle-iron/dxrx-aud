@@ -3,6 +3,7 @@ import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { initWithDelegate, connectBreathalyzer, startScan, stopScan,disconnect, startCountdown } from './BacTrackServerDevice';
 import { shallowCopy } from './Utils.js';
+import { checkAndroidPermissions } from './AndroidPermissions.js';
 
 setTimeout(function() {console.log('Calling BacTrack InitializeDevice'); InitializeDevice();},2000);
 
@@ -71,6 +72,8 @@ export function Initialize () {
 
 export function InitializeDevice () {
   if (Meteor.isCordova) {
+    console.log('Checking Android Permissions');
+    checkAndroidPermissions();
     console.log('Initializing BacTrack');
     window.bactrack.initWithDelegate(handler,'fe3e2e6c52e04b2ba7b11cd7385481', 15);
   } else {
@@ -98,35 +101,38 @@ function handler (results) {
       break;
     case 'BacTrackConnectedOld':
       // Deprecated, should not be called (but it is!)
+      break;
+    case 'BacTrackDidConnect':
       BacTrackState.isConnected = true;
-      BacTrackState.lastMajorBacTrackState = 'BacTrackConnected';
-      if (Meteor.isCordova) {
-        window.bactrack.startCountdown(handler,errHandler);
-      } else {
-        startCountdown(handler,errHandler);
-      }
+      BacTrackState.lastMajorBacTrackState = 'BacTrackConnecting1';
       break;
     case 'BacTrackConnected':
       BacTrackState.isConnected = true;
       BacTrackState.deviceType = arg1;
       BacTrackState.lastMajorBacTrackState = call;
-      if (Meteor.isCordova) {
-        window.bactrack.startCountdown(handler,errHandler);
-      } else {
-        startCountdown(handler,errHandler);
-      }
+      window.setTimeout(function() {
+        if (Meteor.isCordova) {
+          console.log('BacTrackConnected: Starting Countdown');
+          window.bactrack.startCountdown(handler,errHandler);
+          console.log('BacTrackConnected: Returned from starting countdown');
+        } else {
+          startCountdown(handler,errHandler);
+        }
+      },500);
       break;
     case 'BacTrackDisconnected':
       BacTrackState.isConnected = false;
       BacTrackState.lastMajorBacTrackState = call;
       break;
     case 'BacTrackCountdown':
+      console.log('BacTrackCountdown');
       BacTrackState.isConnected = true;
       BacTrackState.lastMajorBacTrackState = 'BacTrackCountdown';
       BacTrackState.countdown = arg1;
       BacTrackState.errorMessage = arg2;
       break;
     case 'BacTrackStart':
+      console.log('BacTrackStart Starting');
       BacTrackState.isConnected = true;
       BacTrackState.lastMajorBacTrackState = call;
       if (! BacTrackState.timeout) {
@@ -137,7 +143,7 @@ function handler (results) {
           Session.set('BacTrackState',shallowCopy(t));
           if (t.lastMajorBacTrackState == 'BacTrackStart') {
             Disconnect();
-          }}.bind(this), 15000);
+          }}.bind(this), 30000);
       }
       break;
     case 'BacTrackBlow':
@@ -178,11 +184,9 @@ function handler (results) {
         if (Meteor.isCordova) {
           window.bactrack.stopScan(handler,errHandler);
           window.bactrack.connectBreathalyzer(arg1,15,handler,errHandler);
-          window.bactrack.startCountdown(handler,errHandler);
         } else {
           stopScan(handler,errHandler);
           connectBreathalyzer(arg1,15,handler,errHandler);
-          startCountdown(handler,errHandler);
         }
       }
       break;
@@ -197,6 +201,7 @@ function handler (results) {
       BacTrackState.batteryLevel = arg1;
       break;
     default:
+      console.log('Unknown BacTrack Command: ' + call);
       break;
     }
   }
@@ -229,6 +234,9 @@ export function Connect (preferredUuid) {
   console.log('Connecting to ' + preferredUuid);
   BacTrackState.lastMajorBacTrackState = 'BacTrackConnecting';
   Session.set('BacTrackState',shallowCopy(BacTrackState));
+  if (! BacTrackState.scanStopped) {
+    StopScan();
+  }
   if (Meteor.isCordova) {
     console.log('Cordova connection ' + preferredUuid);
     window.bactrack.connectBreathalyzer(BacTrackState.preferredUuid,15,handler,errHandler);
@@ -268,11 +276,15 @@ export function Disconnect () {
   } else {
     disconnect();
   }
+  InitializeDevice();
   Session.set('BacTrackState',shallowCopy(BacTrackState));
 }
 
 export function StopScan () {
   var BacTrackState = Session.get('BacTrackState');
+  if (BacTrackState.scanStopped) {
+    return;
+  }
   BacTrackState.scanStopped = true;
   if (Meteor.isCordova) {
     window.bactrack.stopScan();
