@@ -242,7 +242,7 @@ export class BreathalyzerResultPage extends React.Component {
         typeof breathalyzerState === 'undefined' ||
         typeof adherenceState === 'undefined' ||
         typeof didDrink === 'undefined' ||
-        (didDrink &&
+        ((didDrink == 'true') &&
           (typeof firstDrinkDelta === 'undefined' ||
           typeof lastDrinkDelta === 'undefined'))) {
 

@@ -5,8 +5,7 @@ import { ReactMeteorData } from 'meteor/react-meteor-data';
 import { GlassCard } from '/imports/ui/components/GlassCard';
 import { PhoneContainer } from '/imports/ui/components/PhoneContainer';
 
-import {Step, Stepper, StepButton, StepContent, StepLabel} from 'material-ui/Stepper';
-import Slider from 'material-ui/Slider';
+import {Stepper} from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -20,12 +19,12 @@ import { Session } from 'meteor/session';
 
 import { insertQuestionnaireResponse } from '/imports/api/questionnaireResponses/methods';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import { CardActions } from 'react-toolbox/lib/card';
 
 
 Session.setDefault('BreathalyzerPreState', {
   startTime: undefined,
-  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'bool'},
+  didDrink: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'string'},
   numberDrinks: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'Number'},
   firstDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
   lastDrinkTime: {value: undefined, rawValue: undefined, timeStamp: undefined, unit: 'DateTime'},
@@ -66,7 +65,7 @@ export class QuestionnairePage extends React.Component {
     //console.log("finished!  yup, we're done!", this);
 
     let surveyData = {
-      didDrink: 'false',
+      didDrink: false,
       firstDrink: '',
       lastDrink: '',
       numberDrinks: 0,
@@ -74,6 +73,9 @@ export class QuestionnairePage extends React.Component {
     };
 
     if (survey) {
+      if (survey.didDrink && survey.didDrink.value) {
+        surveyData.didDrink = (survey.didDrink.value == 'true');
+      }
       if (survey.firstDrinkTime && survey.firstDrinkTime.value) {
         surveyData.firstDrink = survey.firstDrinkTime.value;
       }
@@ -88,8 +90,6 @@ export class QuestionnairePage extends React.Component {
       }
     }
 
-
-
     insertQuestionnaireResponse.call(surveyData, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -102,6 +102,7 @@ export class QuestionnairePage extends React.Component {
     Session.set('questionnaireCompleted', 'visible');
     browserHistory.push('/');
   }
+
   render(){
     var cancelStep = this.props.cancelStep;
 
@@ -290,10 +291,10 @@ export class QuestionnairePage extends React.Component {
                   stepIndexName='stepIndex'
                   stepIndex={0}
                   maxStepIndex={0}
-                  unsetValue={((typeof data.didDrink.timeStamp) === 'undefined')}
-                  unfilledPrompt='Have you drank today?'
-                  falseLabel='Nope! No alcohol today.'
-                  trueLabel='I have had alcohol today.'
+                  unsetValue={(typeof getRawValue('BreathalyzerPreState','didDrink',undefined)) === 'undefined'}
+                  unfilledPrompt='Did you drink today?'
+                  falseLabel='You did not drink alcohol today.'
+                  trueLabel='You have had alcohol today.'
                   showDone={showDone}
                   doneStep={this.lastStep.bind(this)}
                   />
