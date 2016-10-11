@@ -194,10 +194,12 @@ export class BreathalyzerResultPage extends React.Component {
     var stdAlcohol = 0.48; // ounces of alcohol in standard drink.
     var stdDrinks = ((peakBAC)*waterWeight)/(stdAlcohol*0.8);
     console.log('Standard drinks: ' + stdDrinks);
-    return Math.floor(stdDrinks+0.749);
+    return {peakBAC: Math.floor((peakBAC*10000)+0.5)/100,
+      stdDrinks: Math.floor(stdDrinks*100+0.5)/100,
+      roundedStdDrinks: Math.floor(stdDrinks+0.749)};
   }
 
-  renderMessage(bac, timeTilSoberString, stdDrinks) {
+  renderMessage(bac, timeTilSoberString, stdDrinks,adherencePicPresent,peakBAC) {
 
     if (bac === 0) {
       return (<CardText>
@@ -212,10 +214,16 @@ export class BreathalyzerResultPage extends React.Component {
       var lastDrinkTime = getStandardValue('BreathalyzerPreState','lastDrinkTime',undefined);
       var didDrink = getStandardValue('BreathalyzerPreState','didDrink',undefined);
       var numberDrinks = getStandardValue('BreathalyzerPreState','numberDrinks',undefined);
-      var estimatedBAC = getStandardValue('BreathalyzerPreState','numberDrinks',undefined);
+      var estimatedBAC = getStandardValue('BreathalyzerPreState','estimatedBAC',undefined);
       var data = [{label: 'Blood Alcohol Content', value: bac},
+                  {label: 'Estimated Peak BAC', value: peakBAC},
                   {label: 'Sober Time', value: timeTilSoberString},
                   {label: 'Standard Drinks', value: stdDrinks}];
+      data.push({label: 'Documented Your Medications',
+                value: (adherencePicPresent ? 'Yes' : 'No')});
+      if (didDrink == 'false') {
+        data.push({label: 'BAC Consistent with Statement', value: 'No'});
+      }
       if (typeof numberDrinks !== 'undefined') {
         data.push({label: 'Your Usual Drinks', value: numberDrinks});
       }
@@ -225,7 +233,7 @@ export class BreathalyzerResultPage extends React.Component {
       if (typeof firstDrinkTime !== 'undefined') {
         data.push({label: 'Time Ended Drinking', value: timeString(lastDrinkTime)});
       }
-      if (typeof firstDrinkTime !== 'undefined') {
+      if (typeof estimatedBAC !== 'undefined') {
         data.push({label: 'Blood Alcohol Estimate', value: estimatedBAC});
       }
       return (
@@ -249,7 +257,7 @@ export class BreathalyzerResultPage extends React.Component {
   }
 
   render(){
-    
+
     var preState = Session.get('BreathalyzerPreState');
     var breathalyzerState = Session.get('BacTrackState');
     var adherenceState = Session.get('AdherenceState');
@@ -310,7 +318,7 @@ export class BreathalyzerResultPage extends React.Component {
     var weight = 190;
     var hoursAgo = (now.getTime() - lastDrinkTime.getTime())/(60*60*1000);
     console.log('Post - 4');
-    var stdDrinks = this.widmark(bac,hoursAgo,biologicalSex,weight);
+    var {peakBAC,stdDrinks,roundedStdDrinks} = this.widmark(bac,hoursAgo,biologicalSex,weight);
     var msUntilSober = (bac/0.015)*60*60*1000;
     var timeTilSober = undefined;
     var timeTilSoberString = '';
@@ -329,7 +337,8 @@ export class BreathalyzerResultPage extends React.Component {
           <GlassCard>
             <CardHeader title='Results' />
 
-            { this.renderMessage(bac, timeTilSoberString, stdDrinks) }
+            { this.renderMessage(bac,timeTilSoberString,roundedStdDrinks,
+                adherencePicPresent,peakBAC) }
            <CardActions>
              <FlatButton
                id='cancelResultsButton'
