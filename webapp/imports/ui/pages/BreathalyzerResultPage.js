@@ -1,20 +1,17 @@
 import React from 'react';
 import ReactMixin from 'react-mixin';
 import { ReactMeteorData } from 'meteor/react-meteor-data';
+import {Table,tbody,thead,tr,th,td} from 'react-bootstrap';
 
 import { GlassCard } from '/imports/ui/components/GlassCard';
-import { PhoneContainer } from '/imports/ui/components/PhoneContainer';
 import { PageContainer } from '/imports/ui/components/PageContainer';
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import SliderStep from  '/imports/ui/workflows/questions/SliderStep';
-import RadioButtonStep from  '/imports/ui/workflows/questions/RadioButtonStep';
-
-import {getRawValue,timeBefore,timeBeforeValue,min,echoValue,shallowCopy} from '/imports/ui/workflows/breathalyzer/Utils.js';
+import {getRawValue,getStandardValue,timeString,timeBeforeValue} from '/imports/ui/workflows/breathalyzer/Utils.js';
 import { browserHistory } from 'react-router';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+import { CardHeader, CardText, CardActions } from 'material-ui/Card';
 
 
 export class BreathalyzerResultPage extends React.Component {
@@ -203,29 +200,56 @@ export class BreathalyzerResultPage extends React.Component {
   renderMessage(bac, timeTilSoberString, stdDrinks) {
 
     if (bac === 0) {
-      return
-      <CardText>
+      return (<CardText>
         <list>
-          <li>Congratulations!  You did not drink today.</li>
-          <li>This is X days without a drink!</li>
-          <li>That's awesome!</li>
+          <li>Congratulations!  You did not drink today.
+              (This deserves a graphic).</li>
         </list>
       </CardText>
+    );
     } else {
-      return
+      var firstDrinkTime = getStandardValue('BreathalyzerPreState','firstDrinkTime',undefined);
+      var lastDrinkTime = getStandardValue('BreathalyzerPreState','lastDrinkTime',undefined);
+      var didDrink = getStandardValue('BreathalyzerPreState','didDrink',undefined);
+      var numberDrinks = getStandardValue('BreathalyzerPreState','numberDrinks',undefined);
+      var estimatedBAC = getStandardValue('BreathalyzerPreState','numberDrinks',undefined);
+      var data = [{label: 'Blood Alcohol Content', value: bac},
+                  {label: 'Sober Time', value: timeTilSoberString},
+                  {label: 'Standard Drinks', value: stdDrinks}];
+      if (typeof numberDrinks !== 'undefined') {
+        data.push({label: 'Your Usual Drinks', value: numberDrinks});
+      }
+      if (typeof firstDrinkTime !== 'undefined') {
+        data.push({label: 'Time Started Drinking', value: timeString(firstDrinkTime)});
+      }
+      if (typeof firstDrinkTime !== 'undefined') {
+        data.push({label: 'Time Ended Drinking', value: timeString(lastDrinkTime)});
+      }
+      if (typeof firstDrinkTime !== 'undefined') {
+        data.push({label: 'Blood Alcohol Estimate', value: estimatedBAC});
+      }
+      return (
       <CardText>
-        <list>
-          <li>Your breathalyzer reading was {bac}</li>
-           {(bac > 0.08) ? <li>You are above the legal limit for driving</li> : ''}
-           <li>You will be sober at {timeTilSoberString}</li>
-           <li>We estimate that you have consumed {stdDrinks} standard drinks</li>
-        </list>
+      <Table striped bordered>
+    <thead>
+      <tr>
+        <th>Result</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {data.map(function (i) {
+        return <tr><td>{i.label}</td><td>{i.value}</td></tr>;
+      })}
+    </tbody>
+  </Table>
       </CardText>
+    );
     }
   }
 
   render(){
-
+    
     var preState = Session.get('BreathalyzerPreState');
     var breathalyzerState = Session.get('BacTrackState');
     var adherenceState = Session.get('AdherenceState');
@@ -252,7 +276,8 @@ export class BreathalyzerResultPage extends React.Component {
             <GlassCard>
               <CardHeader title='Results' />
               <CardText>
-                  The results of the session will be displayed after you have completed all of the steps of the session.
+                  The results of the session will be displayed after you have
+                  completed all of the steps of the session.
                 </CardText>
                 <CardActions>
                   <FlatButton
@@ -303,6 +328,7 @@ export class BreathalyzerResultPage extends React.Component {
         <PageContainer >
           <GlassCard>
             <CardHeader title='Results' />
+
             { this.renderMessage(bac, timeTilSoberString, stdDrinks) }
            <CardActions>
              <FlatButton
@@ -330,9 +356,6 @@ export class BreathalyzerResultPage extends React.Component {
     browserHistory.push('/');
   }
 }
-
-
-
 
 
 ReactMixin(BreathalyzerResultPage.prototype, ReactMeteorData);
