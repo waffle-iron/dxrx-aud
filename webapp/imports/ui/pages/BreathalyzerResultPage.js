@@ -216,7 +216,7 @@ export class BreathalyzerResultPage extends React.Component {
       var numberDrinks = getStandardValue('BreathalyzerPreState','numberDrinks',undefined);
       var estimatedBAC = getStandardValue('BreathalyzerPreState','estimatedBAC',undefined);
       var data = [{label: 'Blood Alcohol Content', value: bac},
-                  {label: 'Estimated Peak BAC', value: peakBAC},
+                  {label: 'Peak BAC  (Calculated)', value: peakBAC},
                   {label: 'Sober Time', value: timeTilSoberString},
                   {label: 'Standard Drinks', value: stdDrinks}];
       data.push({label: 'Documented Your Medications',
