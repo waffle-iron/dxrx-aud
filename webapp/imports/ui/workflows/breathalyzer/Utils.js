@@ -2,28 +2,26 @@
 
 export function timeBefore (cur,minutesAgo) {
   if ((typeof cur) === 'undefined') return undefined;
-  var now = new Date(cur.getTime());
-  var ms = now.getTime();
-  console.log('In timeBefore with ' + now.toLocaleTimeString() + ' and ' + minutesAgo);
-  ms = ms + (minutesAgo*1000*60);
-  now.setTime(ms);
-  now.setSeconds(0);
-  now.setMilliseconds(0);
-  now.setMinutes(10*Math.floor(now.getMinutes()/10));
-  return (now.toLocaleTimeString());
+  var t = timeBeforeValue(cur,minutesAgo);
+  return (t.toLocaleTimeString());
 }
 
 export function timeString (d) {
-  d.setSeconds(0);
-  d.setMilliseconds(0);
-  return (d.toLocaleTimeString());
+  var t = new Date(d.getTime());
+  t.setSeconds(0);
+  t.setMilliseconds(0);
+  return (t.toLocaleTimeString());
 }
 
-export function timeBeforeValue (now,minutesAgo) {
-  if ((typeof now) === 'undefined') return undefined;
-  let ms = now.getTime();
+export function timeBeforeValue (t,minutesAgo) {
+  if ((typeof t) === 'undefined') return undefined;
+  let ms = t.getTime();
   ms = ms + (minutesAgo*1000*60);
-  return (new Date(ms));
+  var a = new Date(ms);
+  a.setSeconds(0);
+  a.setMilliseconds(0);
+  a.setMinutes(10*Math.floor(a.getMinutes()/10));
+  return (a);
 }
 
 export function setData (structVar, event, value) {
@@ -72,6 +70,20 @@ export function getRawValue(structName,fieldName,def) {
     return def;
   }
   return v[fieldName].rawValue;
+}
+
+export function getStandardValue(structName,fieldName,def) {
+  var v= Session.get(structName);
+  if (typeof v === 'undefined') {
+    return def;
+  }
+  if (typeof (v[fieldName]) === 'undefined') {
+    return def;
+  }
+  if (typeof (v[fieldName].value) === 'undefined') {
+    return def;
+  }
+  return v[fieldName].value;
 }
 
 export function setValue (structName,fieldName, value) {
